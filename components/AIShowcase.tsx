@@ -116,7 +116,7 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
               ))}
             </ul>
 
-            <a href="#signup" className="btn btn-primary btn-lg" style={{ background: 'linear-gradient(135deg, #7c3aed, #8b5cf6)', boxShadow: '0 4px 20px rgba(139,92,246,0.35)' }}
+            <a href="https://web.prostuti.bd" className="btn btn-primary btn-lg" style={{ background: 'linear-gradient(135deg, #7c3aed, #8b5cf6)', boxShadow: '0 4px 20px rgba(139,92,246,0.35)' }}
               aria-label={lang === 'bn' ? 'Prostuti AI দিয়ে পড়া শুরু করতে অ্যাকাউন্ট খুলুন' : 'Open account to study with Prostuti AI'}>
               🤖 {t.cta}
             </a>

@@ -179,7 +179,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
             </ul>
 
             <div style={{ padding: '14px 20px' }}>
-              <a href="#signup" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} aria-label={lang === 'bn' ? 'মক টেস্ট শুরু করতে নিবন্ধন করুন' : 'Register to start a model test'}>
+              <a href="https://web.prostuti.bd" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} aria-label={lang === 'bn' ? 'মক টেস্ট শুরু করতে নিবন্ধন করুন' : 'Register to start a model test'}>
                 {t.start} →
               </a>
             </div>

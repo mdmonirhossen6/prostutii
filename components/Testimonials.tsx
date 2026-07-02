@@ -511,7 +511,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
             {/* Join CTA */}
             <div style={{ padding: '14px 20px', borderTop: '1px solid var(--color-border-default)' }}>
               <a
-                href="#signup"
+                href="https://web.prostuti.bd"
                 style={{
                   fontSize: 'var(--font-size-sm)',
                   color: 'var(--color-surface-strong)',

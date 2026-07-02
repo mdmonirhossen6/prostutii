@@ -351,7 +351,7 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
                   {t.tryAgain}
                 </button>
                 <a
-                  href="#signup"
+                  href="https://web.prostuti.bd"
                   className="btn btn-primary"
                   aria-label={lang === 'bn' ? 'প্রস্তুতিতে বিনামূল্যে যোগ দিন' : 'Join Prostuti for free'}
                 >
