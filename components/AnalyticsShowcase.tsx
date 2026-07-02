@@ -127,12 +127,14 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
   const [activeTrack, setActiveTrack] = useState<Track>('hsc');
   const data = trackData[activeTrack][lang];
 
-  // SVG dimensions
-  const size = 300;
-  const center = size / 2;
-  const radius = 100;
+  // SVG dimensions — wide enough so Bengali labels don't get clipped
+  const svgW = 500;
+  const svgH = 420;
+  const cx = svgW / 2;
+  const cy = svgH / 2;
+  const radius = 110;
 
-  // Accuracies mapped to 4 axes
+  // Accuracies mapped to 4 axes (top, right, bottom, left)
   const p0 = (data.subjects[0].accuracy / 100) * radius;
   const p1 = (data.subjects[1].accuracy / 100) * radius;
   const p2 = (data.subjects[2].accuracy / 100) * radius;
@@ -140,10 +142,10 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
 
   // Radar polygon points
   const pointsStr = `
-    ${center},${center - p0}
-    ${center + p1},${center}
-    ${center},${center + p2}
-    ${center - p3},${center}
+    ${cx},${cy - p0}
+    ${cx + p1},${cy}
+    ${cx},${cy + p2}
+    ${cx - p3},${cy}
   `.trim().replace(/\s+/g, ' ');
 
   return (
@@ -188,7 +190,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
               {t.chartTitle}
             </h3>
 
-            <svg viewBox={`0 0 ${size} ${size}`} style={{ width: '100%', maxWidth: '280px', height: 'auto' }}>
+            <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: '100%', maxWidth: '420px', height: 'auto' }} overflow="visible">
               {/* Outer Grid rings */}
               {[25, 50, 75, 100].map((percent) => {
                 const r = (percent / 100) * radius;
@@ -196,10 +198,10 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
                   <polygon
                     key={percent}
                     points={`
-                      ${center},${center - r}
-                      ${center + r},${center}
-                      ${center},${center + r}
-                      ${center - r},${center}
+                      ${cx},${cy - r}
+                      ${cx + r},${cy}
+                      ${cx},${cy + r}
+                      ${cx - r},${cy}
                     `}
                     fill="none"
                     stroke="rgba(255,255,255,0.06)"
@@ -209,10 +211,10 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
               })}
 
               {/* Axis Grid lines */}
-              <line x1={center} y1={center - radius} x2={center} y2={center + radius} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-              <line x1={center - radius} y1={center} x2={center + radius} y2={center} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+              <line x1={cx} y1={cy - radius} x2={cx} y2={cy + radius} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+              <line x1={cx - radius} y1={cy} x2={cx + radius} y2={cy} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
 
-              {/* Student Accuracy Shape (Refined Green Accent only - no purple) */}
+              {/* Student Accuracy Shape */}
               <polygon
                 points={pointsStr}
                 fill="rgba(0,150,109,0.12)"
@@ -221,22 +223,40 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
                 style={{ transition: 'all 0.4s ease' }}
               />
 
-              {/* Outer Ring boundary labels */}
-              {/* Top Axis Label */}
-              <text x={center} y={center - radius - 12} textAnchor="middle" fill="var(--color-text-secondary)" fontSize="11" fontWeight="700" style={{ fontFamily: 'monospace' }}>
-                {data.subjects[0].name} ({data.subjects[0].accuracy}%)
+              {/* Axis dot markers */}
+              <circle cx={cx} cy={cy - p0} r="4" fill="var(--color-surface-strong)" />
+              <circle cx={cx + p1} cy={cy} r="4" fill="var(--color-surface-strong)" />
+              <circle cx={cx} cy={cy + p2} r="4" fill="var(--color-surface-strong)" />
+              <circle cx={cx - p3} cy={cy} r="4" fill="var(--color-surface-strong)" />
+
+              {/* Labels — placed with generous margins */}
+              {/* Top */}
+              <text x={cx} y={cy - radius - 18} textAnchor="middle" fill="var(--color-text-secondary)" fontSize="13" fontWeight="700">
+                {data.subjects[0].name}
               </text>
-              {/* Right Axis Label */}
-              <text x={center + radius + 10} y={center + 4} textAnchor="start" fill="var(--color-text-secondary)" fontSize="11" fontWeight="700" style={{ fontFamily: 'monospace' }}>
-                {data.subjects[1].name} ({data.subjects[1].accuracy}%)
+              <text x={cx} y={cy - radius - 4} textAnchor="middle" fill="#00d9a0" fontSize="12" fontWeight="700" style={{ fontFamily: 'monospace' }}>
+                {data.subjects[0].accuracy}%
               </text>
-              {/* Bottom Axis Label */}
-              <text x={center} y={center + radius + 20} textAnchor="middle" fill="var(--color-text-secondary)" fontSize="11" fontWeight="700" style={{ fontFamily: 'monospace' }}>
-                {data.subjects[2].name} ({data.subjects[2].accuracy}%)
+              {/* Right */}
+              <text x={cx + radius + 16} y={cy - 4} textAnchor="start" fill="var(--color-text-secondary)" fontSize="13" fontWeight="700">
+                {data.subjects[1].name}
               </text>
-              {/* Left Axis Label */}
-              <text x={center - radius - 10} y={center + 4} textAnchor="end" fill="var(--color-text-secondary)" fontSize="11" fontWeight="700" style={{ fontFamily: 'monospace' }}>
-                {data.subjects[3].name} ({data.subjects[3].accuracy}%)
+              <text x={cx + radius + 16} y={cy + 14} textAnchor="start" fill="#00d9a0" fontSize="12" fontWeight="700" style={{ fontFamily: 'monospace' }}>
+                {data.subjects[1].accuracy}%
+              </text>
+              {/* Bottom */}
+              <text x={cx} y={cy + radius + 22} textAnchor="middle" fill="var(--color-text-secondary)" fontSize="13" fontWeight="700">
+                {data.subjects[2].name}
+              </text>
+              <text x={cx} y={cy + radius + 38} textAnchor="middle" fill="#00d9a0" fontSize="12" fontWeight="700" style={{ fontFamily: 'monospace' }}>
+                {data.subjects[2].accuracy}%
+              </text>
+              {/* Left */}
+              <text x={cx - radius - 16} y={cy - 4} textAnchor="end" fill="var(--color-text-secondary)" fontSize="13" fontWeight="700">
+                {data.subjects[3].name}
+              </text>
+              <text x={cx - radius - 16} y={cy + 14} textAnchor="end" fill="#00d9a0" fontSize="12" fontWeight="700" style={{ fontFamily: 'monospace' }}>
+                {data.subjects[3].accuracy}%
               </text>
             </svg>
           </div>
