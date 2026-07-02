@@ -98,8 +98,14 @@ export default function FAQ({ lang }: FAQProps) {
 
   return (
     <section
+      id="faq"
       aria-labelledby="faq-heading"
-      style={{ padding: 'var(--space-8) 0' }}
+      style={{
+        padding: 'var(--space-8) 0',
+        background: 'radial-gradient(circle at 10% 20%, rgba(0, 150, 109, 0.05) 0%, transparent 60%), rgba(8, 10, 20, 0.98)',
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px)`,
+        backgroundSize: '30px 30px',
+      }}
     >
       <div className="container-page">
         {/* Header */}

@@ -159,7 +159,16 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
   };
 
   return (
-    <section id="question-bank" aria-labelledby="features-heading" style={{ padding: 'var(--space-8) 0', background: 'var(--color-surface-base)' }}>
+    <section
+      id="question-bank"
+      aria-labelledby="features-heading"
+      style={{
+        padding: 'var(--space-8) 0',
+        background: 'radial-gradient(circle at 80% 20%, rgba(0, 150, 109, 0.05) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(77, 107, 255, 0.04) 0%, transparent 50%), rgba(8, 12, 24, 0.95)',
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.008) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.008) 1px, transparent 1px)`,
+        backgroundSize: '40px 40px',
+      }}
+    >
       <div className="container-page">
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>

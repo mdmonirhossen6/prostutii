@@ -34,8 +34,16 @@ function GeometricAvatar({ name, email }: { name: string; email: string }) {
         </defs>
         <rect width="100" height="100" fill={`url(#grad-${h})`} />
 
-        {/* Floating animated geometric elements */}
-        <g style={{ transformOrigin: '50px 50px', animation: 'calmRotate 20s linear infinite' }}>
+        {/* Floating animated geometric elements using native SVG animation to prevent layout shifts/flickering */}
+        <g>
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 50 50"
+            to="360 50 50"
+            dur="20s"
+            repeatCount="indefinite"
+          />
           <rect
             x="25"
             y="25"
@@ -66,12 +74,6 @@ function GeometricAvatar({ name, email }: { name: string; email: string }) {
           />
         </g>
       </svg>
-      <style jsx>{`
-        @keyframes calmRotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }
