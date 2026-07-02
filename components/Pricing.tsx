@@ -15,11 +15,11 @@ const copy = {
     currency: '৳',
     perMonth: '/ মাস',
     plans: [
-      { id: '1m', name: 'মাসিক', duration: '১ মাসের জন্য', price: '১৪৯', originalPrice: '২৪৯', tag: null },
-      { id: '3m', name: '৩ মাস', duration: '৩ মাসের জন্য', price: '২৯৯', originalPrice: '৪৯৯', tag: null },
-      { id: '6m', name: '৬ মাস', duration: '৬ মাসের জন্য', price: '৪৯৯', originalPrice: '৭৯৯', tag: null },
-      { id: '12m', name: 'বার্ষিক', duration: '১২ মাসের জন্য', price: '৭৯৯', originalPrice: '১২৯৯', tag: null },
-      { id: '24m', name: '২৪ মাস', duration: '২৪ মাসের জন্য', price: '১২০০', originalPrice: '২৫৯৯', tag: 'সেরা মূল্য' },
+      { id: '1m', name: 'মাসিক', duration: '১ মাসের জন্য', price: '১৪৯', originalPrice: '২৪৯', perMonthPrice: '১৪৯', tag: null },
+      { id: '3m', name: '৩ মাস', duration: '৩ মাসের জন্য', price: '২৯৯', originalPrice: '৪৯৯', perMonthPrice: '১০০', tag: null },
+      { id: '6m', name: '৬ মাস', duration: '৬ মাসের জন্য', price: '৪৯৯', originalPrice: '৭৯৯', perMonthPrice: '৮৩', tag: null },
+      { id: '12m', name: 'বার্ষিক', duration: '১২ মাসের জন্য', price: '৭৯৯', originalPrice: '১২৯৯', perMonthPrice: '৬৭', tag: null },
+      { id: '24m', name: '২৪ মাস', duration: '২৪ মাসের জন্য', price: '১২০০', originalPrice: '২৫৯৯', perMonthPrice: '৫০', tag: 'সেরা মূল্য' },
     ]
   },
   en: {
@@ -32,11 +32,11 @@ const copy = {
     currency: '৳',
     perMonth: '/ MONTH',
     plans: [
-      { id: '1m', name: 'Monthly', duration: 'for 1 month', price: '149', originalPrice: '249', tag: null },
-      { id: '3m', name: '3 Months', duration: 'for 3 months', price: '299', originalPrice: '499', tag: null },
-      { id: '6m', name: '6 Months', duration: 'for 6 months', price: '499', originalPrice: '799', tag: null },
-      { id: '12m', name: 'Yearly', duration: 'for 12 months', price: '799', originalPrice: '1299', tag: null },
-      { id: '24m', name: '24 Months', duration: 'for 24 months', price: '1200', originalPrice: '2599', tag: 'BEST VALUE' },
+      { id: '1m', name: 'Monthly', duration: 'for 1 month', price: '149', originalPrice: '249', perMonthPrice: '149', tag: null },
+      { id: '3m', name: '3 Months', duration: 'for 3 months', price: '299', originalPrice: '499', perMonthPrice: '100', tag: null },
+      { id: '6m', name: '6 Months', duration: 'for 6 months', price: '499', originalPrice: '799', perMonthPrice: '83', tag: null },
+      { id: '12m', name: 'Yearly', duration: 'for 12 months', price: '799', originalPrice: '1299', perMonthPrice: '67', tag: null },
+      { id: '24m', name: '24 Months', duration: 'for 24 months', price: '1200', originalPrice: '2599', perMonthPrice: '50', tag: 'BEST VALUE' },
     ]
   }
 };
@@ -120,9 +120,9 @@ export default function Pricing({ lang }: PricingProps) {
                     <div style={{ fontSize: 'var(--font-size-h2)', fontWeight: 800, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: 'var(--space-2)' }}>
                       {t.currency}{plan.price}
                     </div>
-                    <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)' }}>
-                      <span style={{ textDecoration: 'line-through', color: '#ef4444', marginRight: 'var(--space-2)' }}>{t.currency}{plan.originalPrice}</span>
-                      {t.currency}{plan.price} {t.perMonth}
+                    <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 'var(--space-2)' }}>
+                      <span style={{ textDecoration: 'line-through', color: '#ef4444' }}>{t.currency}{plan.originalPrice}</span>
+                      <span>{t.currency}{plan.perMonthPrice} {t.perMonth}</span>
                     </div>
                   </div>
                 </div>
