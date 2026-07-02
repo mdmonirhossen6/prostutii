@@ -74,13 +74,13 @@ export default function Hero({ lang }: HeroProps) {
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: '64px',
+            gap: 'var(--space-7)',
             alignItems: 'center',
           }}
           className="hero-grid"
         >
           {/* Left: Text content */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
             {/* Badge */}
             <div>
               <span className="badge badge-green">
@@ -119,7 +119,7 @@ export default function Hero({ lang }: HeroProps) {
             </p>
 
             {/* CTAs */}
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
               <a
                 href="https://web.prostuti.bd"
                 className="btn btn-primary btn-lg"
@@ -142,7 +142,6 @@ export default function Hero({ lang }: HeroProps) {
                 {t.ctaSecondary}
               </a>
             </div>
-
 
           </div>
 
@@ -199,6 +198,7 @@ export default function Hero({ lang }: HeroProps) {
                     display: 'block',
                     background: '#070a12'
                   }} 
+                  loading="eager"
                 />
               </div>
             </div>

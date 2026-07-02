@@ -11,14 +11,12 @@ interface NavbarProps {
 const navItems = {
   bn: [
     { label: 'প্রশ্নব্যাংক', href: '#question-bank' },
-
     { label: 'ফলাফল ও র‍্যাংকিং', href: '#leaderboard' },
     { label: 'মূল্য পরিকল্পনা', href: '#pricing' },
     { label: 'ব্লগ', href: '#blog' },
   ],
   en: [
     { label: 'Question Bank', href: '#question-bank' },
-
     { label: 'Leaderboard', href: '#leaderboard' },
     { label: 'Pricing', href: '#pricing' },
     { label: 'Blog', href: '#blog' },
@@ -74,9 +72,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
           left: 0,
           right: 0,
           zIndex: 100,
-          background: scrolled
-            ? 'rgba(4,4,6,0.92)'
-            : 'transparent',
+          background: scrolled ? 'rgba(4,4,6,0.92)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
           borderBottom: scrolled ? '1px solid var(--color-border-default)' : 'none',
           transition: 'background var(--duration-normal) var(--easing-default), backdrop-filter var(--duration-normal) var(--easing-default)',
@@ -98,7 +94,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
+              gap: 'var(--space-2)',
               textDecoration: 'none',
             }}
           >
@@ -119,7 +115,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '4px',
+              gap: 'var(--space-1)',
               listStyle: 'none',
             }}
             className="nav-desktop"
@@ -133,7 +129,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
                     textDecoration: 'none',
                     fontSize: 'var(--font-size-sm)',
                     fontWeight: 500,
-                    padding: '8px 12px',
+                    padding: 'var(--space-2) var(--space-3)',
                     borderRadius: 'var(--radius-xs)',
                     transition: 'color var(--duration-fast) var(--easing-default), background var(--duration-fast) var(--easing-default)',
                     display: 'block',
@@ -154,48 +150,104 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
           </ul>
 
           {/* Right side actions */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {/* Language toggle */}
-            <button
-              onClick={() => onLangChange(lang === 'bn' ? 'en' : 'bn')}
-              aria-label={lang === 'bn' ? 'Switch to English' : 'বাংলায় পরিবর্তন করুন'}
-              style={{
-                background: 'rgba(255,255,255,0.06)',
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+            {/* Segmented language toggle */}
+            <div 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                background: 'rgba(255,255,255,0.06)', 
                 border: '1px solid var(--color-border-default)',
-                borderRadius: 'var(--radius-md)',
-                color: 'var(--color-text-secondary)',
-                padding: '6px 14px',
-                fontFamily: 'var(--font-family-primary)',
-                fontSize: 'var(--font-size-sm)',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all var(--duration-fast) var(--easing-default)',
+                borderRadius: 'var(--radius-md)', 
+                padding: '2px',
                 minHeight: '36px',
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.10)';
-                (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-primary)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.06)';
-                (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-secondary)';
-              }}
+              role="group"
+              aria-label={lang === 'bn' ? 'ভাষা পরিবর্তন করুন' : 'Change language'}
             >
-              {lang === 'bn' ? 'EN' : 'বাংলা'}
-            </button>
+              <button
+                onClick={() => onLangChange('bn')}
+                aria-pressed={lang === 'bn'}
+                style={{
+                  background: lang === 'bn' ? 'var(--color-surface-strong)' : 'transparent',
+                  border: 'none',
+                  borderRadius: 'calc(var(--radius-md) - 2px)',
+                  color: lang === 'bn' ? '#fff' : 'var(--color-text-tertiary)',
+                  padding: '4px 10px',
+                  fontFamily: 'var(--font-family-primary)',
+                  fontSize: 'var(--font-size-xs)',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all var(--duration-fast) var(--easing-default)',
+                  minWidth: '40px',
+                }}
+              >
+                BN
+              </button>
+              <button
+                onClick={() => onLangChange('en')}
+                aria-pressed={lang === 'en'}
+                style={{
+                  background: lang === 'en' ? 'var(--color-surface-strong)' : 'transparent',
+                  border: 'none',
+                  borderRadius: 'calc(var(--radius-md) - 2px)',
+                  color: lang === 'en' ? '#fff' : 'var(--color-text-tertiary)',
+                  padding: '4px 10px',
+                  fontFamily: 'var(--font-family-primary)',
+                  fontSize: 'var(--font-size-xs)',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all var(--duration-fast) var(--easing-default)',
+                  minWidth: '40px',
+                }}
+              >
+                EN
+              </button>
+            </div>
 
-            {/* App Download Button */}
+            {/* App Download Button (Demoted to Secondary outline) */}
             <a 
               href="https://github.com/prostuti/app/releases/download/download/prostuti_v_1.0.6_app-arm64-v8a-release.apk"
-              className="btn btn-primary btn-sm nav-cta-desktop"
-              style={{ background: '#7e57c2', border: 'none', display: 'flex', alignItems: 'center', gap: '6px', padding: '0 16px', borderRadius: '24px' }}
+              className="btn btn-secondary btn-sm nav-cta-desktop"
+              style={{ 
+                border: '1px solid var(--color-border-default)', 
+                background: 'transparent',
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 'var(--space-2)', 
+                padding: '0 var(--space-4)', 
+                borderRadius: '24px',
+                color: 'var(--color-text-secondary)',
+                fontWeight: 500,
+                transition: 'all var(--duration-fast) var(--easing-default)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                e.currentTarget.style.color = 'var(--color-text-primary)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--color-border-default)';
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+              }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
               {t.appDownload}
             </a>
 
-            {/* CTA */}
-            <a href="https://web.prostuti.bd" className="btn btn-secondary btn-sm nav-cta-desktop" style={{ borderRadius: '24px' }}>
+            {/* CTA Login / Signup (Elevated to Primary solid) */}
+            <a 
+              href="https://web.prostuti.bd" 
+              className="btn btn-primary btn-sm nav-cta-desktop" 
+              style={{ 
+                borderRadius: '24px', 
+                fontWeight: 700,
+                background: 'var(--color-surface-strong)',
+                borderColor: 'var(--color-surface-strong)',
+                color: '#fff'
+              }}
+            >
               {t.cta}
             </a>
 
@@ -212,13 +264,13 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
                 border: '1px solid var(--color-border-default)',
                 borderRadius: 'var(--radius-xs)',
                 color: 'var(--color-text-primary)',
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 display: 'none',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '5px',
+                gap: 'var(--space-1)',
                 cursor: 'pointer',
                 padding: '8px',
               }}
@@ -294,15 +346,15 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
             width: '280px',
             background: '#070a12',
             borderLeft: '1px solid var(--color-border-default)',
-            padding: '80px 24px 32px',
+            padding: 'var(--space-8) var(--space-5) var(--space-6)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '8px',
+            gap: 'var(--space-2)',
             transform: drawerOpen ? 'translateX(0)' : 'translateX(100%)',
             transition: 'transform var(--duration-normal) var(--easing-default)',
           }}
         >
-          <ul role="list" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <ul role="list" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
             {items.map((item) => (
               <li key={item.href}>
                 <a
@@ -310,7 +362,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
                   onClick={handleNavClick}
                   style={{
                     display: 'block',
-                    padding: '12px 16px',
+                    padding: 'var(--space-3) var(--space-4)',
                     color: 'var(--color-text-secondary)',
                     textDecoration: 'none',
                     fontWeight: 500,
@@ -332,33 +384,79 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
               </li>
             ))}
           </ul>
-          <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <button
-              onClick={() => { onLangChange(lang === 'bn' ? 'en' : 'bn'); setDrawerOpen(false); }}
-              style={{
-                background: 'rgba(255,255,255,0.06)',
+          <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+            {/* Segmented language control on mobile */}
+            <div 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                background: 'rgba(255,255,255,0.06)', 
                 border: '1px solid var(--color-border-default)',
-                borderRadius: 'var(--radius-md)',
-                color: 'var(--color-text-secondary)',
-                padding: '10px',
-                fontFamily: 'var(--font-family-primary)',
-                fontSize: 'var(--font-size-sm)',
-                fontWeight: 600,
-                cursor: 'pointer',
-                minHeight: 44,
+                borderRadius: 'var(--radius-md)', 
+                padding: '2px',
+                minHeight: '44px',
               }}
+              role="group"
+              aria-label={lang === 'bn' ? 'ভাষা পরিবর্তন করুন' : 'Change language'}
             >
-              {lang === 'bn' ? 'Switch to English' : 'বাংলায় পড়ুন'}
-            </button>
+              <button
+                onClick={() => { onLangChange('bn'); setDrawerOpen(false); }}
+                aria-pressed={lang === 'bn'}
+                style={{
+                  flex: 1,
+                  height: '38px',
+                  background: lang === 'bn' ? 'var(--color-surface-strong)' : 'transparent',
+                  border: 'none',
+                  borderRadius: 'calc(var(--radius-md) - 2px)',
+                  color: lang === 'bn' ? '#fff' : 'var(--color-text-tertiary)',
+                  fontFamily: 'var(--font-family-primary)',
+                  fontSize: 'var(--font-size-sm)',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all var(--duration-fast) var(--easing-default)',
+                }}
+              >
+                বাংলা (BN)
+              </button>
+              <button
+                onClick={() => { onLangChange('en'); setDrawerOpen(false); }}
+                aria-pressed={lang === 'en'}
+                style={{
+                  flex: 1,
+                  height: '38px',
+                  background: lang === 'en' ? 'var(--color-surface-strong)' : 'transparent',
+                  border: 'none',
+                  borderRadius: 'calc(var(--radius-md) - 2px)',
+                  color: lang === 'en' ? '#fff' : 'var(--color-text-tertiary)',
+                  fontFamily: 'var(--font-family-primary)',
+                  fontSize: 'var(--font-size-sm)',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all var(--duration-fast) var(--easing-default)',
+                }}
+              >
+                English (EN)
+              </button>
+            </div>
+
+            {/* App Download (Demoted) */}
             <a 
               href="https://github.com/prostuti/app/releases/download/download/prostuti_v_1.0.6_app-arm64-v8a-release.apk" 
-              className="btn btn-primary" 
+              className="btn btn-secondary" 
               onClick={handleNavClick} 
-              style={{ textAlign: 'center', background: '#7e57c2', border: 'none' }}
+              style={{ textAlign: 'center', border: '1px solid var(--color-border-default)', background: 'transparent', color: 'var(--color-text-secondary)' }}
             >
               {t.appDownload}
             </a>
-            <a href="https://web.prostuti.bd" className="btn btn-secondary" onClick={handleNavClick} style={{ textAlign: 'center' }}>
+
+            {/* Login / Register (Elevated) */}
+            <a 
+              href="https://web.prostuti.bd" 
+              className="btn btn-primary" 
+              onClick={handleNavClick} 
+              style={{ textAlign: 'center', fontWeight: 700, background: 'var(--color-surface-strong)', borderColor: 'var(--color-surface-strong)', color: '#fff' }}
+            >
               {t.cta}
             </a>
           </div>

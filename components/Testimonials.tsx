@@ -13,7 +13,7 @@ const testimonials = {
       batch: 'HSC ২০২৫, বিজ্ঞান বিভাগ',
       avatar: 'ত',
       color: '#00966d',
-      quote: 'প্রস্তুতি ছাড়া আমার পদার্থবিজ্ঞান এত ভালো হতো গঠন হতো না। প্রতিদিনের MCQ প্র্যাকটিস আমাকে ধারাবাহিকভাবে শেখার অভ্যাস তৈরি করেছে। HSC-তে পদার্থে A+ পেয়েছি!',
+      quote: 'প্রস্তুটি ছাড়া আমার পদার্থবিজ্ঞান এত ভালো হতো গঠন হতো না। প্রতিদিনের MCQ প্র্যাকটিস আমাকে ধারাবাহিকভাবে শেখার অভ্যাস তৈরি করেছে। HSC-তে পদার্থে A+ পেয়েছি!',
       result: 'GPA ৫.০০',
       exam: 'HSC ২০২৫',
       verified: true,
@@ -129,6 +129,14 @@ const copy = {
   },
 };
 
+const EN_TO_BN_DIGITS: { [key: string]: string } = {
+  '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
+  '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯'
+};
+
+function toBanglaNumerals(num: string | number): string {
+  return num.toString().split('').map(char => EN_TO_BN_DIGITS[char] || char).join('');
+}
 
 export default function Testimonials({ lang }: TestimonialsProps) {
   const t = copy[lang];
@@ -152,13 +160,13 @@ export default function Testimonials({ lang }: TestimonialsProps) {
       <div className="container-page">
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
-          <span className="badge badge-recommended" style={{ marginBottom: '16px' }}>
+          <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)' }}>
             {t.badge}
           </span>
           <h2
             id="testimonials-heading"
             className="section-title"
-            style={{ marginBottom: '14px' }}
+            style={{ marginBottom: 'var(--space-3)' }}
           >
             {t.title}
           </h2>
@@ -171,7 +179,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
         <div
           style={{
             maxWidth: '700px',
-            margin: '0 auto 48px',
+            margin: '0 auto var(--space-6)',
             position: 'relative',
           }}
           aria-live="polite"
@@ -183,7 +191,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
               background: 'var(--color-surface-card)',
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-sm)',
-              padding: '36px',
+              padding: 'var(--space-6)',
               position: 'relative',
               animation: 'fadeInUp 0.3s ease forwards',
             }}
@@ -205,7 +213,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
             </div>
 
             {/* Avatar + name */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
               <div
                 style={{
                   width: 52,
@@ -229,13 +237,13 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                 <p style={{ fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '2px' }}>
                   {items[activeIdx].name}
                 </p>
-                <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-inverse)' }}>
+                <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)' }}>
                   {items[activeIdx].batch}
                 </p>
               </div>
-              <div style={{ marginLeft: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+              <div style={{ marginLeft: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 'var(--space-1)' }}>
                 {items[activeIdx].verified && (
-                  <span className="badge badge-green" style={{ fontSize: '11px' }}>
+                  <span className="badge badge-green" style={{ fontSize: 'var(--font-size-xs)' }}>
                     {t.verified}
                   </span>
                 )}
@@ -253,7 +261,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
             <blockquote
               style={{
-                fontSize: 'var(--font-size-lg)',
+                fontSize: 'var(--font-size-h3)',
                 color: 'var(--color-text-secondary)',
                 lineHeight: 1.7,
                 fontStyle: 'italic',
@@ -265,20 +273,40 @@ export default function Testimonials({ lang }: TestimonialsProps) {
           </div>
 
           {/* Navigation */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginTop: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-4)', marginTop: 'var(--space-5)' }}>
             <button
               onClick={prev}
-              className="btn btn-secondary btn-sm"
-              aria-label={lang === 'bn' ? 'আগের প্রশংসাপত্র' : 'Previous testimonial'}
-              style={{ width: 40, height: 40, padding: 0, borderRadius: '50%' }}
+              aria-label={lang === 'bn' ? 'আগের মতামত' : 'Previous testimonial'}
+              style={{ 
+                width: 44, 
+                height: 44, 
+                padding: 0, 
+                borderRadius: '50%',
+                background: 'var(--color-surface-raised)',
+                border: '1px solid var(--color-border-default)',
+                color: 'var(--color-text-primary)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all var(--duration-fast) var(--easing-default)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--color-surface-hover)';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--color-surface-raised)';
+                e.currentTarget.style.borderColor = 'var(--color-border-default)';
+              }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
                 <path d="M19 12H5M12 5l-7 7 7 7"/>
               </svg>
             </button>
 
             {/* Dots */}
-            <div style={{ display: 'flex', gap: '8px' }} role="tablist" aria-label={lang === 'bn' ? 'প্রশংসাপত্র নেভিগেশন' : 'Testimonial navigation'}>
+            <div style={{ display: 'flex', gap: 'var(--space-2)' }} role="tablist" aria-label={lang === 'bn' ? 'প্রশংসাপত্র নেভিগেশন' : 'Testimonial navigation'}>
               {items.map((_, i) => (
                 <button
                   key={i}
@@ -302,11 +330,31 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
             <button
               onClick={next}
-              className="btn btn-secondary btn-sm"
-              aria-label={lang === 'bn' ? 'পরের প্রশংসাপত্র' : 'Next testimonial'}
-              style={{ width: 40, height: 40, padding: 0, borderRadius: '50%' }}
+              aria-label={lang === 'bn' ? 'পরবর্তী মতামত' : 'Next testimonial'}
+              style={{ 
+                width: 44, 
+                height: 44, 
+                padding: 0, 
+                borderRadius: '50%',
+                background: 'var(--color-surface-raised)',
+                border: '1px solid var(--color-border-default)',
+                color: 'var(--color-text-primary)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all var(--duration-fast) var(--easing-default)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--color-surface-hover)';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--color-surface-raised)';
+                e.currentTarget.style.borderColor = 'var(--color-border-default)';
+              }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </button>
@@ -314,76 +362,76 @@ export default function Testimonials({ lang }: TestimonialsProps) {
         </div>
 
         {/* Bottom: testimonial selector + live leaderboard */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'start' }} className="testimonials-bottom-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-6)', alignItems: 'start' }} className="testimonials-bottom-grid">
           {/* Testimonial selector */}
           <ul
             role="list"
-            style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}
+            style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
           >
             {items.map((item, i) => (
               <li key={i}>
                 <button
                   onClick={() => setActiveIdx(i)}
-                aria-pressed={i === activeIdx}
-                aria-label={`${item.name} — ${item.result}`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  width: '100%',
-                  padding: '14px 16px',
-                  background: i === activeIdx ? 'rgba(0,150,109,0.10)' : 'var(--color-surface-card)',
-                  border: `1px solid ${i === activeIdx ? 'rgba(0,150,109,0.4)' : 'var(--color-border-default)'}`,
-                  borderRadius: 'var(--radius-xs)',
-                  cursor: 'pointer',
-                  transition: 'all var(--duration-fast) var(--easing-default)',
-                  fontFamily: 'var(--font-family-primary)',
-                  textAlign: 'left',
-                }}
-                onMouseEnter={(e) => {
-                  if (i !== activeIdx) {
-                    (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.04)';
-                    (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.15)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (i !== activeIdx) {
-                    (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-surface-card)';
-                    (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-default)';
-                  }
-                }}
-              >
-                <div
+                  aria-pressed={i === activeIdx}
+                  aria-label={`${item.name} — ${item.result}`}
                   style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: '50%',
-                    background: item.color,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    color: '#fff',
-                    flexShrink: 0,
+                    gap: 'var(--space-3)',
+                    width: '100%',
+                    padding: 'var(--space-3) var(--space-4)',
+                    background: i === activeIdx ? 'rgba(0,150,109,0.10)' : 'var(--color-surface-card)',
+                    border: `1px solid ${i === activeIdx ? 'rgba(0,150,109,0.4)' : 'var(--color-border-default)'}`,
+                    borderRadius: 'var(--radius-xs)',
+                    cursor: 'pointer',
+                    transition: 'all var(--duration-fast) var(--easing-default)',
+                    fontFamily: 'var(--font-family-primary)',
+                    textAlign: 'left',
                   }}
-                  role="img"
-                  aria-label={item.name}
-                  aria-hidden="true"
+                  onMouseEnter={(e) => {
+                    if (i !== activeIdx) {
+                      (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-surface-hover)';
+                      (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.15)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (i !== activeIdx) {
+                      (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-surface-card)';
+                      (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-default)';
+                    }
+                  }}
                 >
-                  {item.avatar}
-                </div>
-                <div style={{ minWidth: 0 }}>
-                  <p style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600, color: 'var(--color-text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {item.name}
-                  </p>
-                  <p style={{ fontSize: '11px', color: 'var(--color-text-inverse)' }}>
-                    {item.result} — {item.exam}
-                  </p>
-                </div>
-              </button>
-            </li>
-          ))}
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: '50%',
+                      background: item.color,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '14px',
+                      fontWeight: 700,
+                      color: '#fff',
+                      flexShrink: 0,
+                    }}
+                    role="img"
+                    aria-label={item.name}
+                    aria-hidden="true"
+                  >
+                    {item.avatar}
+                  </div>
+                  <div style={{ minWidth: 0 }}>
+                    <p style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600, color: 'var(--color-text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {item.name}
+                    </p>
+                    <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)' }}>
+                      {item.result} — {item.exam}
+                    </p>
+                  </div>
+                </button>
+              </li>
+            ))}
           </ul>
 
           {/* Live Leaderboard Snapshot */}
@@ -401,7 +449,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
             {/* Header */}
             <div
               style={{
-                padding: '16px 20px',
+                padding: 'var(--space-4) var(--space-5)',
                 borderBottom: '1px solid var(--color-border-default)',
                 display: 'flex',
                 alignItems: 'center',
@@ -413,13 +461,13 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                 <p style={{ fontWeight: 700, color: 'var(--color-text-primary)', fontSize: 'var(--font-size-md)' }}>
                   🏆 {t.leaderboardTitle}
                 </p>
-                <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-inverse)', marginTop: '2px' }}>
+                <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)', marginTop: '2px' }}>
                   {t.leaderboardSub}
                 </p>
               </div>
               <span
                 style={{
-                  fontSize: '11px',
+                  fontSize: 'var(--font-size-xs)',
                   fontWeight: 700,
                   color: '#f59e0b',
                   background: 'rgba(245,158,11,0.12)',
@@ -440,8 +488,8 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '14px',
-                    padding: '12px 20px',
+                    gap: 'var(--space-3)',
+                    padding: 'var(--space-3) var(--space-5)',
                     borderBottom: i < leaderboardData.length - 1 ? '1px solid var(--color-border-default)' : 'none',
                     transition: 'background var(--duration-fast) var(--easing-default)',
                   }}
@@ -459,14 +507,14 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: entry.medal ? '18px' : '12px',
+                      fontSize: entry.medal ? '18px' : 'var(--font-size-xs)',
                       fontWeight: 700,
-                      color: 'var(--color-text-inverse)',
+                      color: 'var(--color-text-tertiary)',
                       flexShrink: 0,
                     }}
                     aria-hidden="true"
                   >
-                    {entry.medal ?? `#${entry.rank}`}
+                    {entry.medal ?? `#${lang === 'bn' ? toBanglaNumerals(entry.rank) : entry.rank}`}
                   </span>
 
                   {/* Avatar */}
@@ -499,17 +547,17 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                     style={{
                       fontSize: 'var(--font-size-sm)',
                       fontWeight: 700,
-                      color: entry.rank === 1 ? '#f59e0b' : entry.rank === 2 ? '#94a3b8' : entry.rank === 3 ? '#cd7c2f' : 'var(--color-text-inverse)',
+                      color: entry.rank === 1 ? '#f59e0b' : entry.rank === 2 ? '#94a3b8' : entry.rank === 3 ? '#cd7c2f' : 'var(--color-text-tertiary)',
                     }}
                   >
-                    {entry.pts.toLocaleString()} <span style={{ fontSize: '10px', fontWeight: 400 }}>{t.pts}</span>
+                    {lang === 'bn' ? toBanglaNumerals(entry.pts.toLocaleString('en-US')) : entry.pts.toLocaleString()} <span style={{ fontSize: 'var(--font-size-xs)', fontWeight: 400 }}>{t.pts}</span>
                   </span>
                 </li>
               ))}
             </ul>
 
             {/* Join CTA */}
-            <div style={{ padding: '14px 20px', borderTop: '1px solid var(--color-border-default)' }}>
+            <div style={{ padding: 'var(--space-3) var(--space-5)', borderTop: '1px solid var(--color-border-default)' }}>
               <a
                 href="https://web.prostuti.bd"
                 style={{
@@ -520,7 +568,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
+                  gap: 'var(--space-2)',
                   transition: 'opacity var(--duration-fast) var(--easing-default)',
                 }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = '0.75'; }}
