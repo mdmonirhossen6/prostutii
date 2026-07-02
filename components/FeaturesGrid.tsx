@@ -1,287 +1,524 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 interface FeaturesGridProps {
   lang: 'bn' | 'en';
 }
 
-const features = {
+const content = {
   bn: {
     sectionBadge: 'বৈশিষ্ট্যসমূহ',
     title: 'যা পাবেন প্রস্তুতিতে',
     subtitle: 'একটি প্ল্যাটফর্মে সব কিছু — প্রশ্ন, মক টেস্ট, AI সহকারী, এবং লিডারবোর্ড।',
-    cards: [
-      {
-        iconType: 'hsc',
-        tag: 'HSC',
-        title: 'HSC প্রিপারেশন',
-        desc: '৬টি বিভাগ: প্রশ্নব্যাংক, কলেজ প্রশ্ন, টেস্ট পেপার, Type Wise CQ, জ্ঞান ও অনুশন্ধান, কমপ্যাক্ট বুক।',
-        color: '#00966d',
-      },
-      {
-        iconType: 'mock',
-        tag: 'মক',
-        title: 'মক টেস্ট',
-        desc: '৫ ধরনের মক: HSC, Varsity, Medical, Engineering ও Onushiloni — বোর্ড প্যাটার্নে সময়-নির্ধারিত।',
-        color: '#4d6bff',
-      },
-      {
-        iconType: 'admission',
-        tag: 'ভর্তি',
-        title: 'Admission Hub',
-        desc: 'Varsity Admission (Master QB + Mock), Medical Admission এবং Engineering — আলাদা ট্র্যাকে সম্পূর্ণ প্রস্তুতি।',
-        color: '#06b6d4',
-      },
-      {
-        iconType: 'engineering',
-        tag: 'Engineering',
-        title: 'Engineering প্র্যাকটিস',
-        desc: 'Master QB, Written QB, Question Bank ও AI-structured Master QB Mock — বুয়েট ও প্রকৌশল বিশ্ববিদ্যালয়ের জন্য।',
-        color: '#f97316',
-      },
-      {
-        iconType: 'ai',
-        tag: 'AI',
-        title: 'Prostuti AI',
-        desc: 'চ্যাট-ভিত্তিক AI স্টাডি সহকারী। MCQ ব্যাখ্যা, ছবি বিশ্লেষণ, এবং বাংলায় সহজ ভাষায় উত্তর।',
-        color: '#8b5cf6',
-      },
-      {
-        iconType: 'practice',
-        tag: 'অনুশীলনী',
-        title: 'অনুশীলনী (Chapter Practice)',
-        desc: 'অধ্যায়ভিত্তিক পদার্থ, রসায়ন, জীববিজ্ঞান — পেপার ১ ও পেপার ২ আলাদাভাবে। ফলাফল চার্টে দেখুন।',
-        color: '#00966d',
-      },
-      {
-        iconType: 'free',
-        tag: 'ফ্রি',
-        title: 'ফ্রি প্র্যাকটিস',
-        desc: 'HSC, Engineering, Varsity ও Medical — চার ট্র্যাকে বিনামূল্যে MCQ। কোনো অ্যাকাউন্ট ছাড়াও চেষ্টা করুন।',
-        color: '#f59e0b',
-      },
-      {
-        iconType: 'goals',
-        tag: 'গেমিফিকেশন',
-        title: 'Daily Goals & XP',
-        desc: 'Easy/Medium/Hard ডিফিকাল্টি বেছে নিন। প্রতিদিনের লক্ষ্য পূরণ করে XP অর্জন করুন।',
-        color: '#f59e0b',
-      },
-      {
-        iconType: 'leaderboard',
-        tag: 'লাইভ',
-        title: 'সাপ্তাহিক লিডারবোর্ড',
-        desc: 'সারা বাংলাদেশের শিক্ষার্থীদের সাথে প্রতিযোগিতা। সাপ্তাহিক XP র‍্যাংকিং লাইভ আপডেট।',
-        color: '#eab308',
-      },
+    hscTitle: 'HSC প্রিপারেশন',
+    hscDesc: 'বোর্ড প্রশ্নব্যাংক, স্বনামধন্য কলেজ প্রশ্ন, টেস্ট পেপার ও CQ সমাধান — অধ্যায়ভিত্তিক প্র্যাকটিস করুন।',
+    hscSubjects: ['পদার্থবিজ্ঞান', 'রসায়ন', 'উচ্চতর গণিত', 'জীববিজ্ঞান'],
+    hscChapters: {
+      'পদার্থবিজ্ঞান': ['ভেক্টর', 'মহাকর্ষ ও অভিকর্ষ', 'পর্যায়বৃত্ত গতি'],
+      'রসায়ন': ['গুণগত রসায়ন', 'তড়িৎ রসায়ন', 'পরিবেশ রসায়ন'],
+      'উচ্চতর গণিত': ['ম্যাট্রিক্স ও নির্ণায়ক', 'ত্রিকোণমিতি', 'কনিক'],
+      'জীববিজ্ঞান': ['কোষ ও এর গঠন', 'রক্ত ও সংবহন', 'জেনেটিক্স'],
+    },
+    aiTitle: 'Prostuti AI',
+    aiDesc: 'চ্যাট-ভিত্তিক AI স্টাডি সহকারী। যেকোনো প্রশ্নের ব্যাখ্যা বুঝে নিন বাংলায়।',
+    aiChatUser: 'g এর মান কোথায় বেশি?',
+    aiChatBot: 'পৃথিবীর মেরু অঞ্চলে (Poles) g এর মান সবচেয়ে বেশি (৯.৮৩ m/s²)।',
+    mockTitle: 'মক টেস্ট হাব',
+    mockDesc: 'সময়-নির্ধারিত বোর্ড স্ট্যান্ডার্ড এবং ভর্তি পরীক্ষা প্যাটার্নে লাইভ মক টেস্ট।',
+    mockTimer: 'বাকি সময়:',
+    mockTypes: ['HSC বোর্ড মক', 'Varsity ভর্তি মক', 'Engineering মক'],
+    leaderboardTitle: 'সাপ্তাহিক লিডারবোর্ড',
+    leaderboardDesc: 'সারা বাংলাদেশের শিক্ষার্থীদের সাথে লাইভ স্কোরিং ও র‍্যাংকিং প্রতিযোগিতা।',
+    leaderboardUsers: [
+      { rank: 1, name: 'মনির হোসেন', xp: '৪,৫২০ XP', medal: '🥇' },
+      { rank: 2, name: 'সাদিয়া ইসলাম', xp: '৪,১২০ XP', medal: '🥈' },
+      { rank: 3, name: 'নাবিল আহমেদ', xp: '৩,৯৮০ XP', medal: '🥉' }
     ],
+    admissionTitle: 'Admission Hub',
+    admissionDesc: 'Varsity, Medical এবং Engineering ট্র্যাকে আলাদাভাবে সম্পূর্ণ ভর্তি প্রস্তুতি।',
+    admissionTracks: ['University', 'Medical', 'Engineering'],
+    practiceTitle: 'অধ্যায়ভিত্তিক প্র্যাকটিস',
+    practiceDesc: 'প্রতিটি অধ্যায়ের অগ্রগতি ট্র্যাকিং এবং দুর্বল টপিক চিহ্নিতকরণ।',
+    practiceStats: [
+      { subject: 'পদার্থবিজ্ঞান', progress: 80 },
+      { subject: 'রসায়ন', progress: 55 },
+      { subject: 'উচ্চতর গণিত', progress: 95 }
+    ],
+    goalsTitle: 'Daily Goals & XP',
+    goalsDesc: 'প্রতিদিন নতুন চ্যালেঞ্জ সম্পন্ন করে XP অর্জন করুন এবং লিগ টেবিলে উঠুন।',
+    goalsList: [
+      { id: 1, text: '২০টি পদার্থবিজ্ঞান MCQ সমাধান', xp: '+৫০ XP' },
+      { id: 2, text: '১টি সম্পূর্ণ মক টেস্ট দেওয়া', xp: '+১০০ XP' },
+      { id: 3, text: 'AI সহকারীর সাথে ১টি প্রশ্ন বিশ্লেষণ', xp: '+৩০ XP' }
+    ]
   },
   en: {
     sectionBadge: 'Features',
     title: 'Everything Inside Prostuti',
     subtitle: 'One platform — MCQ practice, mock tests, AI tutor, admission prep, and live leaderboard.',
-    cards: [
-      {
-        iconType: 'hsc',
-        tag: 'HSC',
-        title: 'HSC Preparation',
-        desc: '6 sections: Question Bank, College Questions, Test Paper, Type Wise CQ, Knowledge & Research, and Compact Book.',
-        color: '#00966d',
-      },
-      {
-        iconType: 'mock',
-        tag: 'Mock',
-        title: 'Mock Test',
-        desc: '5 types: HSC, Varsity, Medical, Engineering & Onushiloni — timed, board-pattern full mock exams.',
-        color: '#4d6bff',
-      },
-      {
-        iconType: 'admission',
-        tag: 'Admission',
-        title: 'Admission Hub',
-        desc: 'Varsity Admission (Master QB + Mock), Medical Admission, and Engineering tracks — complete prep for each.',
-        color: '#06b6d4',
-      },
-      {
-        iconType: 'engineering',
-        tag: 'Engineering',
-        title: 'Engineering Practice',
-        desc: 'Master QB, Written QB, Question Bank & AI-structured Master QB Mock — tailored for BUET & engineering universities.',
-        color: '#f97316',
-      },
-      {
-        iconType: 'ai',
-        tag: 'AI',
-        title: 'Prostuti AI',
-        desc: 'Chat-based AI study assistant. Ask any question, get MCQ explanations, image analysis, and answers in Bengali.',
-        color: '#8b5cf6',
-      },
-      {
-        iconType: 'practice',
-        tag: 'Practice',
-        title: 'Chapter Practice (Onushiloni)',
-        desc: 'Physics, Chemistry, Biology by chapter — practice Paper 1 & 2 separately. Track results in per-subject charts.',
-        color: '#00966d',
-      },
-      {
-        iconType: 'free',
-        tag: 'Free',
-        title: 'Free Practice',
-        desc: 'HSC, Engineering, Varsity & Medical tracks available free. No account required to try.',
-        color: '#f59e0b',
-      },
-      {
-        iconType: 'goals',
-        tag: 'Goals',
-        title: 'Daily Goals & XP',
-        desc: 'Choose Easy/Medium/Hard difficulty. Complete daily targets and earn XP to climb the leaderboard.',
-        color: '#f59e0b',
-      },
-      {
-        iconType: 'leaderboard',
-        tag: 'Live',
-        title: 'Weekly Leaderboard',
-        desc: 'Compete with students across Bangladesh. Live weekly XP rankings updated in real time.',
-        color: '#eab308',
-      },
+    hscTitle: 'HSC Preparation',
+    hscDesc: 'Board question banks, top college questions, test papers & CQ solutions — practice by chapter.',
+    hscSubjects: ['Physics', 'Chemistry', 'Higher Math', 'Biology'],
+    hscChapters: {
+      'Physics': ['Vector', 'Gravity & Gravitation', 'Periodic Motion'],
+      'Chemistry': ['Qualitative Chemistry', 'Electrochemistry', 'Environmental Chemistry'],
+      'Higher Math': ['Matrix & Determinants', 'Trigonometry', 'Conics'],
+      'Biology': ['Cell & Structure', 'Blood & Circulation', 'Genetics'],
+    },
+    aiTitle: 'Prostuti AI',
+    aiDesc: 'Chat-based AI study assistant. Get instant explanations in Bengali.',
+    aiChatUser: 'Where is g value maximum?',
+    aiChatBot: 'The value of g is maximum at the poles of the Earth (9.83 m/s²).',
+    mockTitle: 'Mock Test Hub',
+    mockDesc: 'Timed, board-standard, and admission-pattern full mock exams.',
+    mockTimer: 'Time Left:',
+    mockTypes: ['HSC Board Mock', 'Varsity Admission Mock', 'Engineering Mock'],
+    leaderboardTitle: 'Weekly Leaderboard',
+    leaderboardDesc: 'Live scoring, league ranking, and competition with students across Bangladesh.',
+    leaderboardUsers: [
+      { rank: 1, name: 'Monir Hossen', xp: '4,520 XP', medal: '🥇' },
+      { rank: 2, name: 'Sadia Islam', xp: '4,120 XP', medal: '🥈' },
+      { rank: 3, name: 'Nabil Ahmed', xp: '3,980 XP', medal: '🥉' }
     ],
-  },
-};
-
-const tagColorMap: Record<string, string> = {
-  HSC: 'badge-green', Mock: 'badge-blue', মক: 'badge-blue',
-  Admission: 'badge-blue', ভর্তি: 'badge-blue',
-  Engineering: 'badge-blue',
-  AI: 'badge-recommended',
-  Practice: 'badge-green', অনুশীলনী: 'badge-green',
-  Free: 'badge-recommended', ফ্রি: 'badge-recommended',
-  Goals: 'badge-recommended', গেমিফিকেশন: 'badge-recommended',
-  Live: 'badge-green', লাইভ: 'badge-green',
-};
-
-function renderFeatureIcon(type: string, color: string) {
-  const props = {
-    width: 24,
-    height: 24,
-    stroke: color,
-    strokeWidth: 2,
-    fill: 'none',
-    strokeLinecap: 'round' as const,
-    strokeLinejoin: 'round' as const,
-  };
-  switch (type) {
-    case 'hsc':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-          <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
-        </svg>
-      );
-    case 'mock':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-          <path d="M9 12h6M9 16h6" />
-        </svg>
-      );
-    case 'admission':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <line x1="3" y1="22" x2="21" y2="22" />
-          <line x1="6" y1="18" x2="6" y2="11" />
-          <line x1="10" y1="18" x2="10" y2="11" />
-          <line x1="14" y1="18" x2="14" y2="11" />
-          <line x1="18" y1="18" x2="18" y2="11" />
-          <path d="M12 2L2 7h20L12 2z" />
-          <path d="M2 18h20" />
-        </svg>
-      );
-    case 'engineering':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <circle cx="12" cy="12" r="3" />
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.5 1z" />
-        </svg>
-      );
-    case 'ai':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <rect x="3" y="11" width="18" height="10" rx="2" />
-          <circle cx="12" cy="5" r="2" />
-          <path d="M12 7v4" />
-          <line x1="8" y1="16" x2="8" y2="16" />
-          <line x1="16" y1="16" x2="16" y2="16" />
-        </svg>
-      );
-    case 'practice':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <path d="M12 20h9" />
-          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-        </svg>
-      );
-    case 'free':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
-      );
-    case 'goals':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <circle cx="12" cy="12" r="10" />
-          <circle cx="12" cy="12" r="6" />
-          <circle cx="12" cy="12" r="2" />
-        </svg>
-      );
-    case 'leaderboard':
-      return (
-        <svg viewBox="0 0 24 24" {...props}>
-          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-          <path d="M4 22h16" />
-          <path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34" />
-          <path d="M12 2a7 7 0 0 0-7 7c0 2.22 1.2 4.15 3 5.19l.34.2a2.32 2.32 0 0 0 2.32 0l.34-.2a6.97 6.97 0 0 0 3-5.19C19 4.22 15.78 2 12 2z" />
-        </svg>
-      );
-    default:
-      return null;
+    admissionTitle: 'Admission Hub',
+    admissionDesc: 'Complete prep tracks for Varsity, Medical, and Engineering exams.',
+    admissionTracks: ['University', 'Medical', 'Engineering'],
+    practiceTitle: 'Chapter Progress',
+    practiceDesc: 'Track topic coverage and identify weak chapters with analytics.',
+    practiceStats: [
+      { subject: 'Physics', progress: 80 },
+      { subject: 'Chemistry', progress: 55 },
+      { subject: 'Higher Math', progress: 95 }
+    ],
+    goalsTitle: 'Daily Goals & XP',
+    goalsDesc: 'Complete daily targets, level up your profile, and earn Aura points.',
+    goalsList: [
+      { id: 1, text: 'Solve 20 Physics MCQs', xp: '+50 XP' },
+      { id: 2, text: 'Complete 1 Mock Test', xp: '+100 XP' },
+      { id: 3, text: 'Review 1 concept with AI', xp: '+30 XP' }
+    ]
   }
-}
+};
 
 export default function FeaturesGrid({ lang }: FeaturesGridProps) {
-  const t = features[lang];
+  const t = content[lang];
+
+  // Bento States
+  const [activeHscSub, setActiveHscSub] = useState<string>(t.hscSubjects[0]);
+  const [aiTyping, setAiTyping] = useState<boolean>(false);
+  const [aiMessages, setAiMessages] = useState<Array<{ sender: 'user' | 'bot'; text: string }>>([]);
+  const [timeLeft, setTimeLeft] = useState<string>('14:59');
+  const [completedGoals, setCompletedGoals] = useState<Record<number, boolean>>({ 1: true });
+
+  // Simulate AI Chat Box
+  useEffect(() => {
+    setAiMessages([]);
+    const userTimeout = setTimeout(() => {
+      setAiMessages([{ sender: 'user', text: t.aiChatUser }]);
+      setAiTyping(true);
+      
+      const botTimeout = setTimeout(() => {
+        setAiTyping(false);
+        setAiMessages(prev => [...prev, { sender: 'bot', text: t.aiChatBot }]);
+      }, 1500);
+
+      return () => clearTimeout(botTimeout);
+    }, 1000);
+
+    return () => clearTimeout(userTimeout);
+  }, [lang, t.aiChatUser, t.aiChatBot]);
+
+  // Simulate Timer Countdown
+  useEffect(() => {
+    let min = 14;
+    let sec = 59;
+    const interval = setInterval(() => {
+      if (sec > 0) {
+        sec--;
+      } else {
+        if (min > 0) {
+          min--;
+          sec = 59;
+        } else {
+          min = 14;
+          sec = 59;
+        }
+      }
+      setTimeLeft(`${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const toggleGoal = (id: number) => {
+    setCompletedGoals(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
 
   return (
-    <section id="question-bank" aria-labelledby="features-heading" style={{ padding: 'var(--space-8) 0' }}>
+    <section id="question-bank" aria-labelledby="features-heading" style={{ padding: 'var(--space-8) 0', background: 'var(--color-surface-base)' }}>
       <div className="container-page">
+        {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
-          <span className="badge badge-green" style={{ marginBottom: 'var(--space-4)' }}>{t.sectionBadge}</span>
+          <span className="badge" style={{ marginBottom: 'var(--space-4)' }}>{t.sectionBadge}</span>
           <h2 id="features-heading" className="section-title" style={{ marginBottom: 'var(--space-3)' }}>{t.title}</h2>
           <p className="section-subtitle" style={{ margin: '0 auto' }}>{t.subtitle}</p>
         </div>
 
-        <ul role="list" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-4)', listStyle: 'none' }} className="features-grid">
-          {t.cards.map((card, i) => (
-            <li key={i}>
-              <article className="card-base" style={{ padding: 'var(--space-5)', height: '100%', cursor: 'default' }} aria-label={card.title}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 'var(--space-3)' }}>
-                  <div style={{ width: 48, height: 48, borderRadius: 'var(--radius-xs)', background: `${card.color}18`, border: `1px solid ${card.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center' }} role="img" aria-label={card.title}>
-                    {renderFeatureIcon(card.iconType, card.color)}
+        {/* Bento Grid */}
+        <div className="bento-grid">
+          
+          {/* Card 1: HSC Prep (col-span-2) */}
+          <div className="bento-card col-span-2 flex-col" style={{ gap: '16px' }}>
+            <div>
+              <span className="badge" style={{ marginBottom: '8px', fontSize: '10px' }}>HSC</span>
+              <h3 className="bento-title">{t.hscTitle}</h3>
+              <p className="bento-desc">{t.hscDesc}</p>
+            </div>
+            
+            {/* Interactive Subject & Chapter Viewer */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: 'auto' }}>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {t.hscSubjects.map((sub) => (
+                  <button
+                    key={sub}
+                    onClick={() => setActiveHscSub(sub)}
+                    style={{
+                      background: activeHscSub === sub ? 'var(--color-surface-strong)' : 'rgba(255,255,255,0.02)',
+                      border: '1px solid var(--color-border-default)',
+                      color: activeHscSub === sub ? '#000' : 'var(--color-text-secondary)',
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    {sub}
+                  </button>
+                ))}
+              </div>
+              <div 
+                style={{ 
+                  background: 'rgba(0,0,0,0.15)', 
+                  border: '1px solid var(--color-border-default)', 
+                  borderRadius: '8px', 
+                  padding: '12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px'
+                }}
+              >
+                {(t.hscChapters as Record<string, string[]>)[activeHscSub]?.map((chap, i) => (
+                  <div 
+                    key={chap} 
+                    style={{ 
+                      display: 'flex', 
+                      justifyContent: 'space-between', 
+                      alignItems: 'center',
+                      fontSize: '13px',
+                      color: 'var(--color-text-secondary)'
+                    }}
+                  >
+                    <span>{chap}</span>
+                    <span style={{ fontSize: '11px', color: 'var(--color-text-tertiary)' }}>
+                      {lang === 'bn' ? `প্রশ্ন সেট ০${i+1}` : `Question Set 0${i+1}`}
+                    </span>
                   </div>
-                  <span className={`badge ${tagColorMap[card.tag] || 'badge-blue'}`}>{card.tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Prostuti AI (col-span-1) */}
+          <div className="bento-card col-span-1 flex-col" style={{ gap: '14px' }}>
+            <div>
+              <span className="badge" style={{ marginBottom: '8px', fontSize: '10px' }}>AI Tutor</span>
+              <h3 className="bento-title">{t.aiTitle}</h3>
+              <p className="bento-desc">{t.aiDesc}</p>
+            </div>
+
+            {/* Interactive Chat Box Mock */}
+            <div 
+              style={{ 
+                background: 'rgba(0,0,0,0.15)', 
+                border: '1px solid var(--color-border-default)', 
+                borderRadius: '8px', 
+                padding: '12px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                minHeight: '130px',
+                justifyContent: 'flex-end',
+                marginTop: 'auto'
+              }}
+            >
+              {aiMessages.map((msg, i) => (
+                <div 
+                  key={i} 
+                  style={{
+                    alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                    background: msg.sender === 'user' ? 'var(--color-border-default)' : 'rgba(139,92,246,0.12)',
+                    border: msg.sender === 'bot' ? '1px solid rgba(139,92,246,0.2)' : 'none',
+                    color: msg.sender === 'user' ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                    borderRadius: '8px',
+                    padding: '6px 10px',
+                    fontSize: '12px',
+                    maxWidth: '85%',
+                    lineHeight: '1.4'
+                  }}
+                >
+                  {msg.text}
                 </div>
-                <h3 style={{ fontSize: 'var(--font-size-h3)', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 'var(--space-2)', lineHeight: 1.3 }}>{card.title}</h3>
-                <p style={{ fontSize: 'var(--font-size-md)', color: 'var(--color-text-secondary)', lineHeight: 1.65 }}>{card.desc}</p>
-              </article>
-            </li>
-          ))}
-        </ul>
+              ))}
+              {aiTyping && (
+                <div style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', fontStyle: 'italic', paddingLeft: '4px' }}>
+                  AI typing...
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Card 3: Mock Test Hub (col-span-1) */}
+          <div className="bento-card col-span-1 flex-col" style={{ gap: '14px' }}>
+            <div>
+              <span className="badge" style={{ marginBottom: '8px', fontSize: '10px' }}>Mock</span>
+              <h3 className="bento-title">{t.mockTitle}</h3>
+              <p className="bento-desc">{t.mockDesc}</p>
+            </div>
+
+            {/* Timed Live Pulse Indicator */}
+            <div 
+              style={{ 
+                background: 'rgba(0,0,0,0.15)', 
+                border: '1px solid var(--color-border-default)', 
+                borderRadius: '8px', 
+                padding: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 'auto'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className="live-pulse" />
+                <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-text-primary)' }}>
+                  {t.mockTimer}
+                </span>
+              </div>
+              <span style={{ fontSize: '16px', fontWeight: 700, fontFamily: 'monospace', color: '#ff5f56' }}>
+                {timeLeft}
+              </span>
+            </div>
+          </div>
+
+          {/* Card 4: Leaderboard (col-span-2) */}
+          <div className="bento-card col-span-2 flex-col" style={{ gap: '16px' }}>
+            <div>
+              <span className="badge" style={{ marginBottom: '8px', fontSize: '10px' }}>Live</span>
+              <h3 className="bento-title">{t.leaderboardTitle}</h3>
+              <p className="bento-desc">{t.leaderboardDesc}</p>
+            </div>
+
+            {/* Live Leaderboard Ticker */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: 'auto' }}>
+              {t.leaderboardUsers.map((user) => (
+                <div
+                  key={user.rank}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '8px 12px',
+                    background: 'rgba(255,255,255,0.01)',
+                    border: '1px solid var(--color-border-default)',
+                    borderRadius: '8px',
+                    fontSize: '13px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '14px', width: '20px' }}>{user.medal}</span>
+                    <span style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>{user.name}</span>
+                  </div>
+                  <span style={{ fontFamily: 'monospace', fontWeight: 700, color: 'var(--color-surface-strong)' }}>
+                    {user.xp}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 5: Admission Hub (col-span-1) */}
+          <div className="bento-card col-span-1 flex-col" style={{ gap: '14px' }}>
+            <div>
+              <span className="badge" style={{ marginBottom: '8px', fontSize: '10px' }}>Admission</span>
+              <h3 className="bento-title">{t.admissionTitle}</h3>
+              <p className="bento-desc">{t.admissionDesc}</p>
+            </div>
+
+            {/* Admission Track Badges */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: 'auto' }}>
+              {t.admissionTracks.map((tr) => (
+                <div
+                  key={tr}
+                  style={{
+                    padding: '8px 12px',
+                    border: '1px solid var(--color-border-default)',
+                    background: 'rgba(255,255,255,0.02)',
+                    borderRadius: '6px',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    color: 'var(--color-text-primary)',
+                    textAlign: 'center'
+                  }}
+                >
+                  {tr} Prep Track
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 6: Chapter progress (col-span-1) */}
+          <div className="bento-card col-span-1 flex-col" style={{ gap: '14px' }}>
+            <div>
+              <span className="badge" style={{ marginBottom: '8px', fontSize: '10px' }}>Analytics</span>
+              <h3 className="bento-title">{t.practiceTitle}</h3>
+              <p className="bento-desc">{t.practiceDesc}</p>
+            </div>
+
+            {/* Progress Bars */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
+              {t.practiceStats.map((stat) => (
+                <div key={stat.subject}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--color-text-secondary)', marginBottom: '4px' }}>
+                    <span>{stat.subject}</span>
+                    <span style={{ fontFamily: 'monospace' }}>{stat.progress}%</span>
+                  </div>
+                  <div style={{ height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${stat.progress}%`, background: 'var(--color-surface-strong)' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 7: Daily Goals (col-span-1) */}
+          <div className="bento-card col-span-1 flex-col" style={{ gap: '14px' }}>
+            <div>
+              <span className="badge" style={{ marginBottom: '8px', fontSize: '10px' }}>Rewards</span>
+              <h3 className="bento-title">{t.goalsTitle}</h3>
+              <p className="bento-desc">{t.goalsDesc}</p>
+            </div>
+
+            {/* Goal Checklist */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
+              {t.goalsList.map((g) => {
+                const isDone = completedGoals[g.id];
+                return (
+                  <button
+                    key={g.id}
+                    onClick={() => toggleGoal(g.id)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 10px',
+                      border: '1px solid var(--color-border-default)',
+                      background: isDone ? 'rgba(0,150,109,0.04)' : 'rgba(255,255,255,0.01)',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontSize: '11px',
+                      textAlign: 'left',
+                      transition: 'all 0.2s ease',
+                      width: '100%'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isDone ? 'var(--color-text-primary)' : 'var(--color-text-secondary)' }}>
+                      <span style={{ fontSize: '12px' }}>{isDone ? '✓' : '○'}</span>
+                      <span style={{ textDecoration: isDone ? 'line-through' : 'none' }}>{g.text}</span>
+                    </div>
+                    <span style={{ fontWeight: 700, color: 'var(--color-surface-strong)', fontFamily: 'monospace' }}>
+                      {g.xp}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <style jsx>{`
-        @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 640px) { .features-grid { grid-template-columns: 1fr !important; } }
+        .bento-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: var(--space-4);
+        }
+        .bento-card {
+          background: var(--color-surface-card);
+          border: 1px solid var(--color-border-default);
+          border-radius: 12px;
+          padding: var(--space-5);
+          display: flex;
+          transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+        .bento-card:hover {
+          border-color: rgba(255, 255, 255, 0.12);
+        }
+        .flex-col {
+          flex-direction: column;
+        }
+        .col-span-2 {
+          grid-column: span 2;
+        }
+        .col-span-1 {
+          grid-column: span 1;
+        }
+        .bento-title {
+          font-size: var(--font-size-h3);
+          font-weight: 700;
+          color: var(--color-text-primary);
+          margin-bottom: 6px;
+        }
+        .bento-desc {
+          font-size: var(--font-size-sm);
+          color: var(--color-text-secondary);
+          line-height: 1.5;
+        }
+        .live-pulse {
+          width: 8px;
+          height: 8px;
+          background: var(--color-surface-strong);
+          border-radius: 50%;
+          display: inline-block;
+          animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+          0% { transform: scale(0.9); opacity: 0.7; }
+          50% { transform: scale(1.15); opacity: 1; }
+          100% { transform: scale(0.9); opacity: 0.7; }
+        }
+        @media (max-width: 900px) {
+          .bento-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .col-span-2 {
+            grid-column: span 2;
+          }
+        }
+        @media (max-width: 640px) {
+          .bento-grid {
+            grid-template-columns: 1fr;
+          }
+          .col-span-2 {
+            grid-column: span 1;
+          }
+        }
       `}</style>
     </section>
   );
