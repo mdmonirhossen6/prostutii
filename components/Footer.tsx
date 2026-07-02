@@ -22,19 +22,19 @@ const content = {
     company: {
       heading: 'প্রতিষ্ঠান',
       links: [
-        { label: 'আমাদের সম্পর্কে', href: '#about' },
-        { label: 'ব্লগ', href: '#blog' },
-        { label: 'ক্যারিয়ার', href: '#careers' },
-        { label: 'প্রেস', href: '#press' },
-        { label: 'যোগাযোগ', href: '#contact' },
+        { label: 'আমাদের সম্পর্কে', href: '/about' },
+        { label: 'ব্লগ', href: '/blog' },
+        { label: 'ক্যারিয়ার', href: '/careers' },
+        { label: 'প্রেস', href: '/press' },
+        { label: 'যোগাযোগ', href: '/contact' },
       ],
     },
     legal: {
       heading: 'আইনি',
       links: [
         { label: 'গোপনীয়তা নীতি', href: '/privacy-policy' },
-        { label: 'সেবার শর্তাবলী', href: '#terms' },
-        { label: 'কুকি নীতি', href: '#cookies' },
+        { label: 'সেবার শর্তাবলী', href: '/terms-of-service' },
+        { label: 'কুকি নীতি', href: '/cookie-policy' },
         { label: 'রিফান্ড নীতি', href: '/refund-policy' },
       ],
     },
@@ -62,19 +62,19 @@ const content = {
     company: {
       heading: 'Company',
       links: [
-        { label: 'About Us', href: '#about' },
-        { label: 'Blog', href: '#blog' },
-        { label: 'Careers', href: '#careers' },
-        { label: 'Press', href: '#press' },
-        { label: 'Contact', href: '#contact' },
+        { label: 'About Us', href: '/about' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Careers', href: '/careers' },
+        { label: 'Press', href: '/press' },
+        { label: 'Contact', href: '/contact' },
       ],
     },
     legal: {
       heading: 'Legal',
       links: [
         { label: 'Privacy Policy', href: '/privacy-policy' },
-        { label: 'Terms of Service', href: '#terms' },
-        { label: 'Cookie Policy', href: '#cookies' },
+        { label: 'Terms of Service', href: '/terms-of-service' },
+        { label: 'Cookie Policy', href: '/cookie-policy' },
         { label: 'Refund Policy', href: '/refund-policy' },
       ],
     },
