@@ -46,6 +46,8 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
   const t = copy[lang];
   const items = navItems[lang];
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState('');
 
   // Initialize theme from document attribute (populated by blocking script in head)
   useEffect(() => {
@@ -61,9 +63,46 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Highlight Active Section using IntersectionObserver
+  useEffect(() => {
+    const sections = ['question-bank', 'leaderboard', 'pricing'];
+    const observers = sections.map((id) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(`#${id}`);
+            }
+          });
+        },
+        {
+          rootMargin: '-120px 0px -70% 0px',
+        }
+      );
+      observer.observe(el);
+      return { observer, el };
+    });
+
+    return () => {
+      observers.forEach((obs) => {
+        if (obs) obs.observer.unobserve(obs.el);
+      });
+    };
   }, []);
 
   // Close drawer on Escape
@@ -102,6 +141,21 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
           transition: 'background var(--duration-normal) var(--easing-default), backdrop-filter var(--duration-normal) var(--easing-default)',
         }}
       >
+        {/* Integrated Scroll Progress Bar */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: '2px',
+            width: `${scrollProgress}%`,
+            background: 'linear-gradient(90deg, var(--color-surface-strong) 0%, #00d9a0 100%)',
+            zIndex: 101,
+            transition: 'width 0.1s ease-out',
+            opacity: scrolled ? 1 : 0,
+          }}
+        />
+
         <div
           className="container-page"
           style={{
@@ -146,33 +200,54 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
             }}
             className="nav-desktop"
           >
-            {items.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  style={{
-                    color: 'var(--color-text-secondary)',
-                    textDecoration: 'none',
-                    fontSize: 'var(--font-size-sm)',
-                    fontWeight: 500,
-                    padding: 'var(--space-2) var(--space-3)',
-                    borderRadius: 'var(--radius-xs)',
-                    transition: 'color var(--duration-fast) var(--easing-default), background var(--duration-fast) var(--easing-default)',
-                    display: 'block',
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-primary)';
-                    (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-secondary)';
-                    (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-                  }}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {items.map((item) => {
+              const isActive = activeSection === item.href;
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    style={{
+                      color: isActive ? 'var(--color-surface-strong)' : 'var(--color-text-secondary)',
+                      textDecoration: 'none',
+                      fontSize: 'var(--font-size-sm)',
+                      fontWeight: isActive ? 700 : 500,
+                      padding: 'var(--space-2) var(--space-3)',
+                      borderRadius: 'var(--radius-xs)',
+                      background: isActive ? 'rgba(0, 150, 109, 0.08)' : 'transparent',
+                      transition: 'all var(--duration-fast) var(--easing-default)',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-primary)';
+                        (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.05)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-secondary)';
+                        (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
+                      }
+                    }}
+                  >
+                    {isActive && (
+                      <span
+                        style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          background: 'var(--color-surface-strong)',
+                          display: 'inline-block',
+                        }}
+                      />
+                    )}
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Right side actions */}
@@ -408,34 +483,55 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
           }}
         >
           <ul role="list" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
-            {items.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={handleNavClick}
-                  style={{
-                    display: 'block',
-                    padding: 'var(--space-3) var(--space-4)',
-                    color: 'var(--color-text-secondary)',
-                    textDecoration: 'none',
-                    fontWeight: 500,
-                    fontSize: 'var(--font-size-md)',
-                    borderRadius: 'var(--radius-xs)',
-                    transition: 'all var(--duration-fast) var(--easing-default)',
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-primary)';
-                    (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-secondary)';
-                    (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-                  }}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {items.map((item) => {
+              const isActive = activeSection === item.href;
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    onClick={handleNavClick}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: 'var(--space-3) var(--space-4)',
+                      color: isActive ? 'var(--color-surface-strong)' : 'var(--color-text-secondary)',
+                      background: isActive ? 'rgba(0, 150, 109, 0.08)' : 'transparent',
+                      textDecoration: 'none',
+                      fontWeight: isActive ? 700 : 500,
+                      fontSize: 'var(--font-size-md)',
+                      borderRadius: 'var(--radius-xs)',
+                      transition: 'all var(--duration-fast) var(--easing-default)',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-primary)';
+                        (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.05)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-secondary)';
+                        (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
+                      }
+                    }}
+                  >
+                    {isActive && (
+                      <span
+                        style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          background: 'var(--color-surface-strong)',
+                          display: 'inline-block',
+                        }}
+                      />
+                    )}
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
           <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             {/* Segmented language control on mobile */}

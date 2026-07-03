@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
-import ScrollIndicators from '@/components/ScrollIndicators';
 import Hero from '@/components/Hero';
 import StatsBar from '@/components/StatsBar';
 import FeaturesGrid from '@/components/FeaturesGrid';
@@ -40,7 +39,6 @@ export default function HomePage() {
       </a>
 
       <Navbar lang={lang} onLangChange={setLang} />
-      <ScrollIndicators lang={lang} />
 
       <main id="main-content">
         <Hero lang={lang} />
