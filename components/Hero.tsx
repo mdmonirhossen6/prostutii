@@ -63,7 +63,7 @@ export default function Hero({ lang }: HeroProps) {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(var(--color-grid-pattern) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid-pattern) 1px, transparent 1px)`,
           backgroundSize: '40px 40px',
           pointerEvents: 'none',
         }}
@@ -102,17 +102,18 @@ export default function Hero({ lang }: HeroProps) {
                 letterSpacing: '-1px',
               }}
             >
-              {t.headline1}{' '}
+              {t.headline1}
+              <br />
               <span className="gradient-text">{t.headline2}</span>
             </h1>
 
             {/* Subheadline */}
             <p
               style={{
-                fontSize: 'var(--font-size-lg)',
+                fontSize: 'calc(var(--font-size-lg) + 1px)',
                 color: 'var(--color-text-secondary)',
-                lineHeight: 1.7,
-                maxWidth: '520px',
+                lineHeight: 1.8,
+                maxWidth: '540px',
               }}
             >
               {t.subheadline}
@@ -143,6 +144,67 @@ export default function Hero({ lang }: HeroProps) {
               </a>
             </div>
 
+            {/* Trust Signals */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginTop: 'var(--space-1)' }}>
+              {/* Avatar Stack */}
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {[
+                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&q=80',
+                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=64&q=80',
+                  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&q=80',
+                  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=64&q=80',
+                ].map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt="Student avatar"
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      border: '2px solid var(--color-surface-base)',
+                      marginLeft: i === 0 ? 0 : '-12px',
+                      boxShadow: 'var(--shadow-card)',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                  />
+                ))}
+                <div
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    border: '2px solid var(--color-surface-base)',
+                    background: 'var(--color-surface-strong)',
+                    color: '#fff',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginLeft: '-12px',
+                    boxShadow: 'var(--shadow-card)',
+                  }}
+                >
+                  +5k
+                </div>
+              </div>
+              {/* Rating Text */}
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="var(--color-accent-yellow)" stroke="none">
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                  ))}
+                </div>
+                <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', fontWeight: 500 }}>
+                  {lang === 'bn' ? '৫,০০০+ শিক্ষার্থীর আস্থার পরীক্ষা প্রস্তুতি' : 'Joined by 5,000+ students practicing daily'}
+                </span>
+              </div>
+            </div>
+
           </div>
 
           {/* Right: App Preview */}
@@ -157,6 +219,24 @@ export default function Hero({ lang }: HeroProps) {
             role="complementary"
             aria-label={lang === 'bn' ? 'প্রস্তুতি মোবাইল অ্যাপের চিত্র' : 'Prostuti App Preview'}
           >
+            {/* Pop-up Backdrop Glow */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                width: '320px',
+                height: '560px',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                background: 'var(--hero-glow)',
+                filter: 'blur(35px)',
+                borderRadius: '40px',
+                pointerEvents: 'none',
+                zIndex: 0,
+              }}
+            />
+
             {/* Phone Frame */}
             <div
               style={{
@@ -169,6 +249,7 @@ export default function Hero({ lang }: HeroProps) {
                 boxShadow: '0 24px 80px rgba(0,0,0,0.8), var(--shadow-glow)',
                 overflow: 'hidden',
                 position: 'relative',
+                zIndex: 1,
               }}
             >
               {/* Mobile Notch */}

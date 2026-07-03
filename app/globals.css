@@ -18,6 +18,7 @@
   /* Colors — matched to real Prostuti app navy/purple palette */
   --color-text-primary: #f8fafc;
   --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #cbd5e1;
   --color-text-inverse: #94a3b8;
   --color-link: #4d6bff;
   --color-border-default: rgba(255,255,255,0.08);
@@ -30,6 +31,36 @@
   --color-accent-yellow: #f59e0b;       /* XP / achievement accent */
   --color-accent-orange: #f97316;       /* secondary accent (streak, fire) */
   --color-accent-purple: #8b5cf6;       /* AI / premium accent */
+
+  --color-body-bg-image: 
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(77,107,255,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 0% 30%, rgba(0,150,109,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 100% 60%, rgba(139,92,246,0.03) 0%, transparent 50%);
+
+  --color-scrollbar-thumb: rgba(255, 255, 255, 0.15);
+  --color-scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+
+  --color-badge-green-text: #00d9a0;
+  --color-badge-green-bg: rgba(0, 150, 109, 0.15);
+  --color-badge-green-border: rgba(0, 150, 109, 0.3);
+
+  --color-badge-blue-text: #7b9fff;
+  --color-badge-blue-bg: rgba(77, 107, 255, 0.15);
+  --color-badge-blue-border: rgba(77, 107, 255, 0.3);
+
+  --color-badge-recommended-bg: linear-gradient(135deg, rgba(0,150,109,0.25), rgba(77,107,255,0.25));
+  --color-badge-recommended-text: #00d9a0;
+  --color-badge-recommended-border: rgba(0, 150, 109, 0.5);
+
+  --color-btn-secondary-hover-bg: rgba(255, 255, 255, 0.06);
+  --color-btn-secondary-hover-border: rgba(255, 255, 255, 0.3);
+
+  --color-navbar-bg: rgba(4, 4, 6, 0.85);
+  --color-nav-hover-bg: rgba(255, 255, 255, 0.05);
+  --color-grid-pattern: rgba(255, 255, 255, 0.02);
+  --logo-filter: none;
+  --logo-blend-mode: screen;
+  --hero-glow: radial-gradient(circle, rgba(0, 217, 160, 0.25) 0%, rgba(77, 107, 255, 0.1) 45%, transparent 70%);
 
   /* Spacing */
   --space-1: 9px;
@@ -59,6 +90,58 @@
   --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+:root[data-theme="light"] {
+  --color-text-primary: #0f172a;          /* Slate 900 */
+  --color-text-secondary: #475569;        /* Slate 600 */
+  --color-text-tertiary: #475569;
+  --color-text-inverse: #f8fafc;          /* Slate 50 */
+  --color-link: #2563eb;                  /* Royal Blue */
+  --color-border-default: rgba(15, 23, 42, 0.08); /* subtle dark border */
+  --color-surface-base: #f8fafc;          /* Very light slate */
+  --color-surface-raised: #f1f5f9;        /* Light slate */
+  --color-surface-strong: #008762;        /* Brand green slightly darker for contrast */
+  --color-surface-card: #ffffff;          /* Pure white */
+  --color-surface-card-deep: #f8fafc;     /* Lighter slate for nested cards */
+  --color-surface-hover: #f1f5f9;         /* Subtle hover state */
+  --color-accent-yellow: #d97706;         /* Amber 600 */
+  --color-accent-orange: #ea580c;         /* Orange 600 */
+  --color-accent-purple: #7c3aed;         /* Violet 600 */
+
+  --color-body-bg-image: 
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(77,107,255,0.03) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 0% 30%, rgba(0,150,109,0.02) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 100% 60%, rgba(139,92,246,0.01) 0%, transparent 50%);
+
+  --color-scrollbar-thumb: rgba(0, 0, 0, 0.15);
+  --color-scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
+
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-glow: 0 0 60px rgba(0, 150, 109, 0.05);
+  --shadow-navy: 0 8px 30px -10px rgba(15, 23, 42, 0.05);
+
+  --color-badge-green-text: #007a57;
+  --color-badge-green-bg: rgba(0, 150, 109, 0.08);
+  --color-badge-green-border: rgba(0, 150, 109, 0.2);
+
+  --color-badge-blue-text: #1d4ed8;
+  --color-badge-blue-bg: rgba(37, 99, 235, 0.08);
+  --color-badge-blue-border: rgba(37, 99, 235, 0.2);
+
+  --color-badge-recommended-bg: linear-gradient(135deg, rgba(0,150,109,0.08), rgba(77,107,255,0.08));
+  --color-badge-recommended-text: #007a57;
+  --color-badge-recommended-border: rgba(0, 150, 109, 0.2);
+
+  --color-btn-secondary-hover-bg: rgba(0, 0, 0, 0.04);
+  --color-btn-secondary-hover-border: rgba(0, 0, 0, 0.2);
+
+  --color-navbar-bg: rgba(255, 255, 255, 0.85);
+  --color-nav-hover-bg: rgba(0, 0, 0, 0.04);
+  --color-grid-pattern: rgba(0, 0, 0, 0.03);
+  --logo-filter: invert(1) hue-rotate(180deg); /* elegant filter to make white/green logo dark/green */
+  --logo-blend-mode: multiply;
+  --hero-glow: radial-gradient(circle, rgba(0, 150, 109, 0.12) 0%, rgba(77, 107, 255, 0.03) 45%, transparent 70%);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -76,10 +159,7 @@ body {
   line-height: var(--line-height-base);
   color: var(--color-text-primary);
   background-color: var(--color-surface-base);
-  background-image:
-    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(77,107,255,0.06) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 50% at 0% 30%, rgba(0,150,109,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 50% at 100% 60%, rgba(139,92,246,0.03) 0%, transparent 50%);
+  background-image: var(--color-body-bg-image);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -105,8 +185,8 @@ a:hover {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-surface-raised); }
-::-webkit-scrollbar-thumb { background: #ffffff22; border-radius: var(--radius-md); }
-::-webkit-scrollbar-thumb:hover { background: #ffffff44; }
+::-webkit-scrollbar-thumb { background: var(--color-scrollbar-thumb); border-radius: var(--radius-md); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-scrollbar-thumb-hover); }
 
 /* ---- Utility classes ---- */
 .container-page {
@@ -170,21 +250,21 @@ section {
 }
 
 .badge-green {
-  background: rgba(0, 150, 109, 0.15);
-  color: #00d9a0;
-  border: 1px solid rgba(0, 150, 109, 0.3);
+  background: var(--color-badge-green-bg);
+  color: var(--color-badge-green-text);
+  border: 1px solid var(--color-badge-green-border);
 }
 
 .badge-blue {
-  background: rgba(77, 107, 255, 0.15);
-  color: #7b9fff;
-  border: 1px solid rgba(77, 107, 255, 0.3);
+  background: var(--color-badge-blue-bg);
+  color: var(--color-badge-blue-text);
+  border: 1px solid var(--color-badge-blue-border);
 }
 
 .badge-recommended {
-  background: linear-gradient(135deg, rgba(0,150,109,0.25), rgba(77,107,255,0.25));
-  color: #00d9a0;
-  border: 1px solid rgba(0, 150, 109, 0.5);
+  background: var(--color-badge-recommended-bg);
+  color: var(--color-badge-recommended-text);
+  border: 1px solid var(--color-badge-recommended-border);
 }
 
 /* Button base */
@@ -240,13 +320,14 @@ section {
   border: 1px solid var(--color-border-default);
 }
 .btn-secondary:hover:not(:disabled) {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.3);
+  background: var(--color-btn-secondary-hover-bg);
+  border-color: var(--color-btn-secondary-hover-border);
   color: var(--color-text-primary);
   text-decoration: none;
 }
 .btn-secondary:active:not(:disabled) {
-  background: rgba(255,255,255,0.10);
+  background: var(--color-btn-secondary-hover-bg);
+  opacity: 0.9;
 }
 
 .btn-ghost {
@@ -256,7 +337,7 @@ section {
 }
 .btn-ghost:hover:not(:disabled) {
   color: var(--color-text-primary);
-  background: rgba(255,255,255,0.05);
+  background: var(--color-nav-hover-bg);
   text-decoration: none;
 }
 
