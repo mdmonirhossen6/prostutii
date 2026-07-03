@@ -109,7 +109,7 @@ export default function Gamification({ lang }: GamificationProps) {
   const isRewardClaimable = targetQuestions >= 90;
 
   return (
-    <section id="gamification" aria-labelledby="gamification-heading" style={{ padding: 'var(--space-8) 0', overflow: 'hidden', background: 'var(--color-surface-base)' }}>
+    <section id="gamification" aria-labelledby="gamification-heading" style={{ padding: '110px 0', overflow: 'hidden', background: 'var(--color-surface-base)' }}>
       <div className="container-page">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="gamification-grid">
           

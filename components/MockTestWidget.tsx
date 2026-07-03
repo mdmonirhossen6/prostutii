@@ -154,7 +154,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
-    <section id="mock-tests" aria-labelledby="mock-heading" style={{ padding: 'var(--space-8) 0', background: 'rgba(8,12,24,0.8)' }}>
+    <section id="mock-tests" aria-labelledby="mock-heading" style={{ padding: '110px 0', background: 'rgba(8,12,24,0.8)' }}>
       <div className="container-page">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="mock-grid">
 

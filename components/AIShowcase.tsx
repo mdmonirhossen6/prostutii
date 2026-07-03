@@ -87,7 +87,7 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
     <section
       id="ai-showcase"
       aria-labelledby="ai-heading"
-      style={{ padding: 'var(--space-8) 0' }}
+      style={{ padding: '110px 0' }}
     >
       <div className="container-page">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }} className="ai-grid">

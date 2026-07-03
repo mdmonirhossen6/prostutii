@@ -45,7 +45,7 @@ export default function Pricing({ lang }: PricingProps) {
   const t = copy[lang];
 
   return (
-    <section id="pricing" aria-labelledby="pricing-heading" style={{ padding: 'var(--space-8) 0', background: 'var(--color-surface-base)' }}>
+    <section id="pricing" aria-labelledby="pricing-heading" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
       <div className="container-page" style={{ maxWidth: '720px' }}>
         
         {/* Header */}

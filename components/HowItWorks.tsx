@@ -140,7 +140,7 @@ export default function HowItWorks({ lang }: HowItWorksProps) {
   const t = content[lang];
 
   return (
-    <section id="how-it-works" aria-labelledby="hiw-heading" style={{ padding: 'var(--space-8) 0', background: 'rgba(13,18,37,0.6)' }}>
+    <section id="how-it-works" aria-labelledby="hiw-heading" style={{ padding: '110px 0', background: 'rgba(13,18,37,0.6)' }}>
       <div className="container-page">
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
           <span className="badge badge-blue" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
@@ -171,6 +171,26 @@ export default function HowItWorks({ lang }: HowItWorksProps) {
               <p style={{ fontSize: 'var(--font-size-md)', color: 'var(--color-text-secondary)', lineHeight: 1.65 }}>
                 {step.desc}
               </p>
+
+              {/* Responsive connector arrow for vertical stack */}
+              {i < 3 && (
+                <div
+                  className="mobile-step-arrow"
+                  style={{
+                    display: 'none',
+                    position: 'absolute',
+                    bottom: '-38px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 0,
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={step.color} strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
+                    <line x1="12" y1="4" x2="12" y2="20"></line>
+                    <polyline points="18 14 12 20 6 14"></polyline>
+                  </svg>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -178,11 +198,15 @@ export default function HowItWorks({ lang }: HowItWorksProps) {
 
       <style jsx>{`
         @media (max-width: 900px) {
-          .hiw-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .hiw-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 40px !important; }
           .hiw-connector { display: none !important; }
         }
         @media (max-width: 560px) {
-          .hiw-grid { grid-template-columns: 1fr !important; }
+          .hiw-grid { 
+            grid-template-columns: 1fr !important; 
+            gap: 56px !important;
+          }
+          .mobile-step-arrow { display: block !important; }
         }
       `}</style>
     </section>

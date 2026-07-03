@@ -156,7 +156,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
       id="leaderboard"
       aria-labelledby="testimonials-heading"
       style={{
-        padding: 'var(--space-8) 0',
+        padding: '110px 0',
         background: 'radial-gradient(circle at 90% 80%, rgba(77, 107, 255, 0.05) 0%, transparent 60%), rgba(4, 6, 12, 0.99)',
         backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px)`,
         backgroundSize: '50px 50px',
@@ -183,7 +183,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
         {/* Featured testimonial */}
         <div
           style={{
-            maxWidth: '700px',
+            maxWidth: '820px',
             margin: '0 auto var(--space-6)',
             position: 'relative',
           }}
@@ -196,7 +196,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
               background: 'var(--color-surface-card)',
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-sm)',
-              padding: 'var(--space-6)',
+              padding: 'var(--space-7)',
               position: 'relative',
               animation: 'fadeInUp 0.3s ease forwards',
             }}
@@ -266,7 +266,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
             <blockquote
               style={{
-                fontSize: 'var(--font-size-h3)',
+                fontSize: '1.25rem',
                 color: 'var(--color-text-secondary)',
                 lineHeight: 1.7,
                 fontStyle: 'italic',

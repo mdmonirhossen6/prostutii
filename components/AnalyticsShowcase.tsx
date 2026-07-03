@@ -149,7 +149,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
   `.trim().replace(/\s+/g, ' ');
 
   return (
-    <section id="analytics" aria-labelledby="analytics-heading" style={{ padding: 'var(--space-8) 0', background: 'var(--color-surface-card-deep)', borderTop: '1px solid var(--color-border-default)' }}>
+    <section id="analytics" aria-labelledby="analytics-heading" style={{ padding: '110px 0', background: 'var(--color-surface-card-deep)', borderTop: '1px solid var(--color-border-default)' }}>
       <div className="container-page">
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
@@ -357,6 +357,12 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
           .analytics-grid {
             grid-template-columns: 1fr !important;
             gap: 32px !important;
+          }
+          .analytics-grid > div:first-child {
+            order: 2;
+          }
+          .analytics-grid > div:last-child {
+            order: 1;
           }
         }
       `}</style>
