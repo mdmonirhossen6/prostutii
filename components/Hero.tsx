@@ -245,34 +245,50 @@ export default function Hero({ lang }: HeroProps) {
               }}
             />
 
-            {/* Secondary layered card — streak/rank callout (bottom-right offset) */}
+            {/* Badge A (streak) — top-right offset */}
             <div
               aria-hidden="true"
+              className="badge-streak"
               style={{
                 position: 'absolute',
-                bottom: '10%',
-                right: '-10px',
-                width: '180px',
+                top: '12%',
+                right: '-24px',
                 background: 'var(--color-surface-card)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
+                border: '1px solid rgba(245, 158, 11, 0.4)',
                 borderRadius: 'var(--radius-sm)',
-                padding: '14px 16px',
-                boxShadow: '0 16px 40px rgba(0,0,0,0.8), 0 0 15px rgba(0, 217, 160, 0.15)',
-                transform: 'rotate(-1.5deg)',
+                padding: '12px 16px',
+                boxShadow: '0 16px 40px rgba(0,0,0,0.8), 0 0 24px rgba(245, 158, 11, 0.15)',
                 zIndex: 2,
                 display: 'flex',
-                flexDirection: 'column',
+                alignItems: 'center',
                 gap: '10px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-text-secondary)' }}>{t.streakLabel}</span>
-                <span style={{ fontSize: '14px', fontWeight: 800, color: '#f59e0b', fontFamily: 'monospace' }}>{t.streakDays}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-text-secondary)' }}>{t.rankLabel}</span>
-                <span style={{ fontSize: '14px', fontWeight: 800, color: '#00d9a0', fontFamily: 'monospace' }}>{t.rankValue}</span>
-              </div>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-text-secondary)' }}>{t.streakLabel}</span>
+              <span style={{ fontSize: '14px', fontWeight: 800, color: '#f59e0b', fontFamily: 'monospace' }}>{t.streakDays}</span>
+            </div>
+
+            {/* Badge B (rank) — bottom-left offset */}
+            <div
+              aria-hidden="true"
+              className="badge-rank"
+              style={{
+                position: 'absolute',
+                bottom: '15%',
+                left: '-24px',
+                background: 'var(--color-surface-card)',
+                border: '1px solid rgba(0, 217, 160, 0.4)',
+                borderRadius: 'var(--radius-sm)',
+                padding: '12px 16px',
+                boxShadow: '0 16px 40px rgba(0,0,0,0.8), 0 0 24px rgba(0, 217, 160, 0.15)',
+                zIndex: 2,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-text-secondary)' }}>{t.rankLabel}</span>
+              <span style={{ fontSize: '14px', fontWeight: 800, color: '#00d9a0', fontFamily: 'monospace' }}>{t.rankValue}</span>
             </div>
 
             {/* Primary App Screenshot */}
@@ -280,7 +296,7 @@ export default function Hero({ lang }: HeroProps) {
               style={{
                 position: 'relative',
                 zIndex: 1,
-                transform: 'rotate(1deg)',
+                transform: 'rotate(3deg)',
                 transformStyle: 'preserve-3d',
                 transition: 'transform 0.4s ease',
               }}
@@ -304,6 +320,17 @@ export default function Hero({ lang }: HeroProps) {
       </div>
 
       <style jsx>{`
+        @keyframes floatBadge {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+        @keyframes badgeEnter {
+          from { opacity: 0; transform: scale(0.85) translateY(6px); }
+          to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .badge-streak { animation: badgeEnter 0.5s ease-out 0.6s both, floatBadge 3.2s ease-in-out infinite 1.1s; }
+        .badge-rank   { animation: badgeEnter 0.5s ease-out 0.9s both, floatBadge 3.2s ease-in-out infinite 1.9s; }
+
         @media (max-width: 900px) {
           .hero-grid {
             grid-template-columns: 1fr !important;
