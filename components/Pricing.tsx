@@ -4,55 +4,67 @@ interface PricingProps {
   lang: 'bn' | 'en';
 }
 
+const allTrue = [true, true, true, true, true, true, true, true, true, true, true, true, true];
+
 const copy = {
   bn: {
     badge: 'প্রিমিয়াম সাবস্ক্রিপশন',
     title: 'আপনার পছন্দমতো সাবস্ক্রিপশন বেছে নিন',
-    subtitle: 'অফুরন্ত প্র্যাকটিস, সম্পূর্ণ প্রশ্নব্যাংক এবং আনলিমিটেড মক টেস্টের জন্য আজই প্রিমিয়াম শুরু করুন।',
+    subtitle: 'একটি Premium Subscription-এ HSC থেকে Admission পর্যন্ত সম্পূর্ণ প্রস্তুতির সব সুবিধা পাবে।',
+    allIncluded: 'সব প্ল্যানে সব ফিচার অন্তর্ভুক্ত',
     currency: '৳',
     perMonth: '/মাস',
-    totalPrice: 'মোট মূল্য',
-    monthlyRate: 'মাসিক হার',
     features: [
-      'আনলিমিটেড MCQ প্র্যাকটিস',
-      'সম্পূর্ণ প্রশ্নব্যাংক অ্যাক্সেস',
-      'আনলিমিটেড মক টেস্ট',
-      'AI টিউটর সাপোর্ট',
-      'বিস্তারিত অ্যানালিটিক্স',
-      'অ্যাডমিশন প্রেপ ট্র্যাক',
-      'প্রায়োরিটি সাপোর্ট',
+      'HSC-এর সব Chapter-wise Practice',
+      'Custom Mock Test',
+      'Board Question & Top College Test Paper',
+      'Type-wise CQ & MCQ Collection (অধ্যায়ভিত্তিক ক, খ)',
+      'University, Engineering & Medical Admission Prep',
+      'Master Question Bank & Written Question Bank',
+      'Previous Year Question Bank',
+      'বইয়ের অনুশীলনী প্র্যাকটিস ও Mock Test',
+      'Weekly Exam, Subject Final & Paper Final Exam',
+      'Battle Royale (Friends-এর সাথে Live Exam)',
+      'Smart Routine & Focus Timer',
+      'Daily Study Tracker & Syllabus Tracking',
+      'Prostuti AI-এর আনলিমিটেড সাপোর্ট',
     ],
     plans: [
-      { id: '1m', name: 'মাসিক', price: '১৪৯', originalPrice: '২৪৯', perMonthPrice: '১৪৯', tag: null, checks: [true, true, true, false, false, false, false] },
-      { id: '3m', name: '৩ মাস', price: '২৯৯', originalPrice: '৪৯৯', perMonthPrice: '১০০', tag: null, checks: [true, true, true, true, false, false, false] },
-      { id: '6m', name: '৬ মাস', price: '৪৯৯', originalPrice: '৭৯৯', perMonthPrice: '৮৩', tag: null, checks: [true, true, true, true, true, false, false] },
-      { id: '12m', name: 'বার্ষিক', price: '৭৯৯', originalPrice: '১২৯৯', perMonthPrice: '৬৭', tag: null, checks: [true, true, true, true, true, true, false] },
-      { id: '24m', name: '২৪ মাস', price: '১২০০', originalPrice: '২৫৯৯', perMonthPrice: '৫০', tag: 'সেরা মূল্য', checks: [true, true, true, true, true, true, true] },
+      { id: '1m', name: 'মাসিক', price: '১৪৯', originalPrice: '২৪৯', perMonthPrice: '১৪৯', tag: null, checks: allTrue },
+      { id: '3m', name: '৩ মাস', price: '২৯৯', originalPrice: '৪৯৯', perMonthPrice: '১০০', tag: null, checks: allTrue },
+      { id: '6m', name: '৬ মাস', price: '৪৯৯', originalPrice: '৭৯৯', perMonthPrice: '৮৩', tag: null, checks: allTrue },
+      { id: '12m', name: 'বার্ষিক', price: '৭৯৯', originalPrice: '১২৯৯', perMonthPrice: '৬৭', tag: null, checks: allTrue },
+      { id: '24m', name: '২৪ মাস', price: '১২০০', originalPrice: '২৫৯৯', perMonthPrice: '৫০', tag: 'সেরা মূল্য', checks: allTrue },
     ]
   },
   en: {
     badge: 'Premium Subscription',
     title: 'Select Your Subscription',
-    subtitle: 'Unlock unlimited practice, the full question bank, and unlimited mock tests today.',
+    subtitle: 'One Premium Subscription unlocks everything — from HSC to Admission, all features included.',
+    allIncluded: 'All features included in every plan',
     currency: '৳',
     perMonth: '/mo',
-    totalPrice: 'Total',
-    monthlyRate: 'Monthly',
     features: [
-      'Unlimited MCQ Practice',
-      'Full Question Bank Access',
-      'Unlimited Mock Tests',
-      'AI Tutor Support',
-      'Detailed Analytics',
-      'Admission Prep Track',
-      'Priority Support',
+      'All HSC Chapter-wise Practice',
+      'Custom Mock Tests',
+      'Board Questions & Top College Test Papers',
+      'Type-wise CQ & MCQ Collection (Chapter ক, খ)',
+      'University, Engineering & Medical Admission Prep',
+      'Master Question Bank & Written Question Bank',
+      'Previous Year Question Bank',
+      'Textbook Exercise Practice & Mock Tests',
+      'Weekly Exam, Subject Final & Paper Final Exam',
+      'Battle Royale (Live Exam with Friends)',
+      'Smart Routine & Focus Timer',
+      'Daily Study Tracker & Syllabus Tracking',
+      'Unlimited Prostuti AI Support',
     ],
     plans: [
-      { id: '1m', name: 'Monthly', price: '149', originalPrice: '249', perMonthPrice: '149', tag: null, checks: [true, true, true, false, false, false, false] },
-      { id: '3m', name: '3 Months', price: '299', originalPrice: '499', perMonthPrice: '100', tag: null, checks: [true, true, true, true, false, false, false] },
-      { id: '6m', name: '6 Months', price: '499', originalPrice: '799', perMonthPrice: '83', tag: null, checks: [true, true, true, true, true, false, false] },
-      { id: '12m', name: 'Yearly', price: '799', originalPrice: '1299', perMonthPrice: '67', tag: null, checks: [true, true, true, true, true, true, false] },
-      { id: '24m', name: '24 Months', price: '1200', originalPrice: '2599', perMonthPrice: '50', tag: 'BEST VALUE', checks: [true, true, true, true, true, true, true] },
+      { id: '1m', name: 'Monthly', price: '149', originalPrice: '249', perMonthPrice: '149', tag: null, checks: allTrue },
+      { id: '3m', name: '3 Months', price: '299', originalPrice: '499', perMonthPrice: '100', tag: null, checks: allTrue },
+      { id: '6m', name: '6 Months', price: '499', originalPrice: '799', perMonthPrice: '83', tag: null, checks: allTrue },
+      { id: '12m', name: 'Yearly', price: '799', originalPrice: '1299', perMonthPrice: '67', tag: null, checks: allTrue },
+      { id: '24m', name: '24 Months', price: '1200', originalPrice: '2599', perMonthPrice: '50', tag: 'BEST VALUE', checks: allTrue },
     ]
   }
 };
@@ -68,7 +80,22 @@ export default function Pricing({ lang }: PricingProps) {
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
           <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
           <h2 id="pricing-heading" className="section-title" style={{ marginBottom: 'var(--space-3)' }}>{t.title}</h2>
-          <p className="section-subtitle" style={{ margin: '0 auto' }}>{t.subtitle}</p>
+          <p className="section-subtitle" style={{ margin: '0 auto', marginBottom: '16px' }}>{t.subtitle}</p>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            background: 'rgba(0,150,109,0.10)',
+            border: '1px solid rgba(0,150,109,0.25)',
+            color: '#00d9a0',
+            fontSize: '13px',
+            fontWeight: 700,
+            padding: '6px 16px',
+            borderRadius: '20px',
+          }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d9a0" strokeWidth="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            {t.allIncluded}
+          </span>
         </div>
 
         {/* Comparison Table */}
@@ -168,7 +195,6 @@ export default function Pricing({ lang }: PricingProps) {
                     color: 'var(--color-text-secondary)',
                     borderBottom: fIdx < t.features.length - 1 ? '1px solid var(--color-border-default)' : 'none',
                     background: 'rgba(255,255,255,0.01)',
-                    whiteSpace: 'nowrap',
                     position: 'sticky',
                     left: 0,
                     zIndex: 1,
