@@ -163,8 +163,8 @@ export default function Testimonials({ lang }: TestimonialsProps) {
       }}
     >
       <div className="container-page">
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
+        {/* Header — left-aligned to break repetitive centering */}
+        <div style={{ textAlign: 'left', marginBottom: 'var(--space-7)', maxWidth: '600px' }}>
           <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)' }}>
             {t.badge}
           </span>
@@ -175,12 +175,12 @@ export default function Testimonials({ lang }: TestimonialsProps) {
           >
             {t.title}
           </h2>
-          <p className="section-subtitle" style={{ margin: '0 auto' }}>
+          <p className="section-subtitle" style={{ margin: 0 }}>
             {t.subtitle}
           </p>
         </div>
 
-        {/* Featured testimonial */}
+        {/* Featured testimonial with layered depth */}
         <div
           style={{
             maxWidth: '820px',
@@ -190,6 +190,25 @@ export default function Testimonials({ lang }: TestimonialsProps) {
           aria-live="polite"
           aria-label={lang === 'bn' ? 'বর্তমান প্রশংসাপত্র' : 'Current testimonial'}
         >
+          {/* PART 5: Layered card behind — blurred/dimmed secondary testimonial */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: '12px',
+              left: '16px',
+              right: '-12px',
+              bottom: '-8px',
+              background: 'var(--color-surface-card-deep)',
+              border: '1px solid var(--color-border-default)',
+              borderRadius: 'var(--radius-sm)',
+              opacity: 0.5,
+              filter: 'blur(1px)',
+              transform: 'rotate(1.5deg)',
+              zIndex: 0,
+            }}
+          />
+
           <div
             key={activeIdx}
             style={{
@@ -199,6 +218,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
               padding: 'var(--space-7)',
               position: 'relative',
               animation: 'fadeInUp 0.3s ease forwards',
+              zIndex: 1,
             }}
           >
             {/* Quote mark */}

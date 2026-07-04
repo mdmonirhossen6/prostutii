@@ -9,34 +9,50 @@ const copy = {
     badge: 'প্রিমিয়াম সাবস্ক্রিপশন',
     title: 'আপনার পছন্দমতো সাবস্ক্রিপশন বেছে নিন',
     subtitle: 'অফুরন্ত প্র্যাকটিস, সম্পূর্ণ প্রশ্নব্যাংক এবং আনলিমিটেড মক টেস্টের জন্য আজই প্রিমিয়াম শুরু করুন।',
-    promoLabel: 'প্রোমো / রেফারেল কোড',
-    promoPlaceholder: 'কোড লিখুন',
-    apply: 'Apply',
     currency: '৳',
-    perMonth: '/ মাস',
+    perMonth: '/মাস',
+    totalPrice: 'মোট মূল্য',
+    monthlyRate: 'মাসিক হার',
+    features: [
+      'আনলিমিটেড MCQ প্র্যাকটিস',
+      'সম্পূর্ণ প্রশ্নব্যাংক অ্যাক্সেস',
+      'আনলিমিটেড মক টেস্ট',
+      'AI টিউটর সাপোর্ট',
+      'বিস্তারিত অ্যানালিটিক্স',
+      'অ্যাডমিশন প্রেপ ট্র্যাক',
+      'প্রায়োরিটি সাপোর্ট',
+    ],
     plans: [
-      { id: '1m', name: 'মাসিক', duration: '১ মাসের জন্য', price: '১৪৯', originalPrice: '২৪৯', perMonthPrice: '১৪৯', tag: null },
-      { id: '3m', name: '৩ মাস', duration: '৩ মাসের জন্য', price: '২৯৯', originalPrice: '৪৯৯', perMonthPrice: '১০০', tag: null },
-      { id: '6m', name: '৬ মাস', duration: '৬ মাসের জন্য', price: '৪৯৯', originalPrice: '৭৯৯', perMonthPrice: '৮৩', tag: null },
-      { id: '12m', name: 'বার্ষিক', duration: '১২ মাসের জন্য', price: '৭৯৯', originalPrice: '১২৯৯', perMonthPrice: '৬৭', tag: null },
-      { id: '24m', name: '২৪ মাস', duration: '২৪ মাসের জন্য', price: '১২০০', originalPrice: '২৫৯৯', perMonthPrice: '৫০', tag: 'সেরা মূল্য' },
+      { id: '1m', name: 'মাসিক', price: '১৪৯', originalPrice: '২৪৯', perMonthPrice: '১৪৯', tag: null, checks: [true, true, true, false, false, false, false] },
+      { id: '3m', name: '৩ মাস', price: '২৯৯', originalPrice: '৪৯৯', perMonthPrice: '১০০', tag: null, checks: [true, true, true, true, false, false, false] },
+      { id: '6m', name: '৬ মাস', price: '৪৯৯', originalPrice: '৭৯৯', perMonthPrice: '৮৩', tag: null, checks: [true, true, true, true, true, false, false] },
+      { id: '12m', name: 'বার্ষিক', price: '৭৯৯', originalPrice: '১২৯৯', perMonthPrice: '৬৭', tag: null, checks: [true, true, true, true, true, true, false] },
+      { id: '24m', name: '২৪ মাস', price: '১২০০', originalPrice: '২৫৯৯', perMonthPrice: '৫০', tag: 'সেরা মূল্য', checks: [true, true, true, true, true, true, true] },
     ]
   },
   en: {
     badge: 'Premium Subscription',
     title: 'Select Your Subscription',
     subtitle: 'Unlock unlimited practice, the full question bank, and unlimited mock tests today.',
-    promoLabel: 'Promo / Referral Code',
-    promoPlaceholder: 'Enter code',
-    apply: 'Apply',
     currency: '৳',
-    perMonth: '/ MONTH',
+    perMonth: '/mo',
+    totalPrice: 'Total',
+    monthlyRate: 'Monthly',
+    features: [
+      'Unlimited MCQ Practice',
+      'Full Question Bank Access',
+      'Unlimited Mock Tests',
+      'AI Tutor Support',
+      'Detailed Analytics',
+      'Admission Prep Track',
+      'Priority Support',
+    ],
     plans: [
-      { id: '1m', name: 'Monthly', duration: 'for 1 month', price: '149', originalPrice: '249', perMonthPrice: '149', tag: null },
-      { id: '3m', name: '3 Months', duration: 'for 3 months', price: '299', originalPrice: '499', perMonthPrice: '100', tag: null },
-      { id: '6m', name: '6 Months', duration: 'for 6 months', price: '499', originalPrice: '799', perMonthPrice: '83', tag: null },
-      { id: '12m', name: 'Yearly', duration: 'for 12 months', price: '799', originalPrice: '1299', perMonthPrice: '67', tag: null },
-      { id: '24m', name: '24 Months', duration: 'for 24 months', price: '1200', originalPrice: '2599', perMonthPrice: '50', tag: 'BEST VALUE' },
+      { id: '1m', name: 'Monthly', price: '149', originalPrice: '249', perMonthPrice: '149', tag: null, checks: [true, true, true, false, false, false, false] },
+      { id: '3m', name: '3 Months', price: '299', originalPrice: '499', perMonthPrice: '100', tag: null, checks: [true, true, true, true, false, false, false] },
+      { id: '6m', name: '6 Months', price: '499', originalPrice: '799', perMonthPrice: '83', tag: null, checks: [true, true, true, true, true, false, false] },
+      { id: '12m', name: 'Yearly', price: '799', originalPrice: '1299', perMonthPrice: '67', tag: null, checks: [true, true, true, true, true, true, false] },
+      { id: '24m', name: '24 Months', price: '1200', originalPrice: '2599', perMonthPrice: '50', tag: 'BEST VALUE', checks: [true, true, true, true, true, true, true] },
     ]
   }
 };
@@ -46,7 +62,7 @@ export default function Pricing({ lang }: PricingProps) {
 
   return (
     <section id="pricing" aria-labelledby="pricing-heading" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
-      <div className="container-page" style={{ maxWidth: '720px' }}>
+      <div className="container-page">
         
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
@@ -55,80 +71,177 @@ export default function Pricing({ lang }: PricingProps) {
           <p className="section-subtitle" style={{ margin: '0 auto' }}>{t.subtitle}</p>
         </div>
 
-        {/* Subscription List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', marginBottom: 'var(--space-6)' }}>
-          {t.plans.map((plan) => {
-            const isRecommended = plan.tag !== null;
-            return (
-              <div key={plan.id} style={{ position: 'relative' }}>
-                {plan.tag && (
-                  <span style={{ 
-                    position: 'absolute', 
-                    top: '-12px', 
-                    left: '24px', 
-                    background: 'var(--color-surface-strong)', 
-                    color: '#fff', 
-                    fontSize: 'var(--font-size-xs)', 
-                    fontWeight: 800, 
-                    padding: '4px var(--space-3)', 
-                    borderRadius: 'var(--radius-xs)', 
-                    zIndex: 10, 
-                    letterSpacing: '0.5px',
-                    boxShadow: 'var(--shadow-2)'
+        {/* Comparison Table */}
+        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+          <table
+            role="table"
+            aria-label={lang === 'bn' ? 'সাবস্ক্রিপশন তুলনা সারণি' : 'Subscription comparison table'}
+            style={{
+              width: '100%',
+              minWidth: '700px',
+              borderCollapse: 'separate',
+              borderSpacing: 0,
+              background: 'var(--color-surface-card)',
+              border: '1px solid var(--color-border-default)',
+              borderRadius: 'var(--radius-sm)',
+              overflow: 'hidden',
+              boxShadow: 'var(--shadow-navy)',
+            }}
+          >
+            {/* Table Header — Plan Columns */}
+            <thead>
+              <tr>
+                {/* Feature label column header */}
+                <th style={{
+                  padding: '20px 24px',
+                  textAlign: 'left',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  color: 'var(--color-text-secondary)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  borderBottom: '1px solid var(--color-border-default)',
+                  background: 'rgba(255,255,255,0.01)',
+                  position: 'sticky',
+                  left: 0,
+                  zIndex: 2,
+                }}>
+                  {/* empty */}
+                </th>
+                {t.plans.map((plan) => {
+                  const isHighlighted = plan.tag !== null;
+                  return (
+                    <th key={plan.id} style={{
+                      padding: '20px 16px',
+                      textAlign: 'center',
+                      borderBottom: '1px solid var(--color-border-default)',
+                      background: isHighlighted
+                        ? 'linear-gradient(180deg, rgba(0,150,109,0.12) 0%, rgba(0,150,109,0.04) 100%)'
+                        : 'rgba(255,255,255,0.01)',
+                      borderLeft: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
+                      borderRight: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
+                      position: 'relative',
+                    }}>
+                      {plan.tag && (
+                        <span style={{
+                          position: 'absolute',
+                          top: '-1px',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          background: 'var(--color-surface-strong)',
+                          color: '#fff',
+                          fontSize: '10px',
+                          fontWeight: 800,
+                          padding: '3px 10px',
+                          borderRadius: '0 0 6px 6px',
+                          letterSpacing: '0.5px',
+                        }}>
+                          {plan.tag}
+                        </span>
+                      )}
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '4px' }}>
+                        {plan.name}
+                      </div>
+                      <div style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', textDecoration: 'line-through', marginBottom: '2px' }}>
+                        {t.currency}{plan.originalPrice}
+                      </div>
+                      <div style={{ fontSize: '20px', fontWeight: 800, color: isHighlighted ? '#00d9a0' : 'var(--color-text-primary)', fontFamily: 'monospace', lineHeight: 1.2 }}>
+                        {t.currency}{plan.price}
+                      </div>
+                      <div style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', marginTop: '2px', fontFamily: 'monospace' }}>
+                        {t.currency}{plan.perMonthPrice}{t.perMonth}
+                      </div>
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+
+            {/* Feature Rows */}
+            <tbody>
+              {t.features.map((feature, fIdx) => (
+                <tr key={fIdx}>
+                  <td style={{
+                    padding: '14px 24px',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    color: 'var(--color-text-secondary)',
+                    borderBottom: fIdx < t.features.length - 1 ? '1px solid var(--color-border-default)' : 'none',
+                    background: 'rgba(255,255,255,0.01)',
+                    whiteSpace: 'nowrap',
+                    position: 'sticky',
+                    left: 0,
+                    zIndex: 1,
                   }}>
-                    {plan.tag}
-                  </span>
-                )}
-                <div 
-                  style={{ 
-                    background: isRecommended ? 'linear-gradient(135deg, rgba(0, 150, 109, 0.08) 0%, var(--color-surface-raised) 100%)' : 'var(--color-surface-card)', 
-                    border: isRecommended ? '2px solid var(--color-surface-strong)' : '1px solid var(--color-border-default)', 
-                    borderRadius: 'var(--radius-sm)', 
-                    padding: isRecommended ? '24px var(--space-5)' : '20px var(--space-5)',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    cursor: 'pointer',
-                    transition: 'all var(--duration-fast) var(--easing-default)',
-                    boxShadow: isRecommended ? 'var(--shadow-3), var(--shadow-navy)' : 'var(--shadow-navy)',
-                    transform: isRecommended ? 'scale(1.015)' : 'none',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isRecommended) {
-                      e.currentTarget.style.borderColor = 'rgba(0, 150, 109, 0.35)';
-                      e.currentTarget.style.background = 'var(--color-surface-hover)';
-                    } else {
-                      e.currentTarget.style.transform = 'scale(1.025)';
-                      e.currentTarget.style.boxShadow = 'var(--shadow-1), var(--shadow-navy)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isRecommended) {
-                      e.currentTarget.style.borderColor = 'var(--color-border-default)';
-                      e.currentTarget.style.background = 'var(--color-surface-card)';
-                    } else {
-                      e.currentTarget.style.transform = 'scale(1.015)';
-                      e.currentTarget.style.boxShadow = 'var(--shadow-3), var(--shadow-navy)';
-                    }
-                  }}
-                >
-                  <div>
-                    <h3 style={{ fontSize: 'var(--font-size-h3)', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>{plan.name}</h3>
-                    <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-tertiary)' }}>{plan.duration}</p>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 'var(--font-size-h2)', fontWeight: 800, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: 'var(--space-2)' }}>
-                      {t.currency}{plan.price}
-                    </div>
-                    <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 'var(--space-2)' }}>
-                      <span style={{ textDecoration: 'line-through', color: '#ef4444' }}>{t.currency}{plan.originalPrice}</span>
-                      <span>{t.currency}{plan.perMonthPrice} {t.perMonth}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                    {feature}
+                  </td>
+                  {t.plans.map((plan) => {
+                    const isHighlighted = plan.tag !== null;
+                    const hasFeature = plan.checks[fIdx];
+                    return (
+                      <td key={plan.id} style={{
+                        padding: '14px 16px',
+                        textAlign: 'center',
+                        borderBottom: fIdx < t.features.length - 1 ? '1px solid var(--color-border-default)' : 'none',
+                        background: isHighlighted ? 'rgba(0,150,109,0.03)' : 'transparent',
+                        borderLeft: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
+                        borderRight: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
+                      }}>
+                        {hasFeature ? (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00d9a0" strokeWidth="2.5" style={{ display: 'inline-block' }} aria-label="Included">
+                            <path d="M20 6L9 17l-5-5"/>
+                          </svg>
+                        ) : (
+                          <span style={{ color: 'rgba(255,255,255,0.12)', fontSize: '16px' }} aria-label="Not included">—</span>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+
+            {/* Bottom row: CTA */}
+            <tfoot>
+              <tr>
+                <td style={{
+                  padding: '16px 24px',
+                  borderTop: '1px solid var(--color-border-default)',
+                  background: 'rgba(255,255,255,0.01)',
+                  position: 'sticky',
+                  left: 0,
+                  zIndex: 1,
+                }} />
+                {t.plans.map((plan) => {
+                  const isHighlighted = plan.tag !== null;
+                  return (
+                    <td key={plan.id} style={{
+                      padding: '16px 16px',
+                      textAlign: 'center',
+                      borderTop: '1px solid var(--color-border-default)',
+                      background: isHighlighted ? 'rgba(0,150,109,0.06)' : 'transparent',
+                      borderLeft: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
+                      borderRight: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
+                      borderBottom: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
+                    }}>
+                      <a
+                        href="https://web.prostuti.bd"
+                        className={isHighlighted ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm'}
+                        style={{
+                          width: '100%',
+                          fontSize: '12px',
+                          padding: '8px 12px',
+                          minHeight: '36px',
+                        }}
+                      >
+                        {lang === 'bn' ? 'শুরু করুন' : 'Get Started'}
+                      </a>
+                    </td>
+                  );
+                })}
+              </tr>
+            </tfoot>
+          </table>
         </div>
 
       </div>

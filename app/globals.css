@@ -13,7 +13,11 @@
   --font-size-sm: 13.5px;
   --font-size-md: 15px;
   --font-size-lg: 16.5px;
-  --font-size-xl: 54px;
+  --font-size-xl: 60px;
+  --font-size-h1: 60px;
+  --font-size-h2: 34px;
+  --font-size-h3: 22px;
+  --font-weight-heading: 700;
 
   /* Colors — matched to real Prostuti app navy/purple palette */
   --color-text-primary: #f8fafc;
@@ -355,8 +359,8 @@ section {
 
 /* Section titles */
 .section-title {
-  font-size: 36px;
-  font-weight: 700;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-heading);
   color: var(--color-text-primary);
   line-height: 1.2;
 }
@@ -368,7 +372,7 @@ section {
 }
 
 @media (max-width: 640px) {
-  .section-title { font-size: 26px; }
+  .section-title { font-size: 24px; }
   .section-subtitle { font-size: var(--font-size-md); }
 }
 
