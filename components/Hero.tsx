@@ -254,11 +254,11 @@ export default function Hero({ lang }: HeroProps) {
                 right: '-10px',
                 width: '180px',
                 background: 'var(--color-surface-card)',
-                border: '1px solid var(--color-border-default)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '14px 16px',
-                boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
-                transform: 'rotate(-3deg)',
+                boxShadow: '0 16px 40px rgba(0,0,0,0.8), 0 0 15px rgba(0, 217, 160, 0.15)',
+                transform: 'rotate(-1.5deg)',
                 zIndex: 2,
                 display: 'flex',
                 flexDirection: 'column',
@@ -280,7 +280,7 @@ export default function Hero({ lang }: HeroProps) {
               style={{
                 position: 'relative',
                 zIndex: 1,
-                transform: 'rotate(2.5deg)',
+                transform: 'rotate(1deg)',
                 transformStyle: 'preserve-3d',
                 transition: 'transform 0.4s ease',
               }}
