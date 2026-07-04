@@ -155,66 +155,9 @@ export default function Pricing({ lang }: PricingProps) {
           </ul>
         </div>
 
-        {/* Mobile Stacked Plans (Visible only on <700px) */}
-        <div className="mobile-plans" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', marginBottom: 'var(--space-6)' }}>
-          {t.plans.map((plan) => {
-            const isHighlighted = plan.tag !== null;
-            return (
-              <div key={`mobile-${plan.id}`} style={{
-                background: isHighlighted ? 'rgba(0,150,109,0.06)' : 'var(--color-surface-card)',
-                border: `1px solid ${isHighlighted ? 'var(--color-surface-strong)' : 'var(--color-border-default)'}`,
-                borderRadius: 'var(--radius-sm)',
-                padding: '24px',
-                position: 'relative',
-                boxShadow: isHighlighted ? '0 8px 30px rgba(0, 150, 109, 0.15)' : 'var(--shadow-navy)',
-              }}>
-                {plan.tag && (
-                  <span style={{
-                    position: 'absolute', top: 0, right: '24px', transform: 'translateY(-50%)',
-                    background: 'var(--color-surface-strong)', color: '#fff', fontSize: '11px', fontWeight: 800,
-                    padding: '4px 12px', borderRadius: '12px', letterSpacing: '0.5px',
-                  }}>
-                    {plan.tag}
-                  </span>
-                )}
-                
-                <h4 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '16px' }}>
-                  {plan.name}
-                </h4>
-                
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '28px', fontWeight: 800, color: isHighlighted ? '#00d9a0' : 'var(--color-text-primary)', fontFamily: 'monospace' }}>
-                    {t.currency}{plan.price}
-                  </span>
-                  <span style={{ fontSize: '14px', color: 'var(--color-text-tertiary)', textDecoration: 'line-through', fontFamily: 'monospace' }}>
-                    {t.currency}{plan.originalPrice}
-                  </span>
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid var(--color-border-default)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
-                    <span style={{ color: 'var(--color-text-secondary)', fontWeight: 600 }}>{t.rowLabels.monthly}</span>
-                    <span style={{ color: 'var(--color-text-primary)', fontFamily: 'monospace', fontWeight: 600 }}>{t.currency}{plan.perMonthPrice}{t.perMonth}</span>
-                  </div>
-                  {plan.savings && (
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
-                      <span style={{ color: 'var(--color-text-secondary)', fontWeight: 600 }}>{t.rowLabels.savings}</span>
-                      <span style={{ color: '#00d9a0', fontFamily: 'monospace', fontWeight: 700 }}>{plan.savings}</span>
-                    </div>
-                  )}
-                </div>
-
-                <a
-                  href="https://web.prostuti.bd"
-                  className={isHighlighted ? 'btn btn-primary' : 'btn btn-secondary'}
-                  style={{ width: '100%', justifyContent: 'center' }}
-                >
-                  {lang === 'bn' ? 'শুরু করুন' : 'Get Started'}
-                </a>
-              </div>
-            );
-          })}
-        </div>
+        <p className="mobile-only" style={{ fontSize: '12px', color: 'var(--color-text-tertiary)', marginBottom: '8px' }}>
+          {t.scrollHint}
+        </p>
         <div ref={scrollRef} className="pricing-table-container" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
           <table
             role="table"
@@ -341,13 +284,12 @@ export default function Pricing({ lang }: PricingProps) {
       </div>
 
       <style jsx>{`
-        .mobile-plans { display: none; }
+        .mobile-only { display: none; }
         .pricing-table-container::-webkit-scrollbar { display: none; }
         .pricing-table-container { -ms-overflow-style: none; scrollbar-width: none; }
         
         @media (max-width: 700px) {
-          .mobile-plans { display: flex; }
-          .pricing-table-container { display: none; }
+          .mobile-only { display: block; }
         }
       `}</style>
     </section>
