@@ -109,27 +109,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
         {/* Bento Grid */}
         <div className="bento-grid">
           
-          {/* 1. HSC Preparation (Large) */}
-          <div className="bento-card bento-hsc">
-            <div className="bento-content">
-              <h3 className="bento-title">{t.hscTitle}</h3>
-              <p className="bento-desc">{t.hscDesc}</p>
-              
-              <div className="bento-visual hsc-visual">
-                {t.hscSubjects.map((sub, i) => (
-                  <div key={i} className="hsc-subject-bar">
-                    <div className="hsc-subject-info">
-                      <span className="hsc-subject-name">{sub}</span>
-                      <span className="hsc-subject-pct">{75 - i * 10}%</span>
-                    </div>
-                    <div className="hsc-progress-track">
-                      <div className="hsc-progress-fill" style={{ width: `${75 - i * 10}%`, background: i === 0 ? '#00d9a0' : 'var(--color-surface-strong)' }}></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+
 
           {/* 2. Prostuti AI (Tall) */}
           <div className="bento-card bento-ai">
@@ -262,39 +242,9 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
         }
 
         /* Specific Grid Placements */
-        .bento-hsc { grid-column: span 2; }
-        .bento-ai { grid-column: span 1; grid-row: span 2; }
+        .bento-ai { grid-column: span 1; }
         .bento-goals { grid-column: span 3; }
 
-        /* HSC Visual */
-        .hsc-visual {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          background: rgba(255,255,255,0.02);
-          padding: 16px;
-          border-radius: 12px;
-          border: 1px solid rgba(255,255,255,0.05);
-        }
-        .hsc-subject-info {
-          display: flex;
-          justify-content: space-between;
-          font-size: 13px;
-          color: var(--color-text-secondary);
-          margin-bottom: 6px;
-          font-weight: 600;
-        }
-        .hsc-progress-track {
-          height: 6px;
-          background: rgba(255,255,255,0.05);
-          border-radius: 3px;
-          overflow: hidden;
-        }
-        .hsc-progress-fill {
-          height: 100%;
-          border-radius: 3px;
-          transition: width 1s ease-out;
-        }
 
         /* AI Visual */
         .chat-interface {
@@ -444,7 +394,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           .bento-grid {
             grid-template-columns: 1fr;
           }
-          .bento-hsc, .bento-ai, .bento-goals {
+          .bento-ai, .bento-goals {
             grid-column: span 1;
             grid-row: span 1;
           }
