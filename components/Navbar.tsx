@@ -480,6 +480,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
             gap: 'var(--space-2)',
             transform: drawerOpen ? 'translateX(0)' : 'translateX(100%)',
             transition: 'transform var(--duration-normal) var(--easing-default)',
+            overflowY: 'auto',
           }}
         >
           <ul role="list" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>

@@ -158,7 +158,7 @@ export default function Pricing({ lang }: PricingProps) {
         <p className="mobile-only" style={{ fontSize: '12px', color: 'var(--color-text-tertiary)', marginBottom: '8px' }}>
           {t.scrollHint}
         </p>
-        <div ref={scrollRef} style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        <div ref={scrollRef} className="pricing-table-container" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
           <table
             role="table"
             aria-label={lang === 'bn' ? 'সাবস্ক্রিপশন মূল্য তুলনা' : 'Subscription price comparison'}
@@ -285,6 +285,9 @@ export default function Pricing({ lang }: PricingProps) {
 
       <style jsx>{`
         .mobile-only { display: none; }
+        .pricing-table-container::-webkit-scrollbar { display: none; }
+        .pricing-table-container { -ms-overflow-style: none; scrollbar-width: none; }
+        
         @media (max-width: 700px) {
           .mobile-only { display: block; }
         }
