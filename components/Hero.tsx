@@ -1,7 +1,5 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-
 interface HeroProps {
   lang: 'bn' | 'en';
 }
@@ -14,7 +12,6 @@ const copy = {
     subheadline: 'HSC, SSC ও বিশ্ববিদ্যালয় ভর্তি পরীক্ষার জন্য বিজ্ঞানসম্মত প্র্যাকটিস, মডেল টেস্ট, এবং পার্সোনালাইজড অ্যানালিটিক্স — একটি প্ল্যাটফর্মে।',
     ctaPrimary: 'ফ্রি প্র্যাকটিস শুরু করুন',
     ctaSecondary: 'কীভাবে কাজ করে দেখুন',
-    chartTitle: 'অধ্যায়ভিত্তিক নির্ভুলতা',
     streakLabel: '🔥 স্ট্রিক',
     streakDays: '১৪ দিন',
     rankLabel: '🏅 র‍্যাঙ্ক',
@@ -27,7 +24,6 @@ const copy = {
     subheadline: 'Science-backed practice, model tests, and personalized analytics for HSC, SSC, and Admission exams — all in one place.',
     ctaPrimary: 'Start Practicing Free',
     ctaSecondary: 'See How It Works',
-    chartTitle: 'Chapter-Wise Accuracy',
     streakLabel: '🔥 Streak',
     streakDays: '14 Days',
     rankLabel: '🏅 Rank',
@@ -35,54 +31,8 @@ const copy = {
   },
 };
 
-const chartData = [
-  { subject: { bn: 'পদার্থবিজ্ঞান', en: 'Physics' }, accuracy: 87, color: '#00d9a0' },
-  { subject: { bn: 'রসায়ন', en: 'Chemistry' }, accuracy: 72, color: '#4d6bff' },
-  { subject: { bn: 'উচ্চতর গণিত', en: 'Higher Math' }, accuracy: 94, color: '#8b5cf6' },
-  { subject: { bn: 'জীববিজ্ঞান', en: 'Biology' }, accuracy: 68, color: '#f59e0b' },
-  { subject: { bn: 'ইংরেজি', en: 'English' }, accuracy: 81, color: '#06b6d4' },
-];
-
-function useCountUp(target: number, duration: number = 1200, startOnView: boolean = true) {
-  const [value, setValue] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (!startOnView) {
-      setValue(target);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const startTime = performance.now();
-          const animate = (now: number) => {
-            const progress = Math.min((now - startTime) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-            setValue(Math.round(eased * target));
-            if (progress < 1) requestAnimationFrame(animate);
-          };
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target, duration, startOnView]);
-
-  return { value, ref };
-}
-
 export default function Hero({ lang }: HeroProps) {
   const t = copy[lang];
-
-  // Individual count-up hooks for each bar
-  const counters = chartData.map((d) => useCountUp(d.accuracy));
 
   return (
     <section
@@ -265,16 +215,17 @@ export default function Hero({ lang }: HeroProps) {
 
           </div>
 
-          {/* Right: Analytics Widget Card with layered depth */}
+          {/* Right: Real App Screenshot with layered depth */}
           <div
             style={{
               position: 'relative',
               display: 'flex',
               justifyContent: 'center',
+              padding: '20px',
             }}
             className="hero-card"
             role="complementary"
-            aria-label={lang === 'bn' ? 'প্রস্তুতি অ্যানালিটিক্স উইজেট' : 'Prostuti Analytics Widget'}
+            aria-label={lang === 'bn' ? 'প্রস্তুতি অ্যাপ স্ক্রিনশট' : 'Prostuti App Screenshot'}
           >
             {/* Backdrop Glow */}
             <div
@@ -294,21 +245,21 @@ export default function Hero({ lang }: HeroProps) {
               }}
             />
 
-            {/* PART 5: Secondary layered card — streak/rank callout */}
+            {/* Secondary layered card — streak/rank callout (bottom-right offset) */}
             <div
               aria-hidden="true"
               style={{
                 position: 'absolute',
-                top: '-16px',
-                right: '-20px',
+                bottom: '10%',
+                right: '-10px',
                 width: '180px',
                 background: 'var(--color-surface-card)',
                 border: '1px solid var(--color-border-default)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '14px 16px',
                 boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
-                transform: 'rotate(4deg)',
-                zIndex: 0,
+                transform: 'rotate(-3deg)',
+                zIndex: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '10px',
@@ -324,105 +275,29 @@ export default function Hero({ lang }: HeroProps) {
               </div>
             </div>
 
-            {/* Primary Analytics Bar Chart Card */}
+            {/* Primary App Screenshot */}
             <div
-              ref={counters[0].ref}
               style={{
-                width: '100%',
-                maxWidth: '420px',
-                background: 'var(--color-surface-card)',
-                border: '1px solid var(--color-border-default)',
-                borderRadius: 'var(--radius-sm)',
-                padding: '28px 24px',
-                boxShadow: '0 24px 80px rgba(0,0,0,0.6), var(--shadow-glow)',
                 position: 'relative',
                 zIndex: 1,
+                transform: 'rotate(2.5deg)',
+                transformStyle: 'preserve-3d',
+                transition: 'transform 0.4s ease',
               }}
             >
-              {/* Card header */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-                <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text-primary)', margin: 0 }}>
-                  📊 {t.chartTitle}
-                </h3>
-                <span style={{
-                  fontSize: '10px',
-                  fontWeight: 700,
-                  color: '#00d9a0',
-                  background: 'rgba(0,150,109,0.12)',
-                  padding: '3px 8px',
-                  borderRadius: '6px',
-                  border: '1px solid rgba(0,150,109,0.25)',
-                  letterSpacing: '0.5px',
-                }}>
-                  LIVE
-                </span>
-              </div>
-
-              {/* Bar chart */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {chartData.map((item, idx) => (
-                  <div key={item.subject.en} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    {/* Subject label */}
-                    <span style={{
-                      width: '90px',
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      color: 'var(--color-text-secondary)',
-                      textAlign: 'right',
-                      flexShrink: 0,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}>
-                      {item.subject[lang]}
-                    </span>
-
-                    {/* Bar container */}
-                    <div style={{ flex: 1, height: '22px', background: 'rgba(255,255,255,0.04)', borderRadius: '4px', overflow: 'hidden', position: 'relative' }}>
-                      <div
-                        style={{
-                          height: '100%',
-                          width: `${counters[idx].value}%`,
-                          background: `linear-gradient(90deg, ${item.color}cc, ${item.color})`,
-                          borderRadius: '4px',
-                          transition: 'width 0.05s linear',
-                          boxShadow: `0 0 12px ${item.color}33`,
-                        }}
-                      />
-                    </div>
-
-                    {/* Percentage */}
-                    <span style={{
-                      width: '42px',
-                      fontSize: '13px',
-                      fontWeight: 800,
-                      color: 'var(--color-text-primary)',
-                      fontFamily: 'monospace',
-                      textAlign: 'right',
-                      flexShrink: 0,
-                    }}>
-                      {counters[idx].value}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Average score footer */}
-              <div style={{
-                marginTop: '20px',
-                paddingTop: '16px',
-                borderTop: '1px solid var(--color-border-default)',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-                <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)', fontWeight: 600 }}>
-                  {lang === 'bn' ? 'গড় নির্ভুলতা' : 'Average Accuracy'}
-                </span>
-                <span style={{ fontSize: '20px', fontWeight: 800, color: '#00d9a0', fontFamily: 'monospace' }}>
-                  {Math.round(counters.reduce((sum, c) => sum + c.value, 0) / counters.length)}%
-                </span>
-              </div>
+              <img
+                src="https://pub-e2c71a91f86f428982fe1b1f721d68b9.r2.dev/image/host/02-07-2026/prostuti/img_1782975874051.png"
+                alt={lang === 'bn' ? 'প্রস্তুতি অ্যাপের ড্যাশবোর্ড' : 'Prostuti app dashboard'}
+                style={{
+                  width: '100%',
+                  maxWidth: '320px',
+                  height: 'auto',
+                  borderRadius: '24px',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  boxShadow: '0 24px 80px rgba(0, 150, 109, 0.2), 0 0 0 1px rgba(0, 150, 109, 0.3)',
+                  display: 'block',
+                }}
+              />
             </div>
           </div>
         </div>
