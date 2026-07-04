@@ -8,77 +8,68 @@ interface FAQProps {
 
 const content = {
   bn: {
-    badge: 'সাধারণ প্রশ্ন',
-    title: 'প্রায়ই জিজ্ঞাসিত প্রশ্নোত্তর',
-    subtitle: 'আপনার মনে যা প্রশ্ন আছে, আমরা উত্তর দিচ্ছি।',
+    badge: 'প্রশ্নোত্তর',
+    title: 'শিক্ষার্থীরা যা জিজ্ঞেস করে।',
+    subtitle: 'এখানে নেই? আমাদের জিজ্ঞেস করো ➔',
     items: [
       {
-        q: 'প্রস্তুতিতে কোন কোন পরীক্ষার ট্র্যাক আছে?',
-        a: 'প্রস্তুতিতে চারটি প্রধান ট্র্যাক রয়েছে: (১) এইচএসসি প্র্যাকটিস — HSC সকল বিষয় পেপার ১ ও ২ আলাদাভাবে, (২) ইঞ্জিনিয়ারিং প্র্যাকটিস — বুয়েট ও প্রকৌশল বিশ্ববিদ্যালয়, (৩) ভার্সিটি প্র্যাকটিস — ঢাবি ও সাধারণ বিশ্ববিদ্যালয়, (৪) মেডিকেল প্র্যাকটিস — ডাক্তারি ভর্তি পরীক্ষা।',
+        q: 'অ্যাপটি ব্যবহার করতে কি কোনো টাকা লাগবে?',
+        a: 'অ্যাপটি ডাউনলোড করা এবং ফ্রি ফিচারগুলো ব্যবহার করা সম্পূর্ণ ফ্রী। তবে প্রিমিয়াম টেস্ট, AI টিউটর ও ফুল প্রশ্নব্যাংক ব্যবহারের জন্য আমাদের সাশ্রয়ী সাবস্ক্রিপশন প্ল্যান রয়েছে।',
       },
       {
-        q: 'Daily Goals ও XP সিস্টেম কীভাবে কাজ করে?',
-        a: 'প্রতিদিন নির্দিষ্ট পরিমাণ MCQ, মক পরীক্ষা ও অনুশীলনী সম্পন্ন করে XP (অভিজ্ঞতা পয়েন্ট) অর্জন করা যায়। ডিফিকাল্টি লেভেল (Easy/Medium/Hard) বেছে নিয়ে দৈনিক লক্ষ্যমাত্রা নির্ধারণ করুন। প্রতি সপ্তাহের শীর্ষ XP-অর্জনকারীরা সাপ্তাহিক লিডারবোর্ডে দেখা যায়।',
+        q: 'কোন কোন বোর্ড আর ক্লাস?',
+        a: 'বর্তমানে একাদশ-দ্বাদশ শ্রেণি (HSC) এবং মেডিকেল, ইঞ্জিনিয়ারিং ও ভার্সিটি এডমিশন পরীক্ষার্থীদের জন্য সকল বোর্ডের সিলেবাস অনুযায়ী কন্টেন্ট রয়েছে।',
       },
       {
-        q: 'Prostuti AI কী এবং কীভাবে আমাকে সাহায্য করবে?',
-        a: 'Prostuti AI আপনার প্র্যাকটিস হিস্ট্রি বিশ্লেষণ করে দুর্বল অধ্যায় চিহ্নিত করে এবং তাৎক্ষণিক ব্যাখ্যা প্রদান করে। আপনার ভুল উত্তরের প্যাটার্ন দেখে AI বলে দেবে কোন কনসেপ্টে আরও সময় দেওয়া প্রয়োজন।',
+        q: 'পুরনো ফোনে চলবে তো?',
+        a: 'হ্যাঁ, প্রস্তুতি একটি লাইটওয়েট প্ল্যাটফর্ম যা যেকোনো স্মার্টফোন বা কম্পিউটার থেকে ওয়েব ব্রাউজারের মাধ্যমে কোনো ল্যাগ ছাড়াই ব্যবহার করা যায়।',
       },
       {
-        q: 'অনুশীলনি ফলাফলে কী দেখা যায়?',
-        a: 'অনুশীলনি ফলাফল বিভাগে প্রতিটি বিষয় (Physics, Chemistry, Biology ইত্যাদি) ও পেপার (1st Paper / 2nd Paper) অনুযায়ী আপনার স্কোর আলাদাভাবে দেখতে পাবেন। কোন অধ্যায়ে কতবার প্র্যাকটিস করেছেন এবং স্কোর কেমন — সবই ট্র্যাক হয়।',
+        q: 'প্রশ্নগুলো আসে কোথা থেকে?',
+        a: 'আমাদের প্রশ্নব্যাংক দেশের শীর্ষস্থানীয় শিক্ষক, বিষয়ভিত্তিক এক্সপার্ট এবং বিগত বছরের বোর্ড ও এডমিশন পরীক্ষার প্রশ্নের সমন্বয়ে তৈরি।',
       },
       {
-        q: 'প্রস্তুতিতে কি সাপোর্ট পাওয়া যায়?',
-        a: 'হ্যাঁ! WhatsApp-এ সরাসরি সাপোর্ট পাবেন: +8801836083902। অ্যাপের ভেতরেও সাপোর্ট অপশন আছে। প্রিমিয়াম ব্যবহারকারীরা অগ্রাধিকার সাপোর্ট পান।',
+        q: 'আমার ডেটা নিরাপদ?',
+        a: 'অবশ্যই। আপনার ব্যক্তিগত তথ্য এবং প্র্যাকটিস ডেটা সম্পূর্ণ এনক্রিপ্টেড ও সুরক্ষিত রাখতে আমরা সর্বাধুনিক সিকিউরিটি ব্যবস্থা ব্যবহার করি।',
       },
       {
-        q: 'ফ্রি প্ল্যান ও প্রিমিয়ামের মধ্যে পার্থক্য কী?',
-        a: 'ফ্রি প্ল্যানে সীমিত প্রশ্ন প্র্যাকটিস ও বেসিক ফিচার পাওয়া যায়। প্রিমিয়ামে সম্পূর্ণ প্রশ্নব্যাংক (২ লক্ষ+), সীমাহীন মক টেস্ট, Prostuti AI এবং বিস্তারিত পারফরম্যান্স অ্যানালিটিক্স পাওয়া যায়।',
-      },
-      {
-        q: 'প্রস্তুতি কি মোবাইলে ভালো কাজ করে?',
-        a: 'হ্যাঁ, প্রস্তুতি মোবাইল-ফার্স্ট ডিজাইনে তৈরি। যেকোনো অ্যান্ড্রয়েড বা iOS ব্রাউজারে ওয়েব অ্যাপ হিসেবে ব্যবহার করা যায়। বটম নেভিগেশন বার দিয়ে হোম, অধ্যয়ন, লিডারবোর্ড ও সেটিংস সহজে অ্যাক্সেস করা যায়।',
+        q: 'ভুল উত্তর পেলে কী করব?',
+        a: 'প্রশ্নের নিচে "রিপোর্ট" অপশন রয়েছে। কোনো ভুল মনে হলে রিপোর্ট করুন, আমাদের এক্সপার্ট টিম তা যাচাই করে দ্রুত সমাধান করে দেবে।',
       },
     ],
   },
   en: {
     badge: 'FAQ',
-    title: 'Frequently Asked Questions',
-    subtitle: 'We have answers to the questions on your mind.',
+    title: 'Questions Students Ask.',
+    subtitle: "Not here? Ask us directly ➔",
     items: [
       {
-        q: 'Which exam tracks does Prostuti cover?',
-        a: 'Prostuti has four main tracks: (1) HSC Practice — all subjects with Paper 1 & 2 separately, (2) Engineering Practice — BUET and engineering universities, (3) Varsity Practice — DU and general universities, (4) Medical Practice — medical admission exam prep.',
+        q: 'Is it free to use the app?',
+        a: 'Downloading the app and using free features is completely free. However, premium tests, AI tutor, and the full question bank require one of our affordable subscription plans.',
       },
       {
-        q: 'How do Daily Goals and the XP system work?',
-        a: 'Complete a set number of MCQs, mock tests, and chapter practice each day to earn XP (experience points). Choose your difficulty level (Easy/Medium/Hard) to set your daily target. The top XP earners each week appear on the Weekly Leaderboard.',
+        q: 'Which boards and classes are covered?',
+        a: 'Currently, we provide content according to all board syllabuses for HSC students and University, Medical, and Engineering admission candidates.',
       },
       {
-        q: 'What is Prostuti AI and how does it help me?',
-        a: "Prostuti AI analyzes your practice history to identify weak chapters and provides instant explanations. By detecting patterns in your wrong answers, AI tells you which concepts need more attention — so you study smarter, not harder.",
+        q: 'Will it work on older phones?',
+        a: 'Yes, Prostuti is a lightweight platform that can be used smoothly from any smartphone or computer via a web browser without any lag.',
       },
       {
-        q: 'What do I see in Practice Results (অনুশীলনি ফলাফল)?',
-        a: 'The Practice Results section shows your scores per subject (Physics, Chemistry, Biology, etc.) and per paper (1st Paper / 2nd Paper) separately. It tracks how many times you practiced each chapter and your score trend over time.',
+        q: 'Where do the questions come from?',
+        a: 'Our question bank is curated by top teachers, subject experts, and includes previous years\' board and admission test questions.',
       },
       {
-        q: 'How can I get support?',
-        a: 'You can reach us directly on WhatsApp: +8801836083902. There\'s also an in-app support option. Premium users receive priority support.',
+        q: 'Is my data secure?',
+        a: 'Absolutely. We use state-of-the-art security measures to keep your personal information and practice data completely encrypted and secure.',
       },
       {
-        q: 'What is the difference between Free and Premium?',
-        a: 'The free plan gives you limited question practice and basic features. Premium unlocks the full question bank (200,000+), unlimited mock tests, Prostuti AI, and detailed performance analytics.',
-      },
-      {
-        q: 'Does Prostuti work well on mobile?',
-        a: 'Yes — Prostuti is designed mobile-first. It works as a web app on any Android or iOS browser. The bottom navigation bar gives quick access to Home, Study, Leaderboard, and Settings.',
+        q: 'What if I find a wrong answer?',
+        a: 'There is a "Report" option below each question. If you find any error, please report it, and our expert team will verify and fix it quickly.',
       },
     ],
   },
 };
-
 
 export default function FAQ({ lang }: FAQProps) {
   const t = content[lang];
@@ -102,138 +93,226 @@ export default function FAQ({ lang }: FAQProps) {
       aria-labelledby="faq-heading"
       style={{
         padding: '110px 0',
-        background: 'radial-gradient(circle at 10% 20%, rgba(0, 150, 109, 0.05) 0%, transparent 60%), rgba(8, 10, 20, 0.98)',
-        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px)`,
-        backgroundSize: '30px 30px',
+        background: 'var(--color-surface-base)',
       }}
     >
       <div className="container-page">
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
-          <span className="badge badge-green" style={{ marginBottom: '16px' }}>
-            {t.badge}
-          </span>
-          <h2
-            id="faq-heading"
-            className="section-title"
-            style={{ marginBottom: '14px' }}
-          >
-            {t.title}
-          </h2>
-          <p className="section-subtitle" style={{ margin: '0 auto' }}>
-            {t.subtitle}
-          </p>
-        </div>
+        <div className="faq-grid">
+          {/* Left Column */}
+          <div className="faq-header-box">
+            <span style={{ 
+              fontSize: '12px', 
+              fontWeight: 700, 
+              color: 'var(--color-text-tertiary)', 
+              letterSpacing: '1px', 
+              marginBottom: '16px', 
+              display: 'block' 
+            }}>
+              {t.badge}
+            </span>
+            <h2
+              id="faq-heading"
+              style={{
+                fontSize: 'clamp(36px, 5vw, 48px)',
+                fontWeight: 900,
+                color: 'var(--color-text-primary)',
+                lineHeight: 1.1,
+                marginBottom: '24px',
+                letterSpacing: '-1px'
+              }}
+            >
+              {t.title}
+            </h2>
+            <a href="https://web.prostuti.bd" className="faq-contact-link">
+              {t.subtitle}
+            </a>
+          </div>
 
-        {/* Accordion */}
-        <div
-          style={{ maxWidth: '760px', margin: '0 auto' }}
-          role="list"
-        >
-          {t.items.map((item, idx) => {
-            const isOpen = openIdx === idx;
-            const answerId = `faq-answer-${idx}`;
-            const buttonId = `faq-btn-${idx}`;
+          {/* Right Column: Accordion */}
+          <div className="faq-accordion" role="list">
+            {t.items.map((item, idx) => {
+              const isOpen = openIdx === idx;
+              const answerId = `faq-answer-${idx}`;
+              const buttonId = `faq-btn-${idx}`;
 
-            return (
-              <div
-                key={idx}
-                role="listitem"
-                style={{
-                  borderBottom: idx < t.items.length - 1 ? '1px solid var(--color-border-default)' : 'none',
-                }}
-              >
-                <button
-                  id={buttonId}
-                  onClick={() => toggle(idx)}
-                  onKeyDown={(e) => handleKey(e, idx)}
-                  aria-expanded={isOpen}
-                  aria-controls={answerId}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '16px',
-                    padding: '20px 0',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontFamily: 'var(--font-family-primary)',
-                    textAlign: 'left',
-                    minHeight: 44,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: 'var(--font-size-md)',
-                      fontWeight: 600,
-                      color: isOpen ? '#00d9a0' : 'var(--color-text-primary)',
-                      transition: 'color var(--duration-fast) var(--easing-default)',
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {item.q}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: '50%',
-                      background: isOpen ? 'rgba(0,150,109,0.15)' : 'rgba(255,255,255,0.05)',
-                      border: `1px solid ${isOpen ? 'rgba(0,150,109,0.4)' : 'var(--color-border-default)'}`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      transition: 'all var(--duration-fast) var(--easing-default)',
-                    }}
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={isOpen ? '#00d9a0' : 'var(--color-text-secondary)'}
-                      strokeWidth="2.5"
-                      style={{
-                        transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
-                        transition: 'transform var(--duration-fast) var(--easing-default)',
-                      }}
-                    >
-                      <path d="M12 5v14M5 12h14"/>
-                    </svg>
-                  </span>
-                </button>
-
+              return (
                 <div
-                  id={answerId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  ref={(el) => { answerRefs.current[idx] = el; }}
-                  style={{
-                    overflow: 'hidden',
-                    maxHeight: isOpen ? '400px' : '0',
-                    transition: 'max-height 0.3s var(--easing-default)',
-                  }}
+                  key={idx}
+                  role="listitem"
+                  className={`faq-card ${isOpen ? 'open' : ''}`}
                 >
-                  <p
+                  <button
+                    id={buttonId}
+                    onClick={() => toggle(idx)}
+                    onKeyDown={(e) => handleKey(e, idx)}
+                    aria-expanded={isOpen}
+                    aria-controls={answerId}
+                    className="faq-button"
+                  >
+                    <span className="faq-question">
+                      {item.q}
+                    </span>
+                    <span className="faq-icon-wrapper" aria-hidden="true">
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        className={`faq-icon ${isOpen ? 'rotated' : ''}`}
+                      >
+                        <path d="M12 5v14M5 12h14"/>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div
+                    id={answerId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    ref={(el) => { answerRefs.current[idx] = el; }}
+                    className="faq-answer-container"
                     style={{
-                      fontSize: 'var(--font-size-md)',
-                      color: 'var(--color-text-secondary)',
-                      lineHeight: 1.7,
-                      paddingBottom: '20px',
+                      maxHeight: isOpen ? '200px' : '0',
                     }}
                   >
-                    {item.a}
-                  </p>
+                    <p className="faq-answer-text">
+                      {item.a}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .faq-grid {
+          display: grid;
+          grid-template-columns: 320px 1fr;
+          gap: 60px;
+          align-items: start;
+        }
+
+        .faq-contact-link {
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--color-text-secondary);
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          transition: color var(--duration-fast) var(--easing-default);
+        }
+        
+        .faq-contact-link:hover {
+          color: var(--color-surface-strong);
+        }
+
+        .faq-accordion {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .faq-card {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: var(--radius-sm);
+          overflow: hidden;
+          transition: all var(--duration-normal) var(--easing-default);
+        }
+
+        .faq-card:hover {
+          background: rgba(255, 255, 255, 0.04);
+          border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-button {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 20px 24px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: inherit;
+          text-align: left;
+        }
+
+        .faq-question {
+          font-size: var(--font-size-md);
+          font-weight: 600;
+          color: var(--color-text-primary);
+          line-height: 1.4;
+          transition: color var(--duration-fast) var(--easing-default);
+        }
+
+        .faq-card.open .faq-question {
+          color: #fff;
+        }
+
+        .faq-icon-wrapper {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.05);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          color: var(--color-text-secondary);
+          transition: all var(--duration-fast) var(--easing-default);
+        }
+
+        .faq-card.open .faq-icon-wrapper {
+          background: rgba(255,255,255,0.1);
+          color: #fff;
+        }
+
+        .faq-icon {
+          transition: transform var(--duration-fast) var(--easing-default);
+        }
+
+        .faq-icon.rotated {
+          transform: rotate(45deg);
+        }
+
+        .faq-answer-container {
+          overflow: hidden;
+          transition: max-height 0.3s var(--easing-default);
+        }
+
+        .faq-answer-text {
+          font-size: var(--font-size-sm);
+          color: var(--color-text-secondary);
+          line-height: 1.6;
+          padding: 0 24px 20px 24px;
+          margin: 0;
+        }
+
+        @media (max-width: 900px) {
+          .faq-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          
+          .faq-header-box {
+            text-align: center;
+          }
+          
+          .faq-button {
+            padding: 16px 20px;
+          }
+          
+          .faq-answer-text {
+            padding: 0 20px 16px 20px;
+          }
+        }
+      `}</style>
     </section>
   );
 }
