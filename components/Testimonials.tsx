@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 interface TestimonialsProps {
   lang: 'bn' | 'en';
@@ -149,6 +149,13 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
   const next = useCallback(() => {
     setActiveIdx((i) => (i + 1) % items.length);
+  }, [items.length]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIdx((i) => (i + 1) % items.length);
+    }, 5000);
+    return () => clearInterval(timer);
   }, [items.length]);
 
   return (

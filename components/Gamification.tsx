@@ -177,13 +177,12 @@ export default function Gamification({ lang }: GamificationProps) {
           </div>
 
           {/* Right: Dashboard Mockup */}
-          <div style={{ 
+          <div className="mockup-container" style={{ 
             background: 'var(--color-surface-base)', 
             border: '1px solid var(--color-border-default)', 
             borderRadius: 'var(--radius-md)', 
             padding: 'var(--space-5)',
             boxShadow: '0 24px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
-            transform: 'perspective(1000px) rotateY(-3deg) rotateX(1deg)',
             transformStyle: 'preserve-3d',
             transition: 'all 0.3s ease'
           }}>
@@ -301,10 +300,17 @@ export default function Gamification({ lang }: GamificationProps) {
       </div>
 
       <style jsx>{`
+        .mockup-container {
+          transform: perspective(1000px) rotateY(-3deg) rotateX(1deg);
+        }
         @media (max-width: 900px) {
           .gamification-grid {
             grid-template-columns: 1fr !important;
             gap: 48px !important;
+          }
+          .mockup-container {
+            transform: none;
+            max-width: 100%;
           }
         }
       `}</style>
