@@ -156,23 +156,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
             </div>
           </div>
 
-          {/* 3. Mock Test Hub */}
-          <div className="bento-card bento-mock">
-            <div className="bento-content">
-              <h3 className="bento-title">{t.mockTitle}</h3>
-              <p className="bento-desc">{t.mockDesc}</p>
-              
-              <div className="bento-visual mock-visual">
-                <div className="mock-timer-box">
-                  <div className="mock-pulse"></div>
-                  <div style={{ zIndex: 1 }}>
-                    <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginBottom: '4px' }}>{t.mockStatus}</div>
-                    <div style={{ fontSize: '20px', fontWeight: 700, color: '#f59e0b', fontFamily: 'monospace' }}>{t.mockTime}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
 
           {/* 4. Admission Hub */}
           <div className="bento-card bento-admission">
@@ -280,7 +264,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
         /* Specific Grid Placements */
         .bento-hsc { grid-column: span 2; }
         .bento-ai { grid-column: span 1; grid-row: span 2; }
-        .bento-goals { grid-column: span 2; }
+        .bento-goals { grid-column: span 3; }
 
         /* HSC Visual */
         .hsc-visual {
@@ -357,35 +341,6 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           40% { transform: scale(1); }
         }
 
-        /* Mock Visual */
-        .mock-timer-box {
-          background: rgba(245, 158, 11, 0.05);
-          border: 1px solid rgba(245, 158, 11, 0.2);
-          border-radius: 12px;
-          padding: 20px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-        }
-        .mock-pulse {
-          position: absolute;
-          width: 8px;
-          height: 8px;
-          background: #f59e0b;
-          border-radius: 50%;
-          top: 16px;
-          right: 16px;
-          box-shadow: 0 0 10px #f59e0b;
-          animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-          0% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(1.5); }
-          100% { opacity: 1; transform: scale(1); }
-        }
 
         /* Admission Visual */
         .admission-visual {
