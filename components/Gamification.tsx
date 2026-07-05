@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface GamificationProps {
   lang: 'bn' | 'en';
@@ -82,6 +82,33 @@ const copy = {
 export default function Gamification({ lang }: GamificationProps) {
   const t = copy[lang];
   const [targetQuestions, setTargetQuestions] = useState<number>(30);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      section.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   // Dynamic calculations based on slider input
   const auraPoints = targetQuestions * 24 + 1042;
@@ -109,12 +136,12 @@ export default function Gamification({ lang }: GamificationProps) {
   const isRewardClaimable = targetQuestions >= 90;
 
   return (
-    <section id="gamification" aria-labelledby="gamification-heading" style={{ padding: '110px 0', overflow: 'hidden', background: 'var(--color-surface-base)' }}>
+    <section ref={sectionRef} id="gamification" aria-labelledby="gamification-heading" style={{ padding: '110px 0', overflow: 'hidden', background: 'var(--color-surface-base)' }}>
       <div className="container-page">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="gamification-grid">
           
           {/* Left: Text & Features */}
-          <div>
+          <div className="reveal">
             <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)', background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
               ✦ {t.badge}
             </span>
@@ -163,7 +190,7 @@ export default function Gamification({ lang }: GamificationProps) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               {t.features.map((feat, i) => (
-                <div key={i} style={{ display: 'flex', gap: 'var(--space-4)' }}>
+                <div key={i} className="reveal" style={{ display: 'flex', gap: 'var(--space-4)', transitionDelay: `${i * 70}ms` }}>
                   <div style={{ width: 48, height: 48, borderRadius: 'var(--radius-sm)', background: 'var(--color-surface-card)', border: '1px solid var(--color-border-default)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', flexShrink: 0, boxShadow: 'var(--shadow-navy)' }}>
                     {feat.icon}
                   </div>
@@ -177,7 +204,7 @@ export default function Gamification({ lang }: GamificationProps) {
           </div>
 
           {/* Right: Dashboard Mockup */}
-          <div className="mockup-container" style={{ 
+          <div className="mockup-container reveal" style={{ 
             background: 'var(--color-surface-base)', 
             border: '1px solid var(--color-border-default)', 
             borderRadius: 'var(--radius-md)', 

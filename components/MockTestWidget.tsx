@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface MockTestWidgetProps {
   lang: 'bn' | 'en';
@@ -152,14 +152,41 @@ function renderTrackIcon(type: string, color: string) {
 export default function MockTestWidget({ lang }: MockTestWidgetProps) {
   const t = copy[lang];
   const [selected, setSelected] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      section.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="mock-tests" aria-labelledby="mock-heading" style={{ padding: '110px 0', background: 'rgba(8,12,24,0.8)' }}>
+    <section ref={sectionRef} id="mock-tests" aria-labelledby="mock-heading" style={{ padding: '110px 0', background: 'rgba(8,12,24,0.8)' }}>
       <div className="container-page">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="mock-grid">
 
           {/* Left: copy */}
-          <div>
+          <div className="reveal">
             <span className="badge badge-blue" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
             <h2 id="mock-heading" style={{ fontSize: 'clamp(24px, 4vw, var(--font-size-h1))', fontWeight: 800, color: 'var(--color-text-primary)', lineHeight: 1.15, marginBottom: 'var(--space-4)', letterSpacing: '-0.5px' }}>
               {t.title}
@@ -185,6 +212,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
 
           {/* Right: interactive selector */}
           <div
+            className="reveal"
             role="region"
             aria-label={t.selectLabel}
             style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-border-default)', borderRadius: 'var(--radius-sm)', overflow: 'hidden', boxShadow: 'var(--shadow-navy)' }}

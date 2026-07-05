@@ -117,11 +117,39 @@ export default function Pricing({ lang }: PricingProps) {
     }
   }, []);
 
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      section.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="pricing" aria-labelledby="pricing-heading" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
+    <section ref={sectionRef} id="pricing" aria-labelledby="pricing-heading" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
       <div className="container-page">
 
-        <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
           <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
           <h2 id="pricing-heading" className="section-title" style={{ marginBottom: 'var(--space-3)' }}>{t.title}</h2>
           <p className="section-subtitle" style={{ margin: '0 auto', marginBottom: '16px' }}>{t.subtitle}</p>
@@ -135,7 +163,7 @@ export default function Pricing({ lang }: PricingProps) {
           </span>
         </div>
 
-        <div style={{
+        <div className="reveal" style={{
           background: 'var(--color-surface-card)', border: '1px solid var(--color-border-default)',
           borderRadius: 'var(--radius-sm)', padding: '28px 32px', marginBottom: 'var(--space-7)',
         }}>

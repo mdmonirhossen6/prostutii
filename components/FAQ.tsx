@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 interface FAQProps {
   lang: 'bn' | 'en';
@@ -87,8 +87,37 @@ export default function FAQ({ lang }: FAQProps) {
     }
   }, [toggle]);
 
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      section.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="faq"
       aria-labelledby="faq-heading"
       style={{
@@ -99,7 +128,7 @@ export default function FAQ({ lang }: FAQProps) {
       <div className="container-page">
         <div className="faq-grid">
           {/* Left Column */}
-          <div className="faq-header-box">
+          <div className="faq-header-box reveal">
             <span style={{ 
               fontSize: '12px', 
               fontWeight: 700, 
@@ -139,7 +168,8 @@ export default function FAQ({ lang }: FAQProps) {
                 <div
                   key={idx}
                   role="listitem"
-                  className={`faq-card ${isOpen ? 'open' : ''}`}
+                  className={`faq-card ${isOpen ? 'open' : ''} reveal`}
+                  style={{ transitionDelay: `${idx * 60}ms` }}
                 >
                   <button
                     id={buttonId}

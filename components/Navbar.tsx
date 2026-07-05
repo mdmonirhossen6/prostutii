@@ -137,8 +137,9 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
           zIndex: 100,
           background: scrolled ? 'var(--color-navbar-bg)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
-          borderBottom: scrolled ? '1px solid var(--color-border-default)' : 'none',
-          transition: 'background var(--duration-normal) var(--easing-default), backdrop-filter var(--duration-normal) var(--easing-default)',
+          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
+          borderBottom: scrolled ? '1px solid var(--color-border-default)' : '1px solid transparent',
+          transition: 'background 200ms ease-out, backdrop-filter 200ms ease-out, border-color 200ms ease-out',
         }}
       >
         {/* Integrated Scroll Progress Bar */}
@@ -162,7 +163,8 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            height: '64px',
+            height: scrolled ? '56px' : '64px',
+            transition: 'height 200ms ease-out',
           }}
         >
           {/* Logo */}

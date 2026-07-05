@@ -151,6 +151,33 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
     return () => observer.disconnect();
   }, [isVisible]);
 
+  // Scroll reveal for .reveal elements
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      section.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    section.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    return () => revealObserver.disconnect();
+  }, []);
+
   useEffect(() => {
     if (!isVisible) return;
     const startTime = performance.now();
@@ -231,14 +258,14 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
 
       <div className="container-page" style={{ position: 'relative', zIndex: 1 }}>
         {/* Section Header */}
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: '56px' }}>
           <span className="badge badge-green" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
           <h2 id="analytics-heading" className="section-title" style={{ marginBottom: 'var(--space-3)' }}>{t.title}</h2>
           <p className="section-subtitle" style={{ margin: '0 auto' }}>{t.subtitle}</p>
         </div>
 
         {/* Track Selector Tab */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '48px', flexWrap: 'wrap' }}>
+        <div className="reveal" style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '48px', flexWrap: 'wrap' }}>
           {(['hsc', 'engineering', 'medical'] as Track[]).map((trk) => (
             <button
               key={trk}
@@ -365,7 +392,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
           </div>
 
           {/* Weak Topics — restyled as data table */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text-primary)' }}>
               {t.weakTopicsTitle}
             </h3>

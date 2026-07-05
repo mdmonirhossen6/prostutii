@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 interface TestimonialsProps {
   lang: 'bn' | 'en';
@@ -142,17 +142,48 @@ export default function Testimonials({ lang }: TestimonialsProps) {
   const t = copy[lang];
   const items = testimonials[lang];
   const [activeIdx, setActiveIdx] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      section.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   const prev = useCallback(() => {
+    setSlideDirection('left');
     setActiveIdx((i) => (i - 1 + items.length) % items.length);
   }, [items.length]);
 
   const next = useCallback(() => {
+    setSlideDirection('right');
     setActiveIdx((i) => (i + 1) % items.length);
   }, [items.length]);
 
   useEffect(() => {
     const timer = setInterval(() => {
+      setSlideDirection('right');
       setActiveIdx((i) => (i + 1) % items.length);
     }, 5000);
     return () => clearInterval(timer);
@@ -160,6 +191,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
   return (
     <section
+      ref={sectionRef}
       id="leaderboard"
       aria-labelledby="testimonials-heading"
       style={{
@@ -172,7 +204,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
     >
       <div className="container-page">
         {/* Header — left-aligned to break repetitive centering */}
-        <div style={{ textAlign: 'left', marginBottom: 'var(--space-7)', maxWidth: '600px' }}>
+        <div className="reveal" style={{ textAlign: 'left', marginBottom: 'var(--space-7)', maxWidth: '600px' }}>
           <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)' }}>
             {t.badge}
           </span>
@@ -225,7 +257,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
               borderRadius: 'var(--radius-sm)',
               padding: 'var(--space-7)',
               position: 'relative',
-              animation: 'fadeInUp 0.3s ease forwards',
+              animation: `${slideDirection === 'right' ? 'slideInRight' : 'slideInLeft'} 0.35s ease-out forwards`,
               zIndex: 1,
             }}
           >
@@ -395,7 +427,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
         </div>
 
         {/* Bottom: testimonial selector + live leaderboard */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-6)', alignItems: 'start' }} className="testimonials-bottom-grid">
+        <div className="reveal testimonials-bottom-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-6)', alignItems: 'start' }}>
           {/* Testimonial selector */}
           <ul
             role="list"
@@ -616,6 +648,14 @@ export default function Testimonials({ lang }: TestimonialsProps) {
       </div>
 
       <style jsx>{`
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(24px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-24px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
         @media (max-width: 900px) {
           .testimonials-bottom-grid {
             grid-template-columns: 1fr !important;

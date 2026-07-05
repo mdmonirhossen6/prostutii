@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+
 interface HowItWorksProps {
   lang: 'bn' | 'en';
 }
@@ -138,11 +140,38 @@ function renderStepIcon(type: string, color: string) {
 
 export default function HowItWorks({ lang }: HowItWorksProps) {
   const t = content[lang];
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      section.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="how-it-works" aria-labelledby="hiw-heading" style={{ padding: '110px 0', background: 'rgba(13,18,37,0.6)' }}>
+    <section ref={sectionRef} id="how-it-works" aria-labelledby="hiw-heading" style={{ padding: '110px 0', background: 'rgba(13,18,37,0.6)' }}>
       <div className="container-page">
-        <div style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
           <span className="badge badge-blue" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
           <h2 id="hiw-heading" className="section-title" style={{ marginBottom: 'var(--space-3)' }}>{t.title}</h2>
           <p className="section-subtitle" style={{ margin: '0 auto' }}>{t.subtitle}</p>
@@ -154,7 +183,7 @@ export default function HowItWorks({ lang }: HowItWorksProps) {
           <div aria-hidden="true" style={{ position: 'absolute', top: 36, left: '12.5%', right: '12.5%', height: 2, background: 'linear-gradient(90deg, #00966d, #4d6bff, #8b5cf6, #f59e0b)', opacity: 0.25, zIndex: 0 }} className="hiw-connector" />
 
           {t.steps.map((step, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+            <div key={i} className="reveal" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', zIndex: 1, transitionDelay: `${i * 70}ms` }}>
               {/* Icon circle */}
               <div style={{ width: 72, height: 72, borderRadius: '50%', background: step.bg, border: `2px solid ${step.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 'var(--space-4)', boxShadow: `0 0 24px ${step.color}20`, flexShrink: 0 }} role="img" aria-label={step.title}>
                 {renderStepIcon(step.iconType, step.color)}

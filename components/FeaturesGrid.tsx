@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface FeaturesGridProps {
   lang: 'bn' | 'en';
@@ -82,6 +82,7 @@ const content = {
 export default function FeaturesGrid({ lang }: FeaturesGridProps) {
   const t = content[lang];
   const [activeChat, setActiveChat] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -90,11 +91,38 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
     return () => clearInterval(timer);
   }, []);
 
+  // Scroll reveal with IntersectionObserver
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      section.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="features" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
+    <section ref={sectionRef} id="features" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
       <div className="container-page">
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: 'var(--space-8)', maxWidth: '680px', margin: '0 auto var(--space-7)' }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 'var(--space-8)', maxWidth: '680px', margin: '0 auto var(--space-7)' }}>
           <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)' }}>
             {t.badge}
           </span>
@@ -112,7 +140,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
 
 
           {/* 2. Prostuti AI (Tall) */}
-          <div className="bento-card bento-ai">
+          <div className="bento-card bento-ai reveal" style={{ transitionDelay: '0ms' }}>
             <div className="bento-content" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <h3 className="bento-title">{t.aiTitle}</h3>
               <p className="bento-desc">{t.aiDesc}</p>
@@ -139,7 +167,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
 
 
           {/* 4. Admission Hub */}
-          <div className="bento-card bento-admission">
+          <div className="bento-card bento-admission reveal" style={{ transitionDelay: '70ms' }}>
             <div className="bento-content">
               <h3 className="bento-title">{t.admissionTitle}</h3>
               <p className="bento-desc">{t.admissionDesc}</p>
@@ -156,7 +184,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           </div>
 
           {/* 5. Weekly Leaderboard */}
-          <div className="bento-card bento-leaderboard">
+          <div className="bento-card bento-leaderboard reveal" style={{ transitionDelay: '140ms' }}>
             <div className="bento-content">
               <h3 className="bento-title">{t.leaderboardTitle}</h3>
               <p className="bento-desc">{t.leaderboardDesc}</p>
@@ -174,7 +202,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           </div>
 
           {/* 6. Daily Goals & XP */}
-          <div className="bento-card bento-goals">
+          <div className="bento-card bento-goals reveal" style={{ transitionDelay: '210ms' }}>
             <div className="bento-content">
               <h3 className="bento-title">{t.goalsTitle}</h3>
               <p className="bento-desc">{t.goalsDesc}</p>
