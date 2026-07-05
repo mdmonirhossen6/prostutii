@@ -165,51 +165,51 @@ export default function FAQ({ lang }: FAQProps) {
               const buttonId = `faq-btn-${idx}`;
 
               return (
-                <div
-                  key={idx}
-                  role="listitem"
-                  className={`faq-card ${isOpen ? 'open' : ''} reveal`}
-                  style={{ transitionDelay: `${idx * 60}ms` }}
-                >
-                  <button
-                    id={buttonId}
-                    onClick={() => toggle(idx)}
-                    onKeyDown={(e) => handleKey(e, idx)}
-                    aria-expanded={isOpen}
-                    aria-controls={answerId}
-                    className="faq-button"
-                  >
-                    <span className="faq-question">
-                      {item.q}
-                    </span>
-                    <span className="faq-icon-wrapper" aria-hidden="true">
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        className={`faq-icon ${isOpen ? 'rotated' : ''}`}
-                      >
-                        <path d="M12 5v14M5 12h14"/>
-                      </svg>
-                    </span>
-                  </button>
-
+                <div key={idx} className="reveal" style={{ transitionDelay: `${idx * 60}ms` }}>
                   <div
-                    id={answerId}
-                    role="region"
-                    aria-labelledby={buttonId}
-                    ref={(el) => { answerRefs.current[idx] = el; }}
-                    className="faq-answer-container"
-                    style={{
-                      maxHeight: isOpen ? '200px' : '0',
-                    }}
+                    role="listitem"
+                    className={`faq-card ${isOpen ? 'open' : ''}`}
                   >
-                    <p className="faq-answer-text">
-                      {item.a}
-                    </p>
+                    <button
+                      id={buttonId}
+                      onClick={() => toggle(idx)}
+                      onKeyDown={(e) => handleKey(e, idx)}
+                      aria-expanded={isOpen}
+                      aria-controls={answerId}
+                      className="faq-button"
+                    >
+                      <span className="faq-question">
+                        {item.q}
+                      </span>
+                      <span className="faq-icon-wrapper" aria-hidden="true">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          className={`faq-icon ${isOpen ? 'rotated' : ''}`}
+                        >
+                          <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                      </span>
+                    </button>
+
+                    <div
+                      id={answerId}
+                      role="region"
+                      aria-labelledby={buttonId}
+                      ref={(el) => { answerRefs.current[idx] = el; }}
+                      className="faq-answer-container"
+                      style={{
+                        maxHeight: isOpen ? '200px' : '0',
+                      }}
+                    >
+                      <p className="faq-answer-text">
+                        {item.a}
+                      </p>
+                    </div>
                   </div>
                 </div>
               );
