@@ -101,15 +101,25 @@ function AnimatedCounter({ target, suffix, lang }: { target: number; suffix: str
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting && !started) setStarted(true); },
+      ([entry]) => { 
+        if (entry.isIntersecting && !started) {
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (prefersReducedMotion) {
+            setCount(target);
+            setStarted(true);
+          } else {
+            setStarted(true);
+          }
+        } 
+      },
       { threshold: 0.4 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [started]);
+  }, [started, target]);
 
   useEffect(() => {
-    if (!started) return;
+    if (!started || count === target) return;
     let start = 0;
     const duration = 1500;
     const step = target / (duration / 16);
