@@ -81,7 +81,10 @@ const copy = {
 
 export default function Gamification({ lang }: GamificationProps) {
   const t = copy[lang];
-  const [targetQuestions, setTargetQuestions] = useState<number>(30);
+  const [points, setPoints] = useState<number>(1760);
+  const [streak, setStreak] = useState<number>(9);
+  const [rankProgress, setRankProgress] = useState<number>(37); // Maps to rank 13
+  const [celebrate, setCelebrate] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -111,29 +114,40 @@ export default function Gamification({ lang }: GamificationProps) {
   }, []);
 
   // Dynamic calculations based on slider input
-  const auraPoints = targetQuestions * 24 + 1042;
+  const auraPoints = points;
   const progressPercent = Math.min(100, Math.floor((auraPoints / 3000) * 100));
   const remainingAura = Math.max(0, 3000 - auraPoints);
   
-  const streakDays = Math.floor(targetQuestions / 4) + 2;
-  const rankVal = Math.max(1, 18 - Math.floor(targetQuestions / 6));
-  const qPoints = targetQuestions * 8;
+  const streakDays = streak;
+  const rankVal = 50 - rankProgress; // goes from 50 down to 1
+  const qPoints = Math.floor(auraPoints * 1.5 + streakDays * 12);
 
   let leagueIcon = '🥈';
   let leagueName = t.mockup.silverLeague;
   let nextLeagueInfo = t.mockup.goldLeague;
 
-  if (targetQuestions >= 80) {
+  if (rankVal <= 10) {
     leagueIcon = '💎';
     leagueName = t.mockup.diamondLeague;
     nextLeagueInfo = 'Max League Reached';
-  } else if (targetQuestions >= 40) {
+  } else if (rankVal <= 25) {
     leagueIcon = '🥇';
     leagueName = t.mockup.goldLeague;
     nextLeagueInfo = t.mockup.diamondLeague;
   }
 
-  const isRewardClaimable = targetQuestions >= 90;
+  const allMet = points >= 3000 && streak >= 25 && rankVal <= 5;
+  const isRewardClaimable = allMet;
+
+  useEffect(() => {
+    if (allMet) {
+      setCelebrate(true);
+      const timer = setTimeout(() => setCelebrate(false), 1200);
+      return () => clearTimeout(timer);
+    } else {
+      setCelebrate(false);
+    }
+  }, [allMet]);
 
   return (
     <section ref={sectionRef} id="gamification" aria-labelledby="gamification-heading" style={{ padding: '110px 0', overflow: 'hidden', background: 'var(--color-surface-base)' }}>
@@ -152,40 +166,70 @@ export default function Gamification({ lang }: GamificationProps) {
               {t.subtitle}
             </p>
 
-            {/* Slider Control */}
+            {/* 3 Interactive Sliders */}
             <div 
+              className="reveal"
               style={{ 
                 background: 'rgba(255,255,255,0.02)', 
                 border: '1px solid var(--color-border-default)', 
                 borderRadius: '12px', 
-                padding: '20px',
+                padding: '24px',
                 marginBottom: '32px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '12px'
+                gap: '24px'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text-primary)' }}>
-                  {t.sliderLabel}
-                </span>
-                <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--color-surface-strong)', fontFamily: 'monospace' }}>
-                  {targetQuestions} {t.sliderSuffix}
-                </span>
+              {/* Points Slider */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <label htmlFor="pts-slider" style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text-primary)' }}>{t.mockup.requirements.points}</label>
+                  <span style={{ fontSize: '15px', fontWeight: 800, color: 'var(--color-surface-strong)', fontFamily: 'monospace' }}>{points} / 3000</span>
+                </div>
+                <input 
+                  id="pts-slider"
+                  type="range" 
+                  min="0" max="3200" step="50" 
+                  value={points} 
+                  onChange={(e) => setPoints(parseInt(e.target.value))} 
+                  style={{ width: '100%', accentColor: 'var(--color-surface-strong)', cursor: 'pointer' }} 
+                  aria-valuemin={0} aria-valuemax={3200} aria-valuenow={points} 
+                />
               </div>
-              <input 
-                type="range" 
-                min="10" 
-                max="100" 
-                step="5"
-                value={targetQuestions} 
-                onChange={(e) => setTargetQuestions(parseInt(e.target.value))}
-                style={{ 
-                  width: '100%', 
-                  accentColor: 'var(--color-surface-strong)',
-                  cursor: 'pointer'
-                }} 
-              />
+
+              {/* Streak Slider */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <label htmlFor="streak-slider" style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text-primary)' }}>{t.mockup.requirements.streak}</label>
+                  <span style={{ fontSize: '15px', fontWeight: 800, color: 'var(--color-surface-strong)', fontFamily: 'monospace' }}>{streak} {lang === 'bn' ? 'দিন' : 'Days'}</span>
+                </div>
+                <input 
+                  id="streak-slider"
+                  type="range" 
+                  min="0" max="30" step="1" 
+                  value={streak} 
+                  onChange={(e) => setStreak(parseInt(e.target.value))} 
+                  style={{ width: '100%', accentColor: 'var(--color-surface-strong)', cursor: 'pointer' }} 
+                  aria-valuemin={0} aria-valuemax={30} aria-valuenow={streak} 
+                />
+              </div>
+
+              {/* Rank Slider */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <label htmlFor="rank-slider" style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text-primary)' }}>{t.mockup.requirements.rank}</label>
+                  <span style={{ fontSize: '15px', fontWeight: 800, color: 'var(--color-surface-strong)', fontFamily: 'monospace' }}>#{rankVal}</span>
+                </div>
+                <input 
+                  id="rank-slider"
+                  type="range" 
+                  min="0" max="49" step="1" 
+                  value={rankProgress} 
+                  onChange={(e) => setRankProgress(parseInt(e.target.value))} 
+                  style={{ width: '100%', accentColor: 'var(--color-surface-strong)', cursor: 'pointer', direction: 'ltr' }} 
+                  aria-valuemin={1} aria-valuemax={50} aria-valuenow={rankVal} 
+                />
+              </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
@@ -279,7 +323,7 @@ export default function Gamification({ lang }: GamificationProps) {
               </div>
               
               {/* Requirements List */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
                 {[
                   { label: t.mockup.requirements.points, val: `${auraPoints} / 3000`, met: auraPoints >= 3000 },
                   { label: t.mockup.requirements.streak, val: `${streakDays} / 25`, met: streakDays >= 25 },
@@ -287,10 +331,22 @@ export default function Gamification({ lang }: GamificationProps) {
                 ].map((req, i) => (
                   <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 'var(--font-size-xs)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--color-text-secondary)' }}>
-                      <div style={{ width: 12, height: 12, borderRadius: '50%', border: '1px solid var(--color-border-default)', background: req.met ? 'var(--color-surface-strong)' : 'transparent', transition: 'background 0.3s ease' }}></div>
-                      {req.label}
+                      <div style={{ 
+                        width: 18, height: 18, 
+                        borderRadius: '50%', 
+                        border: req.met ? 'none' : '2px solid var(--color-border-default)', 
+                        background: req.met ? 'var(--color-surface-strong)' : 'transparent', 
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 
+                        transform: req.met ? 'scale(1.1)' : 'scale(1)' 
+                      }}>
+                        {req.met && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="4"><path d="M20 6L9 17l-5-5"/></svg>}
+                      </div>
+                      <span style={{ fontWeight: 600 }}>{req.label}</span>
                     </div>
-                    <div style={{ color: 'var(--color-text-tertiary)', fontFamily: 'monospace' }}>{req.val}</div>
+                    <div style={{ color: req.met ? 'var(--color-surface-strong)' : 'var(--color-text-tertiary)', fontWeight: 700, fontFamily: 'monospace', transition: 'color 0.2s' }}>
+                      {req.val}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -299,25 +355,37 @@ export default function Gamification({ lang }: GamificationProps) {
               <button 
                 disabled={!isRewardClaimable}
                 aria-label={isRewardClaimable ? t.mockup.claimable : t.mockup.notMet}
+                className={celebrate ? 'celebration-active' : ''}
                 style={{ 
                   width: '100%',
                   background: isRewardClaimable ? 'var(--color-surface-strong)' : 'rgba(255,255,255,0.05)', 
-                  border: isRewardClaimable ? '1px solid var(--color-surface-strong)' : 'none',
-                  padding: 'var(--space-2) var(--space-3)', 
+                  border: isRewardClaimable ? '1px solid transparent' : '1px solid var(--color-border-default)',
+                  padding: 'var(--space-3)', 
                   borderRadius: 'var(--radius-xs)', 
                   textAlign: 'center', 
                   fontSize: 'var(--font-size-sm)', 
-                  fontWeight: 700, 
-                  color: isRewardClaimable ? '#000' : 'var(--color-text-tertiary)', 
+                  fontWeight: 800, 
+                  color: isRewardClaimable ? '#fff' : 'var(--color-text-tertiary)', 
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center', 
                   gap: 'var(--space-2)',
                   cursor: isRewardClaimable ? 'pointer' : 'not-allowed',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  boxShadow: isRewardClaimable ? '0 8px 24px rgba(0, 150, 109, 0.4)' : 'none',
+                  position: 'relative'
                 }}
               >
-                {!isRewardClaimable && <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>}
+                {/* Celebration Particles */}
+                {celebrate && [...Array(12)].map((_, i) => (
+                  <span key={i} className="confetti" style={{ 
+                    '--tx': `${Math.cos(i * 30 * Math.PI / 180) * 60}px`, 
+                    '--ty': `${Math.sin(i * 30 * Math.PI / 180) * 60}px`,
+                    background: ['#00d9a0', '#8b5cf6', '#f59e0b'][i % 3] 
+                  } as React.CSSProperties} />
+                ))}
+
+                {!isRewardClaimable && <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>}
                 {isRewardClaimable ? t.mockup.claimable : t.mockup.notMet}
               </button>
             </div>
@@ -329,6 +397,32 @@ export default function Gamification({ lang }: GamificationProps) {
       <style jsx>{`
         .mockup-container {
           transform: perspective(1000px) rotateY(-3deg) rotateX(1deg);
+        }
+        .celebration-active {
+          animation: pulseBorder 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes pulseBorder {
+          0% { transform: scale(1); }
+          20% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+        .confetti {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          animation: popOut 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+          opacity: 0;
+          pointer-events: none;
+          top: 50%;
+          left: 50%;
+          margin-top: -4px;
+          margin-left: -4px;
+        }
+        @keyframes popOut {
+          0% { transform: translate(0, 0) scale(0); opacity: 1; }
+          70% { opacity: 1; }
+          100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
         }
         @media (max-width: 900px) {
           .gamification-grid {
