@@ -185,28 +185,6 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
             </div>
           </div>
 
-          {/* 5. Weekly Leaderboard */}
-          <div className="bento-card bento-leaderboard reveal" style={{ transitionDelay: '140ms' }}>
-            <div className="bento-content">
-              <h3 className="bento-title">{t.leaderboardTitle}</h3>
-              <p className="bento-desc">{t.leaderboardDesc}</p>
-              
-              <div className="bento-visual leaderboard-visual" style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '24px' }}>
-                <div className="lb-user-row" style={{ transform: 'scale(1.05)', boxShadow: '0 0 20px rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.3)', background: 'linear-gradient(90deg, rgba(245,158,11,0.1), transparent)' }}>
-                  <span className="lb-rank" style={{ color: '#f59e0b', fontSize: '18px' }}>🥇</span>
-                  <span className="lb-name" style={{ fontWeight: 700 }}>{t.leaderboardUsers[0].name}</span>
-                  <span className="lb-xp" style={{ color: '#f59e0b', fontWeight: 700 }}>{t.leaderboardUsers[0].xp}</span>
-                </div>
-                
-                <div style={{ textAlign: 'center', marginTop: 'auto' }}>
-                  <a href="#leaderboard" style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-surface-strong)', textDecoration: 'none', transition: 'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity = '0.7'} onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
-                    {t.fullLeaderboardLink}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* 6. Daily Goals & XP */}
           <div className="bento-card bento-goals reveal" style={{ transitionDelay: '210ms' }}>
             <div className="bento-content">
@@ -233,7 +211,7 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
       <style jsx>{`
         .bento-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(2, 1fr);
           grid-auto-rows: minmax(280px, auto);
           gap: var(--space-4);
         }
@@ -277,7 +255,8 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
 
         /* Specific Grid Placements */
         .bento-ai { grid-column: span 1; }
-        .bento-goals { grid-column: span 3; }
+        .bento-admission { grid-column: span 1; }
+        .bento-goals { grid-column: span 2; }
 
 
         /* AI Visual */
