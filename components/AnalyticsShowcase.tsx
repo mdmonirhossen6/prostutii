@@ -257,40 +257,164 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
       />
 
       <div className="container-page" style={{ position: 'relative', zIndex: 1 }}>
-        {/* Section Header */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: '56px' }}>
-          <span className="badge badge-green" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
-          <h2 id="analytics-heading" className="section-title" style={{ marginBottom: 'var(--space-3)' }}>{t.title}</h2>
-          <p className="section-subtitle" style={{ margin: '0 auto' }}>{t.subtitle}</p>
-        </div>
-
-        {/* Track Selector Tab */}
-        <div className="reveal" style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '48px', flexWrap: 'wrap' }}>
-          {(['hsc', 'engineering', 'medical'] as Track[]).map((trk) => (
-            <button
-              key={trk}
-              onClick={() => { setActiveTrack(trk); setDrawProgress(0); setIsVisible(false); setTimeout(() => setIsVisible(true), 50); }}
-              style={{
-                background: activeTrack === trk ? 'var(--color-surface-strong)' : 'rgba(255,255,255,0.02)',
-                border: '1px solid var(--color-border-default)',
-                color: activeTrack === trk ? '#000' : 'var(--color-text-secondary)',
-                padding: '8px 16px',
-                borderRadius: '20px',
-                fontSize: '13px',
-                fontWeight: 700,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              {trackData[trk][lang].name}
-            </button>
-          ))}
-        </div>
-
-        {/* Main Analytics Content */}
-        <div className="analytics-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '56px', alignItems: 'start' }}>
+        <div className="analytics-grid reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '56px', alignItems: 'center' }}>
           
-          {/* Radar Chart Display — scaled up significantly */}
+          {/* Left Column: Text Content */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+            
+            {/* Section Header */}
+            <div>
+              <span className="badge badge-green" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
+              <h2 id="analytics-heading" className="section-title" style={{ textAlign: 'left', marginBottom: 'var(--space-3)' }}>{t.title}</h2>
+              <p className="section-subtitle" style={{ textAlign: 'left', margin: 0 }}>{t.subtitle}</p>
+            </div>
+
+            {/* Track Selector Tab */}
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              {(['hsc', 'engineering', 'medical'] as Track[]).map((trk) => (
+                <button
+                  key={trk}
+                  onClick={() => { setActiveTrack(trk); setDrawProgress(0); setIsVisible(false); setTimeout(() => setIsVisible(true), 50); }}
+                  style={{
+                    background: activeTrack === trk ? 'var(--color-surface-strong)' : 'rgba(255,255,255,0.02)',
+                    border: '1px solid var(--color-border-default)',
+                    color: activeTrack === trk ? '#000' : 'var(--color-text-secondary)',
+                    padding: '8px 16px',
+                    borderRadius: '20px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  {trackData[trk][lang].name}
+                </button>
+              ))}
+            </div>
+
+            {/* Weak Topics — restyled as data table */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+                {t.weakTopicsTitle}
+              </h3>
+
+              {/* Data Table */}
+              <div style={{
+                background: 'var(--color-surface-card)',
+                border: '1px solid var(--color-border-default)',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: 'var(--shadow-navy)',
+              }}>
+                {/* Table header row */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '2fr 100px 1fr',
+                  gap: '12px',
+                  padding: '14px 20px',
+                  background: 'rgba(255,255,255,0.02)',
+                  borderBottom: '1px solid var(--color-border-default)',
+                }}>
+                  <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    {t.tableHeaderTopic}
+                  </span>
+                  <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px', textAlign: 'center' }}>
+                    {t.tableHeaderAccuracy}
+                  </span>
+                  <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    {t.tableHeaderAction}
+                  </span>
+                </div>
+
+                {/* Table body rows */}
+                {data.weakTopics.map((topicItem, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '2fr 100px 1fr',
+                      gap: '12px',
+                      padding: '16px 20px',
+                      borderBottom: idx < data.weakTopics.length - 1 ? '1px solid var(--color-border-default)' : 'none',
+                      alignItems: 'center',
+                      transition: 'background 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,0.02)'; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
+                  >
+                    {/* Topic */}
+                    <div>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text-primary)', lineHeight: 1.4, display: 'block' }}>
+                        {topicItem.topic}
+                      </span>
+                    </div>
+
+                    {/* Accuracy with visual bar */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                      <span style={{ fontFamily: 'monospace', fontSize: '14px', fontWeight: 800, color: '#f59e0b' }}>
+                        {topicItem.accuracy}%
+                      </span>
+                      <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px', overflow: 'hidden' }}>
+                        <div
+                          style={{
+                            height: '100%',
+                            width: `${topicItem.accuracy * drawProgress}%`,
+                            background: 'linear-gradient(90deg, #f59e0b 0%, #eab308 100%)',
+                            borderRadius: '2px',
+                            transition: 'width 0.4s ease'
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Action — AI recommendation + CTA */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
+                        <span style={{ fontSize: '9px', fontWeight: 800, background: 'var(--color-accent-purple)', color: '#fff', padding: '1px 5px', borderRadius: '3px', flexShrink: 0, marginTop: '2px' }}>
+                          {t.aiPill}
+                        </span>
+                        <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
+                          {topicItem.reco}
+                        </span>
+                      </div>
+                      <a
+                        href="https://web.prostuti.bd"
+                        style={{
+                          alignSelf: 'flex-start',
+                          background: 'transparent',
+                          border: '1px solid var(--color-border-default)',
+                          borderRadius: '4px',
+                          color: 'var(--color-text-primary)',
+                          padding: '4px 10px',
+                          fontSize: '10px',
+                          fontWeight: 700,
+                          textDecoration: 'none',
+                          transition: 'all 0.2s ease',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px'
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLAnchorElement).style.background = 'var(--color-surface-strong)';
+                          (e.currentTarget as HTMLAnchorElement).style.color = '#000';
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
+                          (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-primary)';
+                        }}
+                      >
+                        {t.actionCta}
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column: Radar Chart Display — scaled up significantly */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -390,127 +514,6 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
               </text>
             </svg>
           </div>
-
-          {/* Weak Topics — restyled as data table */}
-          <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text-primary)' }}>
-              {t.weakTopicsTitle}
-            </h3>
-
-            {/* Data Table */}
-            <div style={{
-              background: 'var(--color-surface-card)',
-              border: '1px solid var(--color-border-default)',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              boxShadow: 'var(--shadow-navy)',
-            }}>
-              {/* Table header row */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '2fr 100px 1fr',
-                gap: '12px',
-                padding: '14px 20px',
-                background: 'rgba(255,255,255,0.02)',
-                borderBottom: '1px solid var(--color-border-default)',
-              }}>
-                <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  {t.tableHeaderTopic}
-                </span>
-                <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px', textAlign: 'center' }}>
-                  {t.tableHeaderAccuracy}
-                </span>
-                <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  {t.tableHeaderAction}
-                </span>
-              </div>
-
-              {/* Table body rows */}
-              {data.weakTopics.map((topicItem, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '2fr 100px 1fr',
-                    gap: '12px',
-                    padding: '16px 20px',
-                    borderBottom: idx < data.weakTopics.length - 1 ? '1px solid var(--color-border-default)' : 'none',
-                    alignItems: 'center',
-                    transition: 'background 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,0.02)'; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
-                >
-                  {/* Topic */}
-                  <div>
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text-primary)', lineHeight: 1.4, display: 'block' }}>
-                      {topicItem.topic}
-                    </span>
-                  </div>
-
-                  {/* Accuracy with visual bar */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                    <span style={{ fontFamily: 'monospace', fontSize: '14px', fontWeight: 800, color: '#f59e0b' }}>
-                      {topicItem.accuracy}%
-                    </span>
-                    <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px', overflow: 'hidden' }}>
-                      <div
-                        style={{
-                          height: '100%',
-                          width: `${topicItem.accuracy * drawProgress}%`,
-                          background: 'linear-gradient(90deg, #f59e0b 0%, #eab308 100%)',
-                          borderRadius: '2px',
-                          transition: 'width 0.4s ease'
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Action — AI recommendation + CTA */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
-                      <span style={{ fontSize: '9px', fontWeight: 800, background: 'var(--color-accent-purple)', color: '#fff', padding: '1px 5px', borderRadius: '3px', flexShrink: 0, marginTop: '2px' }}>
-                        {t.aiPill}
-                      </span>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-                        {topicItem.reco}
-                      </span>
-                    </div>
-                    <a
-                      href="https://web.prostuti.bd"
-                      style={{
-                        alignSelf: 'flex-start',
-                        background: 'transparent',
-                        border: '1px solid var(--color-border-default)',
-                        borderRadius: '4px',
-                        color: 'var(--color-text-primary)',
-                        padding: '4px 10px',
-                        fontSize: '10px',
-                        fontWeight: 700,
-                        textDecoration: 'none',
-                        transition: 'all 0.2s ease',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px'
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.background = 'var(--color-surface-strong)';
-                        (e.currentTarget as HTMLAnchorElement).style.color = '#000';
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-                        (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-primary)';
-                      }}
-                    >
-                      {t.actionCta}
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -519,12 +522,6 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
           .analytics-grid {
             grid-template-columns: 1fr !important;
             gap: 32px !important;
-          }
-          .analytics-grid > div:first-child {
-            order: 2;
-          }
-          .analytics-grid > div:last-child {
-            order: 1;
           }
         }
       `}</style>

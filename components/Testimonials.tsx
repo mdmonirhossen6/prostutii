@@ -203,301 +203,306 @@ export default function Testimonials({ lang }: TestimonialsProps) {
       }}
     >
       <div className="container-page">
-        {/* Header — left-aligned to break repetitive centering */}
-        <div className="reveal" style={{ textAlign: 'left', marginBottom: 'var(--space-7)', maxWidth: '600px' }}>
-          <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)' }}>
-            {t.badge}
-          </span>
-          <h2
-            id="testimonials-heading"
-            className="section-title"
-            style={{ marginBottom: 'var(--space-3)' }}
-          >
-            {t.title}
-          </h2>
-          <p className="section-subtitle" style={{ margin: 0 }}>
-            {t.subtitle}
-          </p>
-        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 'var(--space-7)', marginBottom: 'var(--space-8)' }} className="reveal testimonials-top-grid">
+          {/* Left Side: Header & Mini List */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {/* Header */}
+            <div style={{ textAlign: 'left', marginBottom: 'var(--space-6)' }}>
+              <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)' }}>
+                {t.badge}
+              </span>
+              <h2
+                id="testimonials-heading"
+                className="section-title"
+                style={{ marginBottom: 'var(--space-3)' }}
+              >
+                {t.title}
+              </h2>
+              <p className="section-subtitle" style={{ margin: 0 }}>
+                {t.subtitle}
+              </p>
+            </div>
 
-        {/* Featured testimonial with layered depth */}
-        <div
-          style={{
-            maxWidth: '820px',
-            margin: '0 auto var(--space-6)',
-            position: 'relative',
-          }}
-          aria-live="polite"
-          aria-label={lang === 'bn' ? 'বর্তমান প্রশংসাপত্র' : 'Current testimonial'}
-        >
-          {/* PART 5: Layered card behind — blurred/dimmed secondary testimonial */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              top: '12px',
-              left: '16px',
-              right: '-12px',
-              bottom: '-8px',
-              background: 'var(--color-surface-card-deep)',
-              border: '1px solid var(--color-border-default)',
-              borderRadius: 'var(--radius-sm)',
-              opacity: 0.5,
-              filter: 'blur(1px)',
-              transform: 'rotate(1.5deg)',
-              zIndex: 0,
-            }}
-          />
+            {/* Testimonial selector mini-list */}
+            <ul
+              role="list"
+              style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
+            >
+              {items.map((item, i) => (
+                <li key={i}>
+                  <button
+                    onClick={() => setActiveIdx(i)}
+                    aria-pressed={i === activeIdx}
+                    aria-label={`${item.name} — ${item.result}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 'var(--space-3)',
+                      width: '100%',
+                      padding: 'var(--space-3) var(--space-4)',
+                      background: i === activeIdx ? 'rgba(0,150,109,0.10)' : 'var(--color-surface-card)',
+                      border: `1px solid ${i === activeIdx ? 'rgba(0,150,109,0.4)' : 'var(--color-border-default)'}`,
+                      borderRadius: 'var(--radius-xs)',
+                      cursor: 'pointer',
+                      transition: 'all var(--duration-fast) var(--easing-default)',
+                      fontFamily: 'var(--font-family-primary)',
+                      textAlign: 'left',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (i !== activeIdx) {
+                        (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-surface-hover)';
+                        (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.15)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (i !== activeIdx) {
+                        (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-surface-card)';
+                        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-default)';
+                      }
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: '50%',
+                        background: item.color,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '14px',
+                        fontWeight: 700,
+                        color: '#fff',
+                        flexShrink: 0,
+                      }}
+                      role="img"
+                      aria-label={item.name}
+                      aria-hidden="true"
+                    >
+                      {item.avatar}
+                    </div>
+                    <div style={{ minWidth: 0 }}>
+                      <p style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600, color: 'var(--color-text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {item.name}
+                      </p>
+                      <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)' }}>
+                        {item.result} — {item.exam}
+                      </p>
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
+          {/* Right Side: Featured testimonial */}
           <div
-            key={activeIdx}
             style={{
-              background: 'var(--color-surface-card)',
-              border: '1px solid var(--color-border-default)',
-              borderRadius: 'var(--radius-sm)',
-              padding: 'var(--space-7)',
               position: 'relative',
-              animation: `${slideDirection === 'right' ? 'slideInRight' : 'slideInLeft'} 0.35s ease-out forwards`,
-              zIndex: 1,
+              alignSelf: 'center',
             }}
+            aria-live="polite"
+            aria-label={lang === 'bn' ? 'বর্তমান প্রশংসাপত্র' : 'Current testimonial'}
           >
-            {/* Quote mark */}
+            {/* Layered card behind */}
             <div
               aria-hidden="true"
               style={{
                 position: 'absolute',
-                top: '24px',
-                right: '24px',
-                fontSize: '80px',
-                color: 'rgba(0,150,109,0.12)',
-                lineHeight: 1,
-                fontFamily: 'serif',
+                top: '12px',
+                left: '16px',
+                right: '-12px',
+                bottom: '-8px',
+                background: 'var(--color-surface-card-deep)',
+                border: '1px solid var(--color-border-default)',
+                borderRadius: 'var(--radius-sm)',
+                opacity: 0.5,
+                filter: 'blur(1px)',
+                transform: 'rotate(1.5deg)',
+                zIndex: 0,
+              }}
+            />
+
+            <div
+              key={activeIdx}
+              style={{
+                background: 'var(--color-surface-card)',
+                border: '1px solid var(--color-border-default)',
+                borderRadius: 'var(--radius-sm)',
+                padding: 'var(--space-7)',
+                position: 'relative',
+                animation: `${slideDirection === 'right' ? 'slideInRight' : 'slideInLeft'} 0.35s ease-out forwards`,
+                zIndex: 1,
               }}
             >
-              "
+              {/* Quote mark */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  top: '24px',
+                  right: '24px',
+                  fontSize: '80px',
+                  color: 'rgba(0,150,109,0.12)',
+                  lineHeight: 1,
+                  fontFamily: 'serif',
+                }}
+              >
+                "
+              </div>
+
+              {/* Avatar + name */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
+                <div
+                  style={{
+                    width: 52,
+                    height: 52,
+                    borderRadius: '50%',
+                    background: items[activeIdx].color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '20px',
+                    fontWeight: 700,
+                    color: '#fff',
+                    flexShrink: 0,
+                  }}
+                  role="img"
+                  aria-label={items[activeIdx].name}
+                >
+                  {items[activeIdx].avatar}
+                </div>
+                <div>
+                  <p style={{ fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '2px' }}>
+                    {items[activeIdx].name}
+                  </p>
+                  <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)' }}>
+                    {items[activeIdx].batch}
+                  </p>
+                </div>
+                <div style={{ marginLeft: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 'var(--space-1)' }}>
+                  {items[activeIdx].verified && (
+                    <span className="badge badge-green" style={{ fontSize: 'var(--font-size-xs)' }}>
+                      {t.verified}
+                    </span>
+                  )}
+                  <span
+                    style={{
+                      fontSize: 'var(--font-size-xs)',
+                      color: '#00d9a0',
+                      fontWeight: 700,
+                    }}
+                  >
+                    {t.result}: {items[activeIdx].result}
+                  </span>
+                </div>
+              </div>
+
+              <blockquote
+                style={{
+                  fontSize: '1.25rem',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.7,
+                  fontStyle: 'italic',
+                  margin: 0,
+                }}
+              >
+                "{items[activeIdx].quote}"
+              </blockquote>
             </div>
 
-            {/* Avatar + name */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
-              <div
-                style={{
-                  width: 52,
-                  height: 52,
+            {/* Navigation */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-4)', marginTop: 'var(--space-5)' }}>
+              <button
+                onClick={prev}
+                aria-label={lang === 'bn' ? 'আগের মতামত' : 'Previous testimonial'}
+                style={{ 
+                  width: 44, 
+                  height: 44, 
+                  padding: 0, 
                   borderRadius: '50%',
-                  background: items[activeIdx].color,
+                  background: 'var(--color-surface-raised)',
+                  border: '1px solid var(--color-border-default)',
+                  color: 'var(--color-text-primary)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  color: '#fff',
-                  flexShrink: 0,
+                  cursor: 'pointer',
+                  transition: 'all var(--duration-fast) var(--easing-default)'
                 }}
-                role="img"
-                aria-label={items[activeIdx].name}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'var(--color-surface-hover)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'var(--color-surface-raised)';
+                  e.currentTarget.style.borderColor = 'var(--color-border-default)';
+                }}
               >
-                {items[activeIdx].avatar}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                  <path d="M19 12H5M12 5l-7 7 7 7"/>
+                </svg>
+              </button>
+
+              {/* Dots */}
+              <div style={{ display: 'flex', gap: 'var(--space-2)' }} role="tablist" aria-label={lang === 'bn' ? 'প্রশংসাপত্র নেভিগেশন' : 'Testimonial navigation'}>
+                {items.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIdx(i)}
+                    role="tab"
+                    aria-selected={i === activeIdx}
+                    aria-label={`${lang === 'bn' ? 'প্রশংসাপত্র' : 'Testimonial'} ${i + 1}: ${items[i].name}`}
+                    style={{
+                      width: i === activeIdx ? 24 : 8,
+                      height: 8,
+                      borderRadius: 'var(--radius-md)',
+                      background: i === activeIdx ? 'var(--color-surface-strong)' : 'rgba(255,255,255,0.2)',
+                      border: 'none',
+                      cursor: 'pointer',
+                      transition: 'all var(--duration-fast) var(--easing-default)',
+                      padding: 0,
+                    }}
+                  />
+                ))}
               </div>
-              <div>
-                <p style={{ fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '2px' }}>
-                  {items[activeIdx].name}
-                </p>
-                <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)' }}>
-                  {items[activeIdx].batch}
-                </p>
-              </div>
-              <div style={{ marginLeft: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 'var(--space-1)' }}>
-                {items[activeIdx].verified && (
-                  <span className="badge badge-green" style={{ fontSize: 'var(--font-size-xs)' }}>
-                    {t.verified}
-                  </span>
-                )}
-                <span
-                  style={{
-                    fontSize: 'var(--font-size-xs)',
-                    color: '#00d9a0',
-                    fontWeight: 700,
-                  }}
-                >
-                  {t.result}: {items[activeIdx].result}
-                </span>
-              </div>
+
+              <button
+                onClick={next}
+                aria-label={lang === 'bn' ? 'পরবর্তী মতামত' : 'Next testimonial'}
+                style={{ 
+                  width: 44, 
+                  height: 44, 
+                  padding: 0, 
+                  borderRadius: '50%',
+                  background: 'var(--color-surface-raised)',
+                  border: '1px solid var(--color-border-default)',
+                  color: 'var(--color-text-primary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'all var(--duration-fast) var(--easing-default)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'var(--color-surface-hover)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'var(--color-surface-raised)';
+                  e.currentTarget.style.borderColor = 'var(--color-border-default)';
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
             </div>
-
-            <blockquote
-              style={{
-                fontSize: '1.25rem',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.7,
-                fontStyle: 'italic',
-                margin: 0,
-              }}
-            >
-              "{items[activeIdx].quote}"
-            </blockquote>
-          </div>
-
-          {/* Navigation */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-4)', marginTop: 'var(--space-5)' }}>
-            <button
-              onClick={prev}
-              aria-label={lang === 'bn' ? 'আগের মতামত' : 'Previous testimonial'}
-              style={{ 
-                width: 44, 
-                height: 44, 
-                padding: 0, 
-                borderRadius: '50%',
-                background: 'var(--color-surface-raised)',
-                border: '1px solid var(--color-border-default)',
-                color: 'var(--color-text-primary)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'all var(--duration-fast) var(--easing-default)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--color-surface-hover)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--color-surface-raised)';
-                e.currentTarget.style.borderColor = 'var(--color-border-default)';
-              }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                <path d="M19 12H5M12 5l-7 7 7 7"/>
-              </svg>
-            </button>
-
-            {/* Dots */}
-            <div style={{ display: 'flex', gap: 'var(--space-2)' }} role="tablist" aria-label={lang === 'bn' ? 'প্রশংসাপত্র নেভিগেশন' : 'Testimonial navigation'}>
-              {items.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveIdx(i)}
-                  role="tab"
-                  aria-selected={i === activeIdx}
-                  aria-label={`${lang === 'bn' ? 'প্রশংসাপত্র' : 'Testimonial'} ${i + 1}: ${items[i].name}`}
-                  style={{
-                    width: i === activeIdx ? 24 : 8,
-                    height: 8,
-                    borderRadius: 'var(--radius-md)',
-                    background: i === activeIdx ? 'var(--color-surface-strong)' : 'rgba(255,255,255,0.2)',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'all var(--duration-fast) var(--easing-default)',
-                    padding: 0,
-                  }}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={next}
-              aria-label={lang === 'bn' ? 'পরবর্তী মতামত' : 'Next testimonial'}
-              style={{ 
-                width: 44, 
-                height: 44, 
-                padding: 0, 
-                borderRadius: '50%',
-                background: 'var(--color-surface-raised)',
-                border: '1px solid var(--color-border-default)',
-                color: 'var(--color-text-primary)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'all var(--duration-fast) var(--easing-default)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--color-surface-hover)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--color-surface-raised)';
-                e.currentTarget.style.borderColor = 'var(--color-border-default)';
-              }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
           </div>
         </div>
 
-        {/* Bottom: testimonial selector + live leaderboard */}
-        <div className="reveal testimonials-bottom-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-6)', alignItems: 'start' }}>
-          {/* Testimonial selector */}
-          <ul
-            role="list"
-            style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
-          >
-            {items.map((item, i) => (
-              <li key={i}>
-                <button
-                  onClick={() => setActiveIdx(i)}
-                  aria-pressed={i === activeIdx}
-                  aria-label={`${item.name} — ${item.result}`}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--space-3)',
-                    width: '100%',
-                    padding: 'var(--space-3) var(--space-4)',
-                    background: i === activeIdx ? 'rgba(0,150,109,0.10)' : 'var(--color-surface-card)',
-                    border: `1px solid ${i === activeIdx ? 'rgba(0,150,109,0.4)' : 'var(--color-border-default)'}`,
-                    borderRadius: 'var(--radius-xs)',
-                    cursor: 'pointer',
-                    transition: 'all var(--duration-fast) var(--easing-default)',
-                    fontFamily: 'var(--font-family-primary)',
-                    textAlign: 'left',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (i !== activeIdx) {
-                      (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-surface-hover)';
-                      (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.15)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (i !== activeIdx) {
-                      (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-surface-card)';
-                      (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-default)';
-                    }
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: '50%',
-                      background: item.color,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '14px',
-                      fontWeight: 700,
-                      color: '#fff',
-                      flexShrink: 0,
-                    }}
-                    role="img"
-                    aria-label={item.name}
-                    aria-hidden="true"
-                  >
-                    {item.avatar}
-                  </div>
-                  <div style={{ minWidth: 0 }}>
-                    <p style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600, color: 'var(--color-text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {item.name}
-                    </p>
-                    <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)' }}>
-                      {item.result} — {item.exam}
-                    </p>
-                  </div>
-                </button>
-              </li>
-            ))}
-          </ul>
+        {/* Separated Leaderboard Section */}
+        <div className="reveal" style={{ maxWidth: '820px', margin: '0 auto' }}>
 
           {/* Live Leaderboard Snapshot */}
           <div
@@ -657,7 +662,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
           to   { opacity: 1; transform: translateX(0); }
         }
         @media (max-width: 900px) {
-          .testimonials-bottom-grid {
+          .testimonials-top-grid {
             grid-template-columns: 1fr !important;
           }
         }

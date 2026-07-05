@@ -40,7 +40,8 @@ const content = {
       { text: '১টি সম্পূর্ণ মক টেস্ট দেওয়া', xp: '+১০০ XP', done: false },
       { text: 'AI সহকারীর সাথে ১টি প্রশ্ন বিশ্লেষণ', xp: '+৩০ XP', done: false }
     ],
-    admissionTracks: ['University Track', 'Medical Track', 'Engineering Track']
+    admissionTracks: ['University Track', 'Medical Track', 'Engineering Track'],
+    fullLeaderboardLink: 'সম্পূর্ণ লিডারবোর্ড দেখুন →'
   },
   en: {
     badge: 'Everything in one place',
@@ -75,7 +76,8 @@ const content = {
       { text: 'Complete 1 Mock Test', xp: '+100 XP', done: false },
       { text: 'Review 1 concept with AI', xp: '+30 XP', done: false }
     ],
-    admissionTracks: ['University Track', 'Medical Track', 'Engineering Track']
+    admissionTracks: ['University Track', 'Medical Track', 'Engineering Track'],
+    fullLeaderboardLink: 'View full leaderboard →'
   }
 };
 
@@ -189,14 +191,18 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
               <h3 className="bento-title">{t.leaderboardTitle}</h3>
               <p className="bento-desc">{t.leaderboardDesc}</p>
               
-              <div className="bento-visual leaderboard-visual">
-                {t.leaderboardUsers.map((user, i) => (
-                  <div key={i} className="lb-user-row">
-                    <span className="lb-rank">#{user.rank}</span>
-                    <span className="lb-name">{user.name}</span>
-                    <span className="lb-xp">{user.xp}</span>
-                  </div>
-                ))}
+              <div className="bento-visual leaderboard-visual" style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '24px' }}>
+                <div className="lb-user-row" style={{ transform: 'scale(1.05)', boxShadow: '0 0 20px rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.3)', background: 'linear-gradient(90deg, rgba(245,158,11,0.1), transparent)' }}>
+                  <span className="lb-rank" style={{ color: '#f59e0b', fontSize: '18px' }}>🥇</span>
+                  <span className="lb-name" style={{ fontWeight: 700 }}>{t.leaderboardUsers[0].name}</span>
+                  <span className="lb-xp" style={{ color: '#f59e0b', fontWeight: 700 }}>{t.leaderboardUsers[0].xp}</span>
+                </div>
+                
+                <div style={{ textAlign: 'center', marginTop: 'auto' }}>
+                  <a href="#leaderboard" style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-surface-strong)', textDecoration: 'none', transition: 'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity = '0.7'} onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
+                    {t.fullLeaderboardLink}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
