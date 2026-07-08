@@ -14,13 +14,13 @@ const navItems = {
     { label: 'প্রশ্নব্যাংক', href: '#question-bank' },
     { label: 'ফলাফল ও র‍্যাংকিং', href: '#leaderboard' },
     { label: 'মূল্য পরিকল্পনা', href: '#pricing' },
-    { label: 'ব্লগ', href: '#blog' },
+    { label: 'ব্লগ', href: '/blog' },
   ],
   en: [
     { label: 'Question Bank', href: '#question-bank' },
     { label: 'Leaderboard', href: '#leaderboard' },
     { label: 'Pricing', href: '#pricing' },
-    { label: 'Blog', href: '#blog' },
+    { label: 'Blog', href: '/blog' },
   ],
 };
 
