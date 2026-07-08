@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import StatsBar from '@/components/StatsBar';
 import FeaturesGrid from '@/components/FeaturesGrid';
+import QuestionBank from '@/components/QuestionBank';
 import HowItWorks from '@/components/HowItWorks';
 import MockTestWidget from '@/components/MockTestWidget';
 import Gamification from '@/components/Gamification';
@@ -43,6 +44,7 @@ export default function HomePage() {
       <main id="main-content">
         <Hero lang={lang} />
         <StatsBar lang={lang} />
+        <QuestionBank lang={lang} />
         <FeaturesGrid lang={lang} />
         <HowItWorks lang={lang} />
         <Gamification lang={lang} />
