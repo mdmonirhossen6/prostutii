@@ -1,5 +1,7 @@
 'use client';
-
+import Image from 'next/image';
+import { useRef } from 'react';
+import { useTiltEffect } from '@/hooks/useTiltEffect';
 interface HeroProps {
   lang: 'bn' | 'en';
 }
@@ -33,9 +35,12 @@ const copy = {
 
 export default function Hero({ lang }: HeroProps) {
   const t = copy[lang];
+  const sectionRef = useRef<HTMLElement>(null);
+  useTiltEffect(sectionRef, '.tilt-card');
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
       style={{
         minHeight: '100vh',
@@ -162,10 +167,12 @@ export default function Hero({ lang }: HeroProps) {
                   'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&q=80',
                   'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=64&q=80',
                 ].map((src, i) => (
-                  <img
+                  <Image
                     key={i}
                     src={src}
                     alt="Student avatar"
+                    width={32}
+                    height={32}
                     style={{
                       width: '32px',
                       height: '32px',
@@ -185,7 +192,7 @@ export default function Hero({ lang }: HeroProps) {
                     borderRadius: '50%',
                     border: '2px solid var(--color-surface-base)',
                     background: 'var(--color-surface-strong)',
-                    color: '#fff',
+                    color: 'var(--color-text-pure)',
                     fontSize: '11px',
                     fontWeight: 700,
                     display: 'flex',
@@ -293,23 +300,24 @@ export default function Hero({ lang }: HeroProps) {
 
             {/* Primary App Screenshot */}
             <div
+              className="tilt-card"
               style={{
                 position: 'relative',
                 zIndex: 1,
-                transform: 'rotate(3deg)',
-                transformStyle: 'preserve-3d',
-                transition: 'transform 0.4s ease',
               }}
             >
-              <img
+              <Image
                 src="https://pub-e2c71a91f86f428982fe1b1f721d68b9.r2.dev/image/host/02-07-2026/prostuti/img_1782975874051.png"
                 alt={lang === 'bn' ? 'প্রস্তুতি অ্যাপের ড্যাশবোর্ড' : 'Prostuti app dashboard'}
+                width={320}
+                height={693}
+                priority
                 style={{
                   width: '100%',
                   maxWidth: '320px',
                   height: 'auto',
                   borderRadius: '24px',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  border: '1px solid var(--color-overlay-10)',
                   boxShadow: '0 24px 80px rgba(0, 150, 109, 0.2), 0 0 0 1px rgba(0, 150, 109, 0.3)',
                   display: 'block',
                 }}

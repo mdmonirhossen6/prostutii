@@ -263,7 +263,7 @@ export default function BlogPage() {
                   </div>
                   <button 
                     onClick={() => setSelectedArticle(null)}
-                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--color-border-default)', color: 'var(--color-text-primary)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}
+                    style={{ background: 'var(--color-overlay-5)', border: '1px solid var(--color-border-default)', color: 'var(--color-text-primary)', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}
                   >
                     Close
                   </button>

@@ -16,7 +16,7 @@ export default function RefundPolicyPage() {
           <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '32px' }}>
             Refund Policy
           </h1>
-          <div style={{ background: '#1c2230', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)', padding: '32px', maxWidth: '800px' }}>
+          <div style={{ background: '#1c2230', border: '1px solid var(--color-overlay-5)', borderRadius: 'var(--radius-md)', padding: '32px', maxWidth: '800px' }}>
             
             <div style={{ marginBottom: '24px' }}>
               <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '12px' }}>1. Premium Access Terms</h3>
@@ -62,7 +62,7 @@ export default function RefundPolicyPage() {
               </ul>
             </div>
 
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px' }}>
+            <div style={{ borderTop: '1px solid var(--color-overlay-10)', paddingTop: '24px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '8px' }}>Have questions?</h3>
               <p style={{ fontSize: '15px', color: 'var(--color-text-inverse)' }}>
                 If you need clarification regarding any of these terms, please connect with our support team at <a href="mailto:prostutibdapp@gmail.com" style={{ color: '#4d6bff', textDecoration: 'none' }}>prostutibdapp@gmail.com</a>.

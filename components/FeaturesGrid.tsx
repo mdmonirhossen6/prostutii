@@ -40,7 +40,7 @@ const content = {
       { text: '১টি সম্পূর্ণ মক টেস্ট দেওয়া', xp: '+১০০ XP', done: false },
       { text: 'AI সহকারীর সাথে ১টি প্রশ্ন বিশ্লেষণ', xp: '+৩০ XP', done: false }
     ],
-    admissionTracks: ['University Track', 'Medical Track', 'Engineering Track'],
+    admissionPrograms: ['University Program', 'Medical Program', 'Engineering Program'],
     fullLeaderboardLink: 'সম্পূর্ণ লিডারবোর্ড দেখুন →'
   },
   en: {
@@ -76,7 +76,7 @@ const content = {
       { text: 'Complete 1 Mock Test', xp: '+100 XP', done: false },
       { text: 'Review 1 concept with AI', xp: '+30 XP', done: false }
     ],
-    admissionTracks: ['University Track', 'Medical Track', 'Engineering Track'],
+    admissionPrograms: ['University Program', 'Medical Program', 'Engineering Program'],
     fullLeaderboardLink: 'View full leaderboard →'
   }
 };
@@ -120,8 +120,56 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
     return () => observer.disconnect();
   }, []);
 
+  // 3D Tilt Effect logic
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const cards = section.querySelectorAll<HTMLElement>('.bento-card');
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left; 
+      const y = e.clientY - rect.top;  
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Increased multiplier for much stronger tilt (max ~15 degrees)
+      const rotateX = ((y - centerY) / centerY) * -12; 
+      const rotateY = ((x - centerX) / centerX) * 12;  
+      
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+      card.style.setProperty('--rotate-x', `${rotateX}deg`);
+      card.style.setProperty('--rotate-y', `${rotateY}deg`);
+    };
+
+    const handleMouseLeave = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      card.style.setProperty('--rotate-x', `0deg`);
+      card.style.setProperty('--rotate-y', `0deg`);
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', handleMouseMove);
+      card.addEventListener('mouseleave', handleMouseLeave);
+    });
+    
+    return () => {
+      cards.forEach((card) => {
+        card.removeEventListener('mousemove', handleMouseMove);
+        card.removeEventListener('mouseleave', handleMouseLeave);
+      });
+    };
+  }, []);
+
   return (
-    <section ref={sectionRef} id="features" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
+    <section ref={sectionRef} id="features" style={{ background: 'var(--color-surface-base)' }}>
       <div className="container-page">
         {/* Header */}
         <div className="reveal" style={{ textAlign: 'center', marginBottom: 'var(--space-8)', maxWidth: '680px', margin: '0 auto var(--space-7)' }}>
@@ -175,10 +223,10 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
               <p className="bento-desc">{t.admissionDesc}</p>
               
               <div className="bento-visual admission-visual">
-                {t.admissionTracks.map((track, i) => (
-                  <div key={i} className="admission-track-pill">
+                {t.admissionPrograms.map((program, i) => (
+                  <div key={i} className="admission-program-pill">
                     <span style={{ width: 8, height: 8, borderRadius: '50%', background: i === 0 ? '#4d6bff' : i === 1 ? '#ec4899' : '#00d9a0' }}></span>
-                    <span style={{ fontSize: '13px', fontWeight: 600 }}>{track}</span>
+                    <span style={{ fontSize: '13px', fontWeight: 600 }}>{program}</span>
                   </div>
                 ))}
               </div>
@@ -225,14 +273,45 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           flex-direction: column;
           position: relative;
           overflow: hidden;
-          transition: all var(--duration-fast) var(--easing-default);
+          transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+          transform-style: preserve-3d;
+          --rotate-x: 0deg;
+          --rotate-y: 0deg;
+          /* Base transform so transition applies on mouse leave */
+          transform: perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+        }
+
+        .bento-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(0, 217, 160, 0.15), transparent 40%);
+          pointer-events: none;
+          z-index: 0;
+          opacity: 0;
+          transition: opacity 0.4s ease;
+        }
+
+        .bento-card:hover::before {
+          opacity: 1;
+        }
+        
+        .bento-content {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          transform: translateZ(40px); /* Pop out even more */
         }
 
         .bento-card:hover {
           background: var(--color-surface-hover);
-          border-color: rgba(255, 255, 255, 0.15);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-          transform: translateY(-2px);
+          border-color: var(--color-overlay-20);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 217, 160, 0.1);
+          transform: perspective(800px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y)) scale3d(1.04, 1.04, 1.04);
+          transition: transform 0.1s ease-out, border-color 0.2s ease, box-shadow 0.2s ease;
+          z-index: 10;
         }
 
         .bento-title {
@@ -276,8 +355,8 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
         }
         .chat-bot {
           align-self: flex-start;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.1);
+          background: var(--color-overlay-5);
+          border: 1px solid var(--color-overlay-10);
           color: var(--color-text-secondary);
           padding: 12px 16px;
           border-radius: 16px 16px 16px 0;
@@ -311,13 +390,13 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           flex-direction: column;
           gap: 8px;
         }
-        .admission-track-pill {
+        .admission-program-pill {
           display: flex;
           align-items: center;
           gap: 12px;
           padding: 12px 16px;
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.05);
+          background: var(--color-overlay-3);
+          border: 1px solid var(--color-overlay-5);
           border-radius: 8px;
           color: var(--color-text-secondary);
         }
@@ -333,8 +412,8 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           align-items: center;
           justify-content: space-between;
           padding: 12px 16px;
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.05);
+          background: var(--color-overlay-3);
+          border: 1px solid var(--color-overlay-5);
           border-radius: 8px;
           font-size: 13px;
         }
@@ -365,8 +444,8 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           align-items: center;
           gap: 12px;
           padding: 14px 16px;
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.05);
+          background: var(--color-overlay-3);
+          border: 1px solid var(--color-overlay-5);
           border-radius: 8px;
         }
         .goal-row.done {

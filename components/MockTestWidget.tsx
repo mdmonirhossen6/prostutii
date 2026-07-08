@@ -6,7 +6,7 @@ interface MockTestWidgetProps {
   lang: 'bn' | 'en';
 }
 
-const modelTestTracks = [
+const modelTestPrograms = [
   {
     id: 'weekly',
     iconType: 'calendar',
@@ -68,7 +68,7 @@ const copy = {
   bn: {
     badge: 'মডেল টেস্ট হাব',
     title: '৬ ধরনের মডেল টেস্ট',
-    subtitle: 'আসল পরীক্ষার মতো পরিবেশ — সময়-নির্ধারিত, বোর্ড প্যাটার্নে। প্রতিদিন নিজেকে চ্যালেঞ্জ করুন এবং অগ্রগতি ট্র্যাক করুন।',
+    subtitle: 'আসল পরীক্ষার মতো পরিবেশ — সময়-নির্ধারিত, বোর্ড প্যাটার্নে। প্রতিদিন নিজেকে চ্যালেঞ্জ করুন এবং অগ্রগতি মনিটর করুন।',
     selectLabel: 'Model Test Hub',
     start: 'মক শুরু করুন',
     hot: '🔥 নতুন',
@@ -76,14 +76,14 @@ const copy = {
   en: {
     badge: 'Model Test Hub',
     title: '6 Types of Model Tests',
-    subtitle: 'Exam-like conditions — timed, board-pattern. Challenge yourself with exam-standard questions and track your progress daily.',
+    subtitle: 'Exam-like conditions — timed, board-pattern. Challenge yourself with exam-standard questions and monitor your progress daily.',
     selectLabel: 'Model Test Hub',
     start: 'Start Test',
     hot: '🔥 New',
   },
 };
 
-function renderTrackIcon(type: string, color: string) {
+function renderProgramIcon(type: string, color: string) {
   const props = {
     width: 18,
     height: 18,
@@ -181,7 +181,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
   }, []);
 
   return (
-    <section ref={sectionRef} id="mock-tests" aria-labelledby="mock-heading" style={{ padding: '110px 0', background: 'rgba(8,12,24,0.8)' }}>
+    <section ref={sectionRef} id="mock-tests" aria-labelledby="mock-heading" style={{ background: 'var(--color-surface-base)' }}>
       <div className="container-page">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="mock-grid">
 
@@ -196,14 +196,14 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
             </p>
 
             <ul role="list" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-              {modelTestTracks.map((track) => (
-                <li key={track.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: track.color, flexShrink: 0 }} aria-hidden="true" />
+              {modelTestPrograms.map((program) => (
+                <li key={program.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: program.color, flexShrink: 0 }} aria-hidden="true" />
                   <span style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--color-text-primary)', minWidth: 140 }}>
-                    {lang === 'bn' ? track.labelBn : track.labelEn}
+                    {lang === 'bn' ? program.labelBn : program.labelEn}
                   </span>
                   <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)' }}>
-                    {lang === 'bn' ? track.descBn : track.descEn}
+                    {lang === 'bn' ? program.descBn : program.descEn}
                   </span>
                 </li>
               ))}
@@ -222,31 +222,31 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
             </div>
 
             <ul role="list" style={{ listStyle: 'none' }}>
-              {modelTestTracks.map((track) => {
-                const isSelected = selected === track.id;
+              {modelTestPrograms.map((program) => {
+                const isSelected = selected === program.id;
                 return (
-                  <li key={track.id}>
+                  <li key={program.id}>
                     <button
-                      onClick={() => setSelected(isSelected ? null : track.id)}
+                      onClick={() => setSelected(isSelected ? null : program.id)}
                       aria-pressed={isSelected}
-                      aria-label={`${lang === 'bn' ? track.labelBn : track.labelEn} model test`}
-                      className="track-btn"
+                      aria-label={`${lang === 'bn' ? program.labelBn : program.labelEn} model test`}
+                      className="program-btn"
                       style={{
-                        background: isSelected ? `${track.color}12` : 'transparent',
+                        background: isSelected ? `${program.color}12` : 'transparent',
                       }}
                     >
-                      <span style={{ width: 34, height: 34, borderRadius: 'var(--radius-xs)', background: `${track.color}18`, border: `1px solid ${track.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }} aria-hidden="true">
-                        {renderTrackIcon(track.iconType, track.color)}
+                      <span style={{ width: 34, height: 34, borderRadius: 'var(--radius-xs)', background: `${program.color}18`, border: `1px solid ${program.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }} aria-hidden="true">
+                        {renderProgramIcon(program.iconType, program.color)}
                       </span>
                       <div style={{ flex: 1, textAlign: 'left' }}>
-                        <p style={{ fontSize: 'var(--font-size-md)', fontWeight: 700, color: isSelected ? track.color : 'var(--color-text-primary)', letterSpacing: '0.3px', lineHeight: 1 }}>
-                          {lang === 'bn' ? track.labelBn : track.labelEn}
+                        <p style={{ fontSize: 'var(--font-size-md)', fontWeight: 700, color: isSelected ? program.color : 'var(--color-text-primary)', letterSpacing: '0.3px', lineHeight: 1 }}>
+                          {lang === 'bn' ? program.labelBn : program.labelEn}
                         </p>
                         <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-tertiary)', marginTop: 'var(--space-1)' }}>
-                          {lang === 'bn' ? track.descBn : track.descEn}
+                          {lang === 'bn' ? program.descBn : program.descEn}
                         </p>
                       </div>
-                      {track.hot && (
+                      {program.hot && (
                         <span style={{ fontSize: 'var(--font-size-xs)', fontWeight: 700, color: '#8b5cf6', background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: 'var(--radius-md)', padding: '2px 8px', flexShrink: 0, marginRight: '8px' }}>
                           {lang === 'bn' ? 'নতুন' : 'NEW'}
                         </span>
@@ -257,7 +257,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
                         height="14" 
                         viewBox="0 0 24 24" 
                         fill="none" 
-                        stroke={isSelected ? track.color : 'var(--color-text-tertiary)'} 
+                        stroke={isSelected ? program.color : 'var(--color-text-tertiary)'} 
                         strokeWidth="2.5" 
                         aria-hidden="true"
                       >
@@ -279,7 +279,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
       </div>
 
       <style jsx>{`
-        .track-btn {
+        .program-btn {
           width: 100%;
           display: flex;
           align-items: center;
@@ -293,18 +293,18 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
           transition: background var(--duration-fast) var(--easing-default);
           outline: none;
         }
-        .track-btn:focus-visible {
-          background: rgba(255, 255, 255, 0.04) !important;
+        .program-btn:focus-visible {
+          background: var(--color-overlay-3) !important;
           outline: 2px solid var(--color-link);
           outline-offset: -2px;
         }
-        .track-btn:hover {
-          background: rgba(255, 255, 255, 0.03);
+        .program-btn:hover {
+          background: var(--color-overlay-3);
         }
         :global(.chevron-svg) {
           transition: transform var(--duration-fast) var(--easing-default);
         }
-        .track-btn:hover :global(.chevron-svg), .track-btn:focus-visible :global(.chevron-svg) {
+        .program-btn:hover :global(.chevron-svg), .program-btn:focus-visible :global(.chevron-svg) {
           transform: translateX(3px);
         }
         @media (max-width: 900px) {

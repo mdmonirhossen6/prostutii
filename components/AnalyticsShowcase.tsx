@@ -1,14 +1,15 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useTiltEffect } from '@/hooks/useTiltEffect';
 
 interface AnalyticsShowcaseProps {
   lang: 'bn' | 'en';
 }
 
-type Track = 'hsc' | 'engineering' | 'medical';
+type Program = 'hsc' | 'engineering' | 'medical';
 
-const trackData = {
+const programData = {
   hsc: {
     bn: {
       name: 'HSC বিজ্ঞান বিভাগ',
@@ -25,7 +26,7 @@ const trackData = {
       ]
     },
     en: {
-      name: 'HSC Science Track',
+      name: 'HSC Science Program',
       subjects: [
         { name: 'Physics', accuracy: 82 },
         { name: 'Chemistry', accuracy: 68 },
@@ -55,7 +56,7 @@ const trackData = {
       ]
     },
     en: {
-      name: 'Engineering Track',
+      name: 'Engineering Program',
       subjects: [
         { name: 'Physics', accuracy: 72 },
         { name: 'Chemistry', accuracy: 60 },
@@ -85,7 +86,7 @@ const trackData = {
       ]
     },
     en: {
-      name: 'Medical Track',
+      name: 'Medical Program',
       subjects: [
         { name: 'Biology', accuracy: 86 },
         { name: 'Chemistry', accuracy: 70 },
@@ -105,7 +106,7 @@ const copy = {
   bn: {
     badge: 'পারফরম্যান্স অ্যানালিটিক্স',
     title: 'তোমার দুর্বলতা চিহ্নিত করো',
-    subtitle: 'অ্যানালিটিক্স ড্যাশবোর্ড থেকে তোমার প্রস্তুতি ট্র্যাক করো। দুর্বল টপিক চিহ্নিত করে AI সহায়তায় প্রস্তুতি নিখুঁত করো।',
+    subtitle: 'অ্যানালিটিক্স ড্যাশবোর্ড থেকে তোমার প্রস্তুতি মনিটর করো। দুর্বল টপিক চিহ্নিত করে AI সহায়তায় প্রস্তুতি নিখুঁত করো।',
     chartTitle: 'বিষয়ভিত্তিক নির্ভুলতা (%)',
     weakTopicsTitle: 'দুর্বল অধ্যায় ও টপিক',
     tableHeaderTopic: 'টপিক',
@@ -117,7 +118,7 @@ const copy = {
   en: {
     badge: 'Performance Analytics',
     title: 'Pinpoint Your Weaknesses',
-    subtitle: 'Track your preparation from the analytics dashboard. Identify weak topics and perfect them with AI insights.',
+    subtitle: 'Monitor your preparation from the analytics dashboard. Identify weak topics and perfect them with AI insights.',
     chartTitle: 'Subject Accuracy (%)',
     weakTopicsTitle: 'Weak Chapters & Topics',
     tableHeaderTopic: 'Topic',
@@ -130,11 +131,12 @@ const copy = {
 
 export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
   const t = copy[lang];
-  const [activeTrack, setActiveTrack] = useState<Track>('hsc');
-  const data = trackData[activeTrack][lang];
+  const [activeProgram, setActiveProgram] = useState<Program>('hsc');
+  const data = programData[activeProgram][lang];
 
   // Radar draw animation
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  useTiltEffect(sectionRef, '.tilt-card');
   const [isVisible, setIsVisible] = useState(false);
   const [drawProgress, setDrawProgress] = useState(0);
 
@@ -219,7 +221,6 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
       aria-labelledby="analytics-heading"
       style={{
         minHeight: '90vh',
-        padding: '120px 0 140px',
         background: 'var(--color-surface-card-deep)',
         borderTop: '1px solid var(--color-border-default)',
         position: 'relative',
@@ -232,7 +233,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(var(--color-overlay-3) 1px, transparent 1px), linear-gradient(90deg, var(--color-overlay-3) 1px, transparent 1px)`,
           backgroundSize: '50px 50px',
           pointerEvents: 'none',
           zIndex: 0,
@@ -269,16 +270,16 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
               <p className="section-subtitle" style={{ textAlign: 'left', margin: 0 }}>{t.subtitle}</p>
             </div>
 
-            {/* Track Selector Tab */}
+            {/* Program Selector Tab */}
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {(['hsc', 'engineering', 'medical'] as Track[]).map((trk) => (
+              {(['hsc', 'engineering', 'medical'] as Program[]).map((prog) => (
                 <button
-                  key={trk}
-                  onClick={() => { setActiveTrack(trk); setDrawProgress(0); setIsVisible(false); setTimeout(() => setIsVisible(true), 50); }}
+                  key={prog}
+                  onClick={() => { setActiveProgram(prog); setDrawProgress(0); setIsVisible(false); setTimeout(() => setIsVisible(true), 50); }}
                   style={{
-                    background: activeTrack === trk ? 'var(--color-surface-strong)' : 'rgba(255,255,255,0.02)',
+                    background: activeProgram === prog ? 'var(--color-surface-strong)' : 'var(--color-overlay-3)',
                     border: '1px solid var(--color-border-default)',
-                    color: activeTrack === trk ? '#000' : 'var(--color-text-secondary)',
+                    color: activeProgram === prog ? '#000' : 'var(--color-text-secondary)',
                     padding: '8px 16px',
                     borderRadius: '20px',
                     fontSize: '13px',
@@ -287,7 +288,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  {trackData[trk][lang].name}
+                  {programData[prog][lang].name}
                 </button>
               ))}
             </div>
@@ -312,7 +313,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
                   gridTemplateColumns: '2fr 100px 1fr',
                   gap: '12px',
                   padding: '14px 20px',
-                  background: 'rgba(255,255,255,0.02)',
+                  background: 'var(--color-overlay-3)',
                   borderBottom: '1px solid var(--color-border-default)',
                 }}>
                   <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px' }}>
@@ -339,7 +340,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
                       alignItems: 'center',
                       transition: 'background 0.2s ease',
                     }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,0.02)'; }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'var(--color-overlay-3)'; }}
                     onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
                   >
                     {/* Topic */}
@@ -354,7 +355,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
                       <span style={{ fontFamily: 'monospace', fontSize: '14px', fontWeight: 800, color: '#f59e0b' }}>
                         {topicItem.accuracy}%
                       </span>
-                      <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px', overflow: 'hidden' }}>
+                      <div style={{ width: '100%', height: '4px', background: 'var(--color-overlay-5)', borderRadius: '2px', overflow: 'hidden' }}>
                         <div
                           style={{
                             height: '100%',
@@ -370,7 +371,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
                     {/* Action — AI recommendation + CTA */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
-                        <span style={{ fontSize: '9px', fontWeight: 800, background: 'var(--color-accent-purple)', color: '#fff', padding: '1px 5px', borderRadius: '3px', flexShrink: 0, marginTop: '2px' }}>
+                        <span style={{ fontSize: '9px', fontWeight: 800, background: 'var(--color-accent-purple)', color: 'var(--color-text-pure)', padding: '1px 5px', borderRadius: '3px', flexShrink: 0, marginTop: '2px' }}>
                           {t.aiPill}
                         </span>
                         <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
@@ -415,7 +416,7 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
           </div>
 
           {/* Right Column: Radar Chart Display — scaled up significantly */}
-          <div style={{
+          <div className="tilt-card" style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -424,7 +425,6 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
             borderRadius: '12px',
             padding: '32px 24px',
             boxShadow: '0 24px 64px rgba(0,0,0,0.5), var(--shadow-glow)',
-            position: 'relative',
           }}>
             {/* Card glow accent */}
             <div aria-hidden="true" style={{
@@ -455,15 +455,15 @@ export default function AnalyticsShowcase({ lang }: AnalyticsShowcaseProps) {
                       ${cx - r},${cy}
                     `}
                     fill="none"
-                    stroke="rgba(255,255,255,0.06)"
+                    stroke="var(--color-overlay-5)"
                     strokeWidth="1"
                   />
                 );
               })}
 
               {/* Axis Grid lines */}
-              <line x1={cx} y1={cy - radius} x2={cx} y2={cy + radius} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-              <line x1={cx - radius} y1={cy} x2={cx + radius} y2={cy} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+              <line x1={cx} y1={cy - radius} x2={cx} y2={cy + radius} stroke="var(--color-overlay-5)" strokeWidth="1" />
+              <line x1={cx - radius} y1={cy} x2={cx + radius} y2={cy} stroke="var(--color-overlay-5)" strokeWidth="1" />
 
               {/* Student Accuracy Shape — animated draw */}
               <polygon

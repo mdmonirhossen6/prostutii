@@ -4,76 +4,102 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
 
-// Deterministic geometric avatar generator using a simple hash
-function GeometricAvatar({ name, email }: { name: string; email: string }) {
-  const seedStr = name + email;
-  let hash = 0;
-  for (let i = 0; i < seedStr.length; i++) {
-    hash = seedStr.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const h = Math.abs(hash);
-
-  // Generate grid patterns based on hash
-  const r1 = (h % 30) + 10;
-  const r2 = ((h >> 2) % 30) + 10;
-  const rotate1 = (h >> 4) % 360;
-  const rotate2 = ((h >> 6) % 360) + 45;
-
-  const color1 = (h % 2) === 0 ? 'var(--color-surface-strong)' : 'var(--color-accent-purple)';
-  const color2 = (h % 2) === 0 ? 'var(--color-accent-purple)' : 'var(--color-surface-strong)';
+// Animated human avatar generator with blinking and breathing effects
+function AnimatedHumanAvatar({ name }: { name: string }) {
+  const isSaruar = name.includes('Saruar');
+  
+  // Custom styling based on the team member
+  const bg = isSaruar ? 'linear-gradient(135deg, rgba(0,150,109,0.15), rgba(0,150,109,0.35))' : 'linear-gradient(135deg, rgba(77,107,255,0.15), rgba(77,107,255,0.35))';
+  const shirtColor = isSaruar ? '#00966d' : '#4d6bff';
+  const skinColor = '#fcd5ce';
+  const hairColor = '#1e293b';
 
   return (
-    <div style={{ position: 'relative', width: '80px', height: '80px', margin: '0 auto 16px', overflow: 'hidden', borderRadius: '8px', background: '#0f1524', border: '1px solid var(--color-border-default)' }}>
+    <div style={{ position: 'relative', width: '96px', height: '96px', margin: '0 auto 20px', borderRadius: '50%', background: bg, border: `2px solid ${shirtColor}50`, overflow: 'hidden', boxShadow: `0 8px 24px ${shirtColor}20` }}>
       <svg width="100%" height="100%" viewBox="0 0 100 100" style={{ display: 'block' }}>
-        {/* Animated Gradient Background */}
-        <defs>
-          <linearGradient id={`grad-${h}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e293b" />
-            <stop offset="100%" stopColor="#0d1225" />
-          </linearGradient>
-        </defs>
-        <rect width="100" height="100" fill={`url(#grad-${h})`} />
+        <g className="avatar-human">
+          {/* Shoulders / Body */}
+          {isSaruar ? (
+            // Age 21: Broader shoulders
+            <path d="M 5 100 C 5 60, 95 60, 95 100" fill={shirtColor} />
+          ) : (
+            // Age 17.5: Slightly narrower shoulders
+            <path d="M 15 100 C 15 65, 85 65, 85 100" fill={shirtColor} />
+          )}
+          
+          {/* Neck */}
+          <rect x="42" y="55" width="16" height="15" fill={skinColor} />
+          <rect x="42" y="55" width="16" height="4" fill="rgba(0,0,0,0.1)" />
 
-        {/* Floating animated geometric elements using native SVG animation to prevent layout shifts/flickering */}
-        <g>
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from="0 50 50"
-            to="360 50 50"
-            dur="20s"
-            repeatCount="indefinite"
-          />
-          <rect
-            x="25"
-            y="25"
-            width="50"
-            height="50"
-            fill="none"
-            stroke={color1}
-            strokeWidth="3"
-            strokeDasharray="4 4"
-            style={{ transform: `rotate(${rotate1}deg)`, transformOrigin: '50px 50px' }}
-          />
-          <circle
-            cx="50"
-            cy="50"
-            r={r1}
-            fill="none"
-            stroke={color2}
-            strokeWidth="2.5"
-            opacity="0.75"
-          />
-          <polygon
-            points="50,15 85,80 15,80"
-            fill="none"
-            stroke={color1}
-            strokeWidth="2"
-            opacity="0.4"
-            style={{ transform: `rotate(${rotate2}deg)`, transformOrigin: '50px 50px' }}
-          />
+          {/* Head */}
+          {isSaruar ? (
+            // Age 21: More defined jawline
+            <path d="M 32 40 C 32 15 68 15 68 40 C 68 65 55 68 50 68 C 45 68 32 65 32 40 Z" fill={skinColor} />
+          ) : (
+            // Age 17.5: Rounder face, fuller cheeks
+            <path d="M 28 42 C 28 15 72 15 72 42 C 72 68 58 72 50 72 C 42 72 28 68 28 42 Z" fill={skinColor} />
+          )}
+          
+          {/* Hair styles */}
+          {isSaruar ? (
+            // Age 21: Spiky/Modern mature hair
+            <path d="M 30 35 C 30 5, 70 5, 70 35 C 70 20, 30 20, 30 35 Z M 32 20 L 40 10 L 48 18 L 55 8 L 62 18 L 68 12 L 72 25 Z" fill={hairColor} />
+          ) : (
+            // Age 17.5: Messy front fringe / younger look
+            <path d="M 25 40 C 25 5, 75 5, 75 40 C 75 15, 25 15, 25 40 Z M 22 35 C 35 15, 60 10, 80 30 L 75 45 C 60 20, 40 25, 25 45 Z" fill={hairColor} />
+          )}
+
+          {/* Eyes Group (animated) */}
+          <g className="avatar-eyes">
+            <circle cx="41" cy="42" r="3.5" fill="#1e293b" />
+            <circle cx="59" cy="42" r="3.5" fill="#1e293b" />
+            {/* Removed glasses as requested */}
+          </g>
+
+          {/* Mouth */}
+          {isSaruar ? (
+            // Confident small smile
+            <path d="M 44 56 Q 50 60 56 56" fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
+          ) : (
+            // Slightly wider youthful smile
+            <path d="M 42 57 Q 50 63 58 57" fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
+          )}
+
+          {/* Eyebrows */}
+          {isSaruar ? (
+            // Sharper eyebrows
+            <g fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round">
+              <path d="M 37 34 L 45 35" />
+              <path d="M 63 34 L 55 35" />
+            </g>
+          ) : (
+            // Softer curved eyebrows
+            <g fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round">
+              <path d="M 36 34 Q 40 32 44 34" />
+              <path d="M 64 34 Q 60 32 56 34" />
+            </g>
+          )}
         </g>
       </svg>
+
+      <style jsx>{`
+        .avatar-human {
+          transform-origin: bottom center;
+          animation: breathe 3s ease-in-out infinite alternate;
+        }
+        .avatar-eyes {
+          transform-origin: 50% 42px;
+          animation: blink 4s infinite;
+        }
+        @keyframes breathe {
+          0% { transform: scaleY(1) translateY(0); }
+          100% { transform: scaleY(1.015) translateY(-1px); }
+        }
+        @keyframes blink {
+          0%, 96%, 98%, 100% { transform: scaleY(1); }
+          97% { transform: scaleY(0.1); }
+        }
+      `}</style>
     </div>
   );
 }
@@ -234,7 +260,7 @@ export default function AboutPage() {
                     boxShadow: 'var(--shadow-navy)'
                   }}
                 >
-                  <GeometricAvatar name={member.name} email={member.email} />
+                  <AnimatedHumanAvatar name={member.name} />
                   
                   <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '4px' }}>
                     {member.name}

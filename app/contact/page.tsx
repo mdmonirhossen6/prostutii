@@ -226,7 +226,7 @@ export default function ContactPage() {
                   style={{
                     alignSelf: 'flex-start',
                     background: '#0088cc',
-                    color: '#fff',
+                    color: 'var(--color-text-pure)',
                     fontWeight: 700,
                     fontSize: '12px',
                     padding: '8px 16px',
@@ -282,7 +282,7 @@ export default function ContactPage() {
                       onChange={(e) => { setName(e.target.value); if (e.target.value.trim()) setNameErr(false); }}
                       placeholder={t.placeholderName}
                       style={{
-                        background: 'rgba(255,255,255,0.02)',
+                        background: 'var(--color-overlay-3)',
                         border: `1px solid ${nameErr ? '#f87171' : 'var(--color-border-default)'}`,
                         borderRadius: '6px',
                         padding: '10px 14px',
@@ -306,7 +306,7 @@ export default function ContactPage() {
                       onChange={(e) => { setEmail(e.target.value); if (validateEmail(e.target.value)) setEmailErr(false); }}
                       placeholder={t.placeholderEmail}
                       style={{
-                        background: 'rgba(255,255,255,0.02)',
+                        background: 'var(--color-overlay-3)',
                         border: `1px solid ${emailErr ? '#f87171' : 'var(--color-border-default)'}`,
                         borderRadius: '6px',
                         padding: '10px 14px',
@@ -330,7 +330,7 @@ export default function ContactPage() {
                       placeholder={t.placeholderMsg}
                       rows={5}
                       style={{
-                        background: 'rgba(255,255,255,0.02)',
+                        background: 'var(--color-overlay-3)',
                         border: `1px solid ${messageErr ? '#f87171' : 'var(--color-border-default)'}`,
                         borderRadius: '6px',
                         padding: '10px 14px',

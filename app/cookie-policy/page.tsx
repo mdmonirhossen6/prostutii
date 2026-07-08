@@ -16,7 +16,7 @@ export default function CookiePolicyPage() {
           <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '32px' }}>
             {lang === 'bn' ? 'কুকি নীতি (Cookie Policy)' : 'Cookie Policy'}
           </h1>
-          <div style={{ background: '#1c2230', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)', padding: '32px', maxWidth: '800px' }}>
+          <div style={{ background: '#1c2230', border: '1px solid var(--color-overlay-5)', borderRadius: 'var(--radius-md)', padding: '32px', maxWidth: '800px' }}>
             
             <p style={{ fontSize: '15px', color: 'var(--color-text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
               Prostuti uses cookies and similar tracking technologies to track activity on our service and hold certain information.
@@ -36,7 +36,7 @@ export default function CookiePolicyPage() {
               </p>
             </div>
 
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px' }}>
+            <div style={{ borderTop: '1px solid var(--color-overlay-10)', paddingTop: '24px' }}>
               <p style={{ fontSize: '15px', color: 'var(--color-text-inverse)' }}>
                 You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.
               </p>

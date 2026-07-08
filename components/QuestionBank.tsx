@@ -1,17 +1,19 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useTiltEffect } from '@/hooks/useTiltEffect';
 
 interface QuestionBankProps {
   lang: 'bn' | 'en';
 }
 
-type Track = 'hsc' | 'varsity' | 'medical' | 'engineering';
+type Program = 'hsc' | 'varsity' | 'medical' | 'engineering';
 
 const copy = {
   bn: {
     badge: 'সম্পূর্ণ প্রশ্নব্যাংক',
-    title: 'তোমার ট্র্যাকের সব প্রশ্ন, এক জায়গায়',
+    title: 'তোমার প্রোগ্রামের সব প্রশ্ন, এক জায়গায়',
     subtitle: '২ লক্ষ+ প্রশ্ন — বোর্ড, বিশ্ববিদ্যালয় ও ইঞ্জিনিয়ারিং প্রশ্নব্যাংক এক প্ল্যাটফর্মে।',
     hscTab: 'HSC',
     varsityTab: 'Varsity',
@@ -21,7 +23,7 @@ const copy = {
   },
   en: {
     badge: 'Complete Question Bank',
-    title: 'All questions for your track, in one place',
+    title: 'All questions for your program, in one place',
     subtitle: '200k+ questions — Board, University & Engineering question banks in one platform.',
     hscTab: 'HSC',
     varsityTab: 'Varsity',
@@ -153,19 +155,20 @@ function renderIcon(type: string, color: string) {
 
 export default function QuestionBank({ lang }: QuestionBankProps) {
   const t = copy[lang];
-  const [activeTab, setActiveTab] = useState<Track>('hsc');
+  const [activeTab, setActiveTab] = useState<Program>('hsc');
   const [fadeKey, setFadeKey] = useState<number>(0); // Used for triggering fade animation
   const sectionRef = useRef<HTMLElement>(null);
+  useTiltEffect(sectionRef, '.tilt-card');
   
-  // Track tabs list
-  const tabs: { id: Track; label: string }[] = [
+  // Program tabs list
+  const tabs: { id: Program; label: string }[] = [
     { id: 'hsc', label: t.hscTab },
     { id: 'varsity', label: t.varsityTab },
     { id: 'medical', label: t.medicalTab },
     { id: 'engineering', label: t.engineeringTab }
   ];
 
-  const handleTabChange = (tabId: Track) => {
+  const handleTabChange = (tabId: Program) => {
     if (tabId === activeTab) return;
     setActiveTab(tabId);
     setFadeKey(prev => prev + 1);
@@ -196,150 +199,193 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
     section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
-
   return (
-    <section ref={sectionRef} id="question-bank" aria-labelledby="qb-heading" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
+    <section ref={sectionRef} id="question-bank" aria-labelledby="qb-heading" style={{ background: 'var(--color-surface-base)' }}>
       <div className="container-page">
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="qb-grid">
           
-          {/* Intro Section */}
-          <div className="reveal" style={{ textAlign: 'left', marginBottom: 'var(--space-6)' }}>
-            <span className="badge badge-purple" style={{ marginBottom: 'var(--space-4)' }}>
-              {t.badge}
-            </span>
-            <h2 id="qb-heading" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: 'var(--color-text-primary)', lineHeight: 1.15, marginBottom: 'var(--space-3)', letterSpacing: '-0.5px' }}>
-              {t.title}
-            </h2>
-            <p style={{ fontSize: 'var(--font-size-h3)', color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
-              {t.subtitle}
-            </p>
-          </div>
+          {/* Left Column: Content */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            
+            {/* Intro Section */}
+            <div className="reveal" style={{ textAlign: 'left', marginBottom: 'var(--space-6)' }}>
+              <span className="badge badge-purple" style={{ marginBottom: 'var(--space-4)' }}>
+                {t.badge}
+              </span>
+              <h2 id="qb-heading" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: 'var(--color-text-primary)', lineHeight: 1.15, marginBottom: 'var(--space-3)', letterSpacing: '-0.5px' }}>
+                {t.title}
+              </h2>
+              <p style={{ fontSize: 'var(--font-size-h3)', color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
+                {t.subtitle}
+              </p>
+            </div>
 
-          {/* Tabs */}
-          <div 
-            className="reveal" 
-            role="tablist" 
-            aria-label="Question Bank Tracks"
-            style={{ 
-              display: 'flex', 
-              gap: 'var(--space-2)', 
-              marginBottom: 'var(--space-4)', 
-              overflowX: 'auto', 
-              paddingBottom: '8px',
-              scrollbarWidth: 'none'
-            }}
-          >
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                role="tab"
-                aria-selected={activeTab === tab.id}
-                aria-controls={`panel-${tab.id}`}
-                id={`tab-${tab.id}`}
-                onClick={() => handleTabChange(tab.id)}
-                className="qb-tab-btn"
-                style={{
-                  background: activeTab === tab.id ? 'var(--color-surface-strong)' : 'transparent',
-                  color: activeTab === tab.id ? '#000' : 'var(--color-text-secondary)',
-                  border: '1px solid',
-                  borderColor: activeTab === tab.id ? 'var(--color-surface-strong)' : 'var(--color-border-default)',
-                  padding: '10px 24px',
-                  borderRadius: '100px',
-                  fontSize: '14px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* List Panel */}
-          <div 
-            className="reveal" 
-            style={{ 
-              background: 'var(--color-surface-card)', 
-              border: '1px solid var(--color-border-default)', 
-              borderRadius: 'var(--radius-sm)', 
-              overflow: 'hidden', 
-              boxShadow: 'var(--shadow-navy)' 
-            }}
-          >
+            {/* Tabs */}
             <div 
-              key={fadeKey} 
-              id={`panel-${activeTab}`}
-              role="tabpanel"
-              aria-labelledby={`tab-${activeTab}`}
-              className="qb-fade-in"
-              style={{ display: 'flex', flexDirection: 'column' }}
+              className="reveal" 
+              role="tablist" 
+              aria-label="Question Bank Programs"
+              style={{ 
+                display: 'flex', 
+                gap: 'var(--space-2)', 
+                marginBottom: 'var(--space-4)', 
+                overflowX: 'auto', 
+                paddingBottom: '8px',
+                scrollbarWidth: 'none'
+              }}
             >
-              {qbData[activeTab].map((item, index) => (
-                <div
-                  key={item.id}
-                  className="qb-row"
-                  tabIndex={0}
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  role="tab"
+                  aria-selected={activeTab === tab.id}
+                  aria-controls={`panel-${tab.id}`}
+                  id={`tab-${tab.id}`}
+                  onClick={() => handleTabChange(tab.id)}
+                  className="qb-tab-btn"
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--space-4)',
-                    padding: 'var(--space-4)',
-                    borderBottom: index < qbData[activeTab].length - 1 ? '1px solid var(--color-border-default)' : 'none',
+                    background: activeTab === tab.id ? 'var(--color-surface-strong)' : 'transparent',
+                    color: activeTab === tab.id ? '#000' : 'var(--color-text-secondary)',
+                    border: '1px solid',
+                    borderColor: activeTab === tab.id ? 'var(--color-surface-strong)' : 'var(--color-border-default)',
+                    padding: '10px 24px',
+                    borderRadius: '100px',
+                    fontSize: '14px',
+                    fontWeight: 700,
                     cursor: 'pointer',
-                    transition: 'background var(--duration-fast) var(--easing-default)',
-                    outline: 'none'
+                    transition: 'all 0.2s ease',
+                    whiteSpace: 'nowrap'
                   }}
                 >
-                  <span 
-                    style={{ 
-                      width: 44, 
-                      height: 44, 
-                      borderRadius: '10px', 
-                      background: `${item.color}15`, 
-                      border: `1px solid ${item.color}30`, 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      flexShrink: 0 
-                    }} 
-                    aria-hidden="true"
-                  >
-                    {renderIcon(item.icon, item.color)}
-                  </span>
-                  
-                  <div style={{ flex: 1, textAlign: 'left' }}>
-                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text-primary)', letterSpacing: '0.3px', lineHeight: 1.2, marginBottom: '4px' }}>
-                      {lang === 'bn' ? item.titleBn : item.titleEn}
-                    </h3>
-                    <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-                      {lang === 'bn' ? item.descBn : item.descEn}
-                    </p>
-                  </div>
-                  
-                  <div className="qb-chevron" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-tertiary)" strokeWidth="2.5" aria-hidden="true">
-                      <path d="M9 18l6-6-6-6"/>
-                    </svg>
-                  </div>
-                </div>
+                  {tab.label}
+                </button>
               ))}
             </div>
+
+            {/* List Panel */}
+            <div 
+              className="reveal" 
+              style={{ 
+                background: 'var(--color-surface-card)', 
+                border: '1px solid var(--color-border-default)', 
+                borderRadius: 'var(--radius-sm)', 
+                overflow: 'hidden', 
+                boxShadow: 'var(--shadow-navy)' 
+              }}
+            >
+              <div 
+                key={fadeKey} 
+                id={`panel-${activeTab}`}
+                role="tabpanel"
+                aria-labelledby={`tab-${activeTab}`}
+                className="qb-fade-in"
+                style={{ display: 'flex', flexDirection: 'column' }}
+              >
+                {qbData[activeTab].map((item, index) => (
+                  <div
+                    key={item.id}
+                    className="qb-row"
+                    tabIndex={0}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 'var(--space-4)',
+                      padding: 'var(--space-4)',
+                      borderBottom: index < qbData[activeTab].length - 1 ? '1px solid var(--color-border-default)' : 'none',
+                      cursor: 'pointer',
+                      transition: 'background var(--duration-fast) var(--easing-default)',
+                      outline: 'none'
+                    }}
+                  >
+                    <span 
+                      style={{ 
+                        width: 44, 
+                        height: 44, 
+                        borderRadius: '10px', 
+                        background: `${item.color}15`, 
+                        border: `1px solid ${item.color}30`, 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        flexShrink: 0 
+                      }} 
+                      aria-hidden="true"
+                    >
+                      {renderIcon(item.icon, item.color)}
+                    </span>
+                    
+                    <div style={{ flex: 1, textAlign: 'left' }}>
+                      <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text-primary)', letterSpacing: '0.3px', lineHeight: 1.2, marginBottom: '4px' }}>
+                        {lang === 'bn' ? item.titleBn : item.titleEn}
+                      </h3>
+                      <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)' }}>
+                        {lang === 'bn' ? item.descBn : item.descEn}
+                      </p>
+                    </div>
+                    
+                    <div className="qb-chevron" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-tertiary)" strokeWidth="2.5" aria-hidden="true">
+                        <path d="M9 18l6-6-6-6"/>
+                      </svg>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div style={{ padding: 'var(--space-4)', borderTop: '1px solid var(--color-border-default)', background: 'var(--color-overlay-3)' }}>
+                <a href="https://web.prostuti.bd" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', fontWeight: 700 }}>
+                  {t.cta}
+                </a>
+              </div>
+            </div>
             
-            <div style={{ padding: 'var(--space-4)', borderTop: '1px solid var(--color-border-default)', background: 'rgba(255,255,255,0.01)' }}>
-              <a href="https://web.prostuti.bd" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', fontWeight: 700 }}>
-                {t.cta}
-              </a>
+          </div>
+
+          {/* Right Column: Visual Mockup */}
+          <div className="reveal" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+            <div aria-hidden="true" style={{
+              position: 'absolute',
+              width: '80%',
+              height: '80%',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
+              filter: 'blur(50px)',
+              pointerEvents: 'none',
+              zIndex: 0
+            }} />
+            
+            <div style={{
+              position: 'relative',
+              zIndex: 1,
+            }}
+            className="tilt-card qb-mockup"
+            >
+              <Image
+                src="https://pub-e2c71a91f86f428982fe1b1f721d68b9.r2.dev/image/host/02-07-2026/prostuti/img_1782975874051.png"
+                alt={lang === 'bn' ? 'প্রশ্নব্যাংক অ্যাপ' : 'Question Bank App'}
+                width={320}
+                height={693}
+                style={{
+                  width: '100%',
+                  maxWidth: '320px',
+                  height: 'auto',
+                  borderRadius: '24px',
+                  border: '1px solid var(--color-overlay-10)',
+                  boxShadow: '0 24px 80px rgba(139, 92, 246, 0.2), 0 0 0 1px rgba(139, 92, 246, 0.3)',
+                  display: 'block',
+                }}
+              />
             </div>
           </div>
-          
+
         </div>
       </div>
 
       <style jsx>{`
         .qb-tab-btn:hover:not([aria-selected="true"]) {
-          background: rgba(255, 255, 255, 0.05) !important;
+          background: var(--color-overlay-5) !important;
         }
         .qb-tab-btn:focus-visible {
           outline: 2px solid var(--color-link);
@@ -347,7 +393,7 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
         }
         
         .qb-row:hover, .qb-row:focus-visible {
-          background: rgba(255, 255, 255, 0.03);
+          background: var(--color-overlay-3);
         }
         .qb-row:focus-visible {
           outline: 2px solid var(--color-link) !important;
@@ -370,6 +416,20 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
         @keyframes qbFadeIn {
           from { opacity: 0; transform: translateY(4px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+
+        .qb-mockup:hover {
+          transform: rotate(0deg) scale(1.02) !important;
+        }
+
+        @media (max-width: 900px) {
+          .qb-grid {
+            grid-template-columns: 1fr !important;
+            gap: 48px !important;
+          }
+          .qb-mockup {
+            transform: none !important;
+          }
         }
       `}</style>
     </section>

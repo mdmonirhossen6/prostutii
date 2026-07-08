@@ -121,7 +121,6 @@ export default function FAQ({ lang }: FAQProps) {
       id="faq"
       aria-labelledby="faq-heading"
       style={{
-        padding: '110px 0',
         background: 'var(--color-surface-base)',
       }}
     >
@@ -247,16 +246,16 @@ export default function FAQ({ lang }: FAQProps) {
         }
 
         .faq-card {
-          background: rgba(255, 255, 255, 0.02);
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          background: var(--color-overlay-3);
+          border: 1px solid var(--color-overlay-5);
           border-radius: var(--radius-sm);
           overflow: hidden;
           transition: all var(--duration-normal) var(--easing-default);
         }
 
         .faq-card:hover {
-          background: rgba(255, 255, 255, 0.04);
-          border-color: rgba(255, 255, 255, 0.1);
+          background: var(--color-overlay-3);
+          border-color: var(--color-overlay-10);
         }
 
         .faq-button {
@@ -289,7 +288,7 @@ export default function FAQ({ lang }: FAQProps) {
           width: 28px;
           height: 28px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.05);
+          background: var(--color-overlay-5);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -299,7 +298,7 @@ export default function FAQ({ lang }: FAQProps) {
         }
 
         .faq-card.open .faq-icon-wrapper {
-          background: rgba(255,255,255,0.1);
+          background: var(--color-overlay-10);
           color: #fff;
         }
 

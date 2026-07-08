@@ -87,7 +87,6 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
     <section
       id="ai-showcase"
       aria-labelledby="ai-heading"
-      style={{ padding: '110px 0' }}
     >
       <div className="container-page">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }} className="ai-grid">
@@ -151,7 +150,7 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
                   {msg.role === 'ai' ? (
                     <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                       <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', flexShrink: 0 }} aria-hidden="true">🤖</div>
-                      <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--color-border-default)', borderRadius: '0 12px 12px 12px', padding: '10px 14px', maxWidth: '85%' }}>
+                      <div style={{ background: 'var(--color-overlay-5)', border: '1px solid var(--color-border-default)', borderRadius: '0 12px 12px 12px', padding: '10px 14px', maxWidth: '85%' }}>
                         <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: 1.6, whiteSpace: 'pre-line' }}>{msg.text}</p>
                       </div>
                     </div>
@@ -166,7 +165,7 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
                               const isCorrect = letter === msg.correct;
                               const isSelected = letter === msg.selected;
                               return (
-                                <div key={j} style={{ padding: '5px 10px', borderRadius: '6px', fontSize: '11px', background: isCorrect ? 'rgba(0,217,160,0.2)' : isSelected ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.05)', color: isCorrect ? '#00d9a0' : isSelected ? '#fca5a5' : '#c4b5fd', border: `1px solid ${isCorrect ? 'rgba(0,217,160,0.3)' : isSelected ? 'rgba(239,68,68,0.3)' : 'transparent'}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div key={j} style={{ padding: '5px 10px', borderRadius: '6px', fontSize: '11px', background: isCorrect ? 'rgba(0,217,160,0.2)' : isSelected ? 'rgba(239,68,68,0.2)' : 'var(--color-overlay-5)', color: isCorrect ? '#00d9a0' : isSelected ? '#fca5a5' : '#c4b5fd', border: `1px solid ${isCorrect ? 'rgba(0,217,160,0.3)' : isSelected ? 'rgba(239,68,68,0.3)' : 'transparent'}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                   <span>{opt}</span>
                                   {isCorrect && <span aria-label="correct">✓</span>}
                                   {isSelected && !isCorrect && <span aria-label="incorrect">✗ Incorrect</span>}
@@ -184,7 +183,7 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
 
             {/* Input bar */}
             <div style={{ padding: '12px 16px', borderTop: '1px solid var(--color-border-default)', display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <div style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: `1px solid ${inputFocused ? 'rgba(139,92,246,0.5)' : 'var(--color-border-default)'}`, borderRadius: 'var(--radius-md)', padding: '8px 14px', display: 'flex', alignItems: 'center', transition: 'border-color var(--duration-fast) var(--easing-default)', cursor: 'text' }} onClick={() => setInputFocused(true)}>
+              <div style={{ flex: 1, background: 'var(--color-overlay-5)', border: `1px solid ${inputFocused ? 'rgba(139,92,246,0.5)' : 'var(--color-border-default)'}`, borderRadius: 'var(--radius-md)', padding: '8px 14px', display: 'flex', alignItems: 'center', transition: 'border-color var(--duration-fast) var(--easing-default)', cursor: 'text' }} onClick={() => setInputFocused(true)}>
                 <span style={{ fontSize: '12px', color: 'var(--color-text-inverse)' }}>{t.inputPlaceholder}</span>
               </div>
               <button aria-label={lang === 'bn' ? 'পাঠান' : 'Send'} style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#8b5cf6)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>

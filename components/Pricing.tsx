@@ -47,7 +47,7 @@ const copy = {
       'সাপ্তাহিক পরীক্ষা, বিষয় ফাইনাল ও পেপার ফাইনাল পরীক্ষা',
       'ব্যাটল রয়্যাল (বন্ধুদের সাথে লাইভ পরীক্ষা)',
       'স্মার্ট রুটিন ও ফোকাস টাইমার',
-      'দৈনিক পড়াশোনা ট্র্যাকার ও সিলেবাস ট্র্যাকিং',
+      'দৈনিক পড়াশোনা মনিটর ও সিলেবাস মনিটরিং',
       'Prostuti AI-এর আনলিমিটেড সাপোর্ট',
     ],
     plans: [
@@ -86,7 +86,7 @@ const copy = {
       'Weekly Exam, Subject Final & Paper Final Exam',
       'Battle Royale (Live Exam with Friends)',
       'Smart Routine & Focus Timer',
-      'Daily Study Tracker & Syllabus Tracking',
+      'Daily Study Monitor & Syllabus Monitoring',
       'Unlimited Prostuti AI Support',
     ],
     plans: [
@@ -146,7 +146,7 @@ export default function Pricing({ lang }: PricingProps) {
   }, []);
 
   return (
-    <section ref={sectionRef} id="pricing" aria-labelledby="pricing-heading" style={{ padding: '110px 0', background: 'var(--color-surface-base)' }}>
+    <section ref={sectionRef} id="pricing" aria-labelledby="pricing-heading" style={{ background: 'var(--color-surface-base)' }}>
       <div className="container-page">
 
         <div className="reveal" style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
@@ -201,7 +201,7 @@ export default function Pricing({ lang }: PricingProps) {
                 <th scope="col" style={{
                   padding: '20px 24px', textAlign: 'left', fontSize: '13px', fontWeight: 700,
                   color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '1px',
-                  borderBottom: '1px solid var(--color-border-default)', background: 'rgba(255,255,255,0.01)',
+                  borderBottom: '1px solid var(--color-border-default)', background: 'var(--color-overlay-3)',
                   position: 'sticky', left: 0, zIndex: 2,
                 }}>
                   {t.planColHeader}
@@ -214,7 +214,7 @@ export default function Pricing({ lang }: PricingProps) {
                       borderBottom: '1px solid var(--color-border-default)',
                       background: isHighlighted
                         ? 'linear-gradient(180deg, rgba(0,150,109,0.12) 0%, rgba(0,150,109,0.04) 100%)'
-                        : 'rgba(255,255,255,0.01)',
+                        : 'var(--color-overlay-3)',
                       borderLeft: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
                       borderRight: isHighlighted ? '2px solid var(--color-surface-strong)' : 'none',
                       position: 'relative',
@@ -222,7 +222,7 @@ export default function Pricing({ lang }: PricingProps) {
                       {plan.tag && (
                         <span style={{
                           position: 'absolute', top: '-1px', left: '50%', transform: 'translateX(-50%)',
-                          background: 'var(--color-surface-strong)', color: '#fff', fontSize: '10px', fontWeight: 800,
+                          background: 'var(--color-surface-strong)', color: 'var(--color-text-pure)', fontSize: '10px', fontWeight: 800,
                           padding: '3px 10px', borderRadius: '0 0 6px 6px', letterSpacing: '0.5px',
                         }}>
                           {plan.tag}
@@ -283,7 +283,7 @@ export default function Pricing({ lang }: PricingProps) {
 
             <tfoot>
               <tr>
-                <td style={{ padding: '16px 24px', borderTop: '1px solid var(--color-border-default)', background: 'rgba(255,255,255,0.01)', position: 'sticky', left: 0, zIndex: 1 }} />
+                <td style={{ padding: '16px 24px', borderTop: '1px solid var(--color-border-default)', background: 'var(--color-overlay-3)', position: 'sticky', left: 0, zIndex: 1 }} />
                 {t.plans.map((plan) => {
                   const isHighlighted = plan.tag !== null;
                   return (
@@ -331,7 +331,7 @@ const rowHeaderStyle: React.CSSProperties = {
   fontWeight: 600,
   color: 'var(--color-text-secondary)',
   borderBottom: '1px solid var(--color-border-default)',
-  background: 'rgba(255,255,255,0.01)',
+  background: 'var(--color-overlay-3)',
   position: 'sticky',
   left: 0,
   zIndex: 1,

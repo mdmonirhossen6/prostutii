@@ -9,13 +9,13 @@ interface StatsBarProps {
 const statsData = {
   bn: [
     { value: 200000, suffix: '+', label: 'প্রশ্ন সমূহ', iconType: 'document' },
-    { value: 4, suffix: 'টি', label: 'পরীক্ষার ট্র্যাক', iconType: 'target' },
+    { value: 4, suffix: 'টি', label: 'পরীক্ষার প্রোগ্রাম', iconType: 'target' },
     { value: 98, suffix: '%', label: 'দৈনিক লক্ষ্য সম্পন্নতা', iconType: 'fire' },
     { value: 1781, suffix: '+', label: 'সর্বোচ্চ সাপ্তাহিক XP', iconType: 'trophy' },
   ],
   en: [
     { value: 200000, suffix: '+', label: 'Questions', iconType: 'document' },
-    { value: 4, suffix: '', label: 'Exam Tracks', iconType: 'target' },
+    { value: 4, suffix: '', label: 'Exam Programs', iconType: 'target' },
     { value: 98, suffix: '%', label: 'Daily Goal Rate', iconType: 'fire' },
     { value: 1781, suffix: '+', label: 'Top Weekly XP', iconType: 'trophy' },
   ],
@@ -147,7 +147,6 @@ export default function StatsBar({ lang }: StatsBarProps) {
   return (
     <section
       aria-label={lang === 'bn' ? 'প্রস্তুতির পরিসংখ্যান' : 'Prostuti statistics'}
-      style={{ padding: '0 0 var(--space-8) 0' }}
     >
       <div className="divider-glow" role="separator" aria-hidden="true" />
 

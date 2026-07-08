@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 
 interface FooterProps {
   lang: 'bn' | 'en';
@@ -157,9 +158,11 @@ export default function Footer({ lang, onLangChange }: FooterProps) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {/* Logo */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <img 
+              <Image 
                 src="https://pub-e2c71a91f86f428982fe1b1f721d68b9.r2.dev/image/host/02-07-2026/prostuti/img_1782975909440.png" 
-                alt="Prostuti Logo" 
+                alt="Prostuti Logo"
+                width={100}
+                height={36}
                 style={{
                   height: '36px',
                   width: 'auto',
@@ -184,7 +187,7 @@ export default function Footer({ lang, onLangChange }: FooterProps) {
                     width: 36,
                     height: 36,
                     borderRadius: 'var(--radius-xs)',
-                    background: 'rgba(255,255,255,0.05)',
+                    background: 'var(--color-overlay-5)',
                     border: '1px solid var(--color-border-default)',
                     display: 'flex',
                     alignItems: 'center',
@@ -199,7 +202,7 @@ export default function Footer({ lang, onLangChange }: FooterProps) {
                     (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(0,150,109,0.4)';
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.05)';
+                    (e.currentTarget as HTMLAnchorElement).style.background = 'var(--color-overlay-5)';
                     (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-inverse)';
                     (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-default)';
                   }}
@@ -215,7 +218,7 @@ export default function Footer({ lang, onLangChange }: FooterProps) {
               aria-label={t.langLabel}
               style={{
                 alignSelf: 'flex-start',
-                background: 'rgba(255,255,255,0.05)',
+                background: 'var(--color-overlay-5)',
                 border: '1px solid var(--color-border-default)',
                 borderRadius: 'var(--radius-md)',
                 color: 'var(--color-text-secondary)',
@@ -228,11 +231,11 @@ export default function Footer({ lang, onLangChange }: FooterProps) {
                 minHeight: 36,
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.10)';
+                (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-overlay-10)';
                 (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-primary)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.05)';
+                (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-overlay-5)';
                 (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-secondary)';
               }}
             >

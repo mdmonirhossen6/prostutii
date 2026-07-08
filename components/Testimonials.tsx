@@ -187,7 +187,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
       setActiveIdx((i) => (i + 1) % items.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [items.length]);
+  }, [items.length, activeIdx]);
 
   return (
     <section
@@ -195,7 +195,6 @@ export default function Testimonials({ lang }: TestimonialsProps) {
       id="leaderboard"
       aria-labelledby="testimonials-heading"
       style={{
-        padding: '110px 0',
         background: 'radial-gradient(circle at 90% 80%, rgba(77, 107, 255, 0.05) 0%, transparent 60%), rgba(4, 6, 12, 0.99)',
         backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px)`,
         backgroundSize: '50px 50px',
@@ -251,7 +250,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                     onMouseEnter={(e) => {
                       if (i !== activeIdx) {
                         (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-surface-hover)';
-                        (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.15)';
+                        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-overlay-20)';
                       }
                     }}
                     onMouseLeave={(e) => {
@@ -272,7 +271,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                         justifyContent: 'center',
                         fontSize: '14px',
                         fontWeight: 700,
-                        color: '#fff',
+                        color: 'var(--color-text-pure)',
                         flexShrink: 0,
                       }}
                       role="img"
@@ -364,7 +363,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                     justifyContent: 'center',
                     fontSize: '20px',
                     fontWeight: 700,
-                    color: '#fff',
+                    color: 'var(--color-text-pure)',
                     flexShrink: 0,
                   }}
                   role="img"
@@ -412,7 +411,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
             </div>
 
             {/* Navigation */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-4)', marginTop: 'var(--space-5)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-4)', marginTop: 'var(--space-5)', position: 'relative', zIndex: 2 }}>
               <button
                 onClick={prev}
                 aria-label={lang === 'bn' ? 'আগের মতামত' : 'Previous testimonial'}
@@ -432,7 +431,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'var(--color-surface-hover)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.borderColor = 'var(--color-overlay-20)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'var(--color-surface-raised)';
@@ -457,7 +456,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                       width: i === activeIdx ? 24 : 8,
                       height: 8,
                       borderRadius: 'var(--radius-md)',
-                      background: i === activeIdx ? 'var(--color-surface-strong)' : 'rgba(255,255,255,0.2)',
+                      background: i === activeIdx ? 'var(--color-surface-strong)' : 'var(--color-overlay-20)',
                       border: 'none',
                       cursor: 'pointer',
                       transition: 'all var(--duration-fast) var(--easing-default)',
@@ -486,7 +485,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'var(--color-surface-hover)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.borderColor = 'var(--color-overlay-20)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'var(--color-surface-raised)';
@@ -563,7 +562,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                     borderBottom: i < leaderboardData.length - 1 ? '1px solid var(--color-border-default)' : 'none',
                     transition: 'background var(--duration-fast) var(--easing-default)',
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLLIElement).style.background = 'rgba(255,255,255,0.03)'; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLLIElement).style.background = 'var(--color-overlay-3)'; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLLIElement).style.background = 'transparent'; }}
                   aria-label={`#${entry.rank} ${entry.name}: ${entry.pts} ${t.pts}`}
                 >
@@ -573,7 +572,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                       width: 28,
                       height: 28,
                       borderRadius: '50%',
-                      background: entry.medal ? 'transparent' : 'rgba(255,255,255,0.06)',
+                      background: entry.medal ? 'transparent' : 'var(--color-overlay-5)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -599,7 +598,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                       justifyContent: 'center',
                       fontSize: '12px',
                       fontWeight: 700,
-                      color: '#fff',
+                      color: 'var(--color-text-pure)',
                       flexShrink: 0,
                     }}
                     aria-hidden="true"

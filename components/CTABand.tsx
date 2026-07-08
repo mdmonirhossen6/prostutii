@@ -32,7 +32,6 @@ export default function CTABand({ lang }: CTABandProps) {
     <section
       aria-labelledby="cta-band-heading"
       style={{
-        padding: 'var(--space-8) 0',
         background: `
           radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0,150,109,0.20) 0%, transparent 70%),
           linear-gradient(135deg, #010508 0%, #050c14 100%)
@@ -111,7 +110,7 @@ export default function CTABand({ lang }: CTABandProps) {
           style={{
             fontSize: 'clamp(32px, 5vw, 52px)',
             fontWeight: 800,
-            color: 'var(--color-text-primary)',
+            color: '#ffffff',
             lineHeight: 1.1,
             marginBottom: '20px',
             letterSpacing: '-1px',
@@ -123,7 +122,7 @@ export default function CTABand({ lang }: CTABandProps) {
         <p
           style={{
             fontSize: 'var(--font-size-lg)',
-            color: 'var(--color-text-secondary)',
+            color: '#cbd5e1',
             lineHeight: 1.6,
             maxWidth: '540px',
             margin: '0 auto 36px',
@@ -156,6 +155,7 @@ export default function CTABand({ lang }: CTABandProps) {
             href="#how-it-works"
             className="btn btn-secondary btn-lg"
             aria-label={lang === 'bn' ? 'প্রস্তুতি কীভাবে কাজ করে তার ডেমো দেখুন' : 'Watch how Prostuti works'}
+            style={{ color: '#ffffff', borderColor: 'rgba(255,255,255,0.2)' }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/>
@@ -168,7 +168,7 @@ export default function CTABand({ lang }: CTABandProps) {
         <p
           style={{
             fontSize: 'var(--font-size-xs)',
-            color: 'var(--color-text-inverse)',
+            color: '#94a3b8',
           }}
         >
           {t.note}

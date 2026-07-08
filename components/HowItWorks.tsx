@@ -15,8 +15,8 @@ const content = {
       {
         num: '০১',
         iconType: 'target',
-        title: 'ট্র্যাক বেছে নিন',
-        desc: 'HSC, Varsity, Medical, Engineering বা Onushiloni — আপনার পরীক্ষার লক্ষ্য অনুযায়ী ট্র্যাক সিলেক্ট করুন। Mock Test বা Free Practice যেকোনো দিয়ে শুরু করা যায়।',
+        title: 'প্রোগ্রাম বেছে নিন',
+        desc: 'HSC, Varsity, Medical, Engineering বা Onushiloni — আপনার পরীক্ষার লক্ষ্য অনুযায়ী প্রোগ্রাম সিলেক্ট করুন। Mock Test বা Free Practice যেকোনো দিয়ে শুরু করা যায়।',
         color: '#00966d',
         bg: 'rgba(0,150,109,0.1)',
       },
@@ -40,7 +40,7 @@ const content = {
         num: '০৪',
         iconType: 'leaderboard',
         title: 'লিডারবোর্ডে এগিয়ে যান',
-        desc: 'Daily Goals পূরণ করে XP অর্জন করুন। সাপ্তাহিক লিডারবোর্ডে সারা বাংলাদেশের শিক্ষার্থীদের সাথে প্রতিযোগিতা করুন এবং নিজের অগ্রগতি ট্র্যাক করুন।',
+        desc: 'Daily Goals পূরণ করে XP অর্জন করুন। সাপ্তাহিক লিডারবোর্ডে সারা বাংলাদেশের শিক্ষার্থীদের সাথে প্রতিযোগিতা করুন এবং নিজের অগ্রগতি মনিটর করুন।',
         color: '#f59e0b',
         bg: 'rgba(245,158,11,0.1)',
       },
@@ -54,8 +54,8 @@ const content = {
       {
         num: '01',
         iconType: 'target',
-        title: 'Choose Your Track',
-        desc: 'HSC, Varsity, Medical, Engineering, or Onushiloni — pick the track that matches your goal. Start with Mock Test or Free Practice anytime.',
+        title: 'Choose Your Program',
+        desc: 'HSC, Varsity, Medical, Engineering, or Onushiloni — pick the program that matches your goal. Start with Mock Test or Free Practice anytime.',
         color: '#00966d',
         bg: 'rgba(0,150,109,0.1)',
       },
@@ -79,7 +79,7 @@ const content = {
         num: '04',
         iconType: 'leaderboard',
         title: 'Climb the Leaderboard',
-        desc: 'Hit your Daily Goals to earn XP. Compete on the weekly leaderboard with students across Bangladesh and track your improvement over time.',
+        desc: 'Hit your Daily Goals to earn XP. Compete on the weekly leaderboard with students across Bangladesh and monitor your improvement over time.',
         color: '#f59e0b',
         bg: 'rgba(245,158,11,0.1)',
       },
@@ -169,7 +169,7 @@ export default function HowItWorks({ lang }: HowItWorksProps) {
   }, []);
 
   return (
-    <section ref={sectionRef} id="how-it-works" aria-labelledby="hiw-heading" style={{ padding: '110px 0', background: 'rgba(13,18,37,0.6)' }}>
+    <section ref={sectionRef} id="how-it-works" aria-labelledby="hiw-heading" style={{ background: 'var(--color-surface-raised)' }}>
       <div className="container-page">
         <div className="reveal" style={{ textAlign: 'center', marginBottom: 'var(--space-7)' }}>
           <span className="badge badge-blue" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>

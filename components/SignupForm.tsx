@@ -99,7 +99,7 @@ export default function SignupForm({ lang }: SignupFormProps) {
 
   const inputStyle = (fieldName: keyof FormErrors): React.CSSProperties => ({
     width: '100%',
-    background: 'rgba(255,255,255,0.04)',
+    background: 'var(--color-overlay-3)',
     border: `1px solid ${errors[fieldName] ? '#ef4444' : 'var(--color-border-default)'}`,
     borderRadius: 'var(--radius-xs)',
     color: 'var(--color-text-primary)',
@@ -116,7 +116,6 @@ export default function SignupForm({ lang }: SignupFormProps) {
       id="signup"
       aria-labelledby="signup-heading"
       style={{
-        padding: 'var(--space-8) 0',
         background: `
           radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,150,109,0.12) 0%, transparent 70%),
           var(--color-surface-base)
@@ -238,7 +237,7 @@ export default function SignupForm({ lang }: SignupFormProps) {
                   aria-describedby={errors.name ? `${uid}-name-error` : undefined}
                   style={inputStyle('name')}
                   onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = '#4d6bff'; (e.target as HTMLInputElement).style.background = 'rgba(77,107,255,0.05)'; }}
-                  onBlur={(e) => { if (!errors.name) { (e.target as HTMLInputElement).style.borderColor = 'var(--color-border-default)'; (e.target as HTMLInputElement).style.background = 'rgba(255,255,255,0.04)'; } }}
+                  onBlur={(e) => { if (!errors.name) { (e.target as HTMLInputElement).style.borderColor = 'var(--color-border-default)'; (e.target as HTMLInputElement).style.background = 'var(--color-overlay-3)'; } }}
                   disabled={status === 'loading'}
                 />
                 {errors.name && (
@@ -267,7 +266,7 @@ export default function SignupForm({ lang }: SignupFormProps) {
                   aria-describedby={errors.email ? `${uid}-email-error` : undefined}
                   style={inputStyle('email')}
                   onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = '#4d6bff'; (e.target as HTMLInputElement).style.background = 'rgba(77,107,255,0.05)'; }}
-                  onBlur={(e) => { if (!errors.email) { (e.target as HTMLInputElement).style.borderColor = 'var(--color-border-default)'; (e.target as HTMLInputElement).style.background = 'rgba(255,255,255,0.04)'; } }}
+                  onBlur={(e) => { if (!errors.email) { (e.target as HTMLInputElement).style.borderColor = 'var(--color-border-default)'; (e.target as HTMLInputElement).style.background = 'var(--color-overlay-3)'; } }}
                   disabled={status === 'loading'}
                 />
                 {errors.email && (
@@ -296,7 +295,7 @@ export default function SignupForm({ lang }: SignupFormProps) {
                   aria-describedby={errors.phone ? `${uid}-phone-error` : undefined}
                   style={inputStyle('phone')}
                   onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = '#4d6bff'; (e.target as HTMLInputElement).style.background = 'rgba(77,107,255,0.05)'; }}
-                  onBlur={(e) => { if (!errors.phone) { (e.target as HTMLInputElement).style.borderColor = 'var(--color-border-default)'; (e.target as HTMLInputElement).style.background = 'rgba(255,255,255,0.04)'; } }}
+                  onBlur={(e) => { if (!errors.phone) { (e.target as HTMLInputElement).style.borderColor = 'var(--color-border-default)'; (e.target as HTMLInputElement).style.background = 'var(--color-overlay-3)'; } }}
                   disabled={status === 'loading'}
                 />
                 {errors.phone && (

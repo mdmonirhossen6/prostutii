@@ -2,7 +2,7 @@
 
 export default function LegalPolicies() {
   return (
-    <section id="legal" aria-labelledby="legal-heading" style={{ padding: 'var(--space-8) 0', background: 'var(--color-surface-bg)' }}>
+    <section id="legal" aria-labelledby="legal-heading" style={{ background: 'var(--color-surface-bg)' }}>
       <div className="container-page">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
           
@@ -11,7 +11,7 @@ export default function LegalPolicies() {
             <h2 id="privacy" style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '20px' }}>
               Privacy Policy
             </h2>
-            <div style={{ background: '#1c2230', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)', padding: '32px' }}>
+            <div style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-overlay-5)', borderRadius: 'var(--radius-md)', padding: '32px' }}>
               
               <div style={{ marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '8px' }}>1. Data Collection</h3>
@@ -35,7 +35,7 @@ export default function LegalPolicies() {
                 </p>
                 <ul style={{ listStyle: 'none', paddingLeft: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <li style={{ fontSize: '13px', color: 'var(--color-text-secondary)', display: 'flex', gap: '8px' }}>
-                    <span style={{ color: 'var(--color-text-inverse)' }}>•</span> Progress Tracking: Maintaining your coursework history and achievements.
+                    <span style={{ color: 'var(--color-text-inverse)' }}>•</span> Progress Monitoring: Maintaining your coursework history and achievements.
                   </li>
                   <li style={{ fontSize: '13px', color: 'var(--color-text-secondary)', display: 'flex', gap: '8px' }}>
                     <span style={{ color: 'var(--color-text-inverse)' }}>•</span> Gamification: Managing secure placements on regional leaderboards.
@@ -71,7 +71,7 @@ export default function LegalPolicies() {
                 </ul>
               </div>
 
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px' }}>
+              <div style={{ borderTop: '1px solid var(--color-overlay-10)', paddingTop: '24px' }}>
                 <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '4px' }}>Have questions?</h3>
                 <p style={{ fontSize: '13px', color: 'var(--color-text-inverse)' }}>
                   If you need clarification regarding any of these terms, please connect with our support team at <a href="mailto:prostutibdapp@gmail.com" style={{ color: '#4d6bff', textDecoration: 'none' }}>prostutibdapp@gmail.com</a>.
@@ -86,7 +86,7 @@ export default function LegalPolicies() {
             <h2 id="refund" style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '20px' }}>
               Refund Policy
             </h2>
-            <div style={{ background: '#1c2230', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)', padding: '32px', height: '100%' }}>
+            <div style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-overlay-5)', borderRadius: 'var(--radius-md)', padding: '32px', height: '100%' }}>
               
               <div style={{ marginBottom: '24px' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '8px' }}>1. Premium Access Terms</h3>
@@ -132,7 +132,7 @@ export default function LegalPolicies() {
                 </ul>
               </div>
 
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px', marginTop: 'auto' }}>
+              <div style={{ borderTop: '1px solid var(--color-overlay-10)', paddingTop: '24px', marginTop: 'auto' }}>
                 <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '4px' }}>Have questions?</h3>
                 <p style={{ fontSize: '13px', color: 'var(--color-text-inverse)' }}>
                   If you need clarification regarding any of these terms, please connect with our support team at <a href="mailto:prostutibdapp@gmail.com" style={{ color: '#4d6bff', textDecoration: 'none' }}>prostutibdapp@gmail.com</a>.

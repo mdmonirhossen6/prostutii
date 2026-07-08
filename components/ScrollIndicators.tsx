@@ -96,7 +96,7 @@ export default function ScrollIndicators({ lang }: ScrollIndicatorsProps) {
           left: 0,
           right: 0,
           height: '48px',
-          background: 'rgba(8, 12, 24, 0.85)',
+          background: 'var(--color-surface-raised)',
           backdropFilter: 'blur(12px)',
           borderBottom: '1px solid var(--color-border-default)',
           zIndex: 90,

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface NavbarProps {
   lang: 'bn' | 'en';
@@ -179,9 +180,12 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
               mixBlendMode: theme === 'light' ? 'multiply' : 'screen'
             }}
           >
-            <img 
+            <Image 
               src="https://pub-e2c71a91f86f428982fe1b1f721d68b9.r2.dev/image/host/02-07-2026/prostuti/img_1782975909440.png" 
               alt="Prostuti Logo" 
+              width={120}
+              height={42}
+              priority
               style={{
                 height: '42px',
                 width: 'auto',
@@ -224,7 +228,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
                     onMouseEnter={(e) => {
                       if (!isActive) {
                         (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-primary)';
-                        (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.05)';
+                        (e.currentTarget as HTMLAnchorElement).style.background = 'var(--color-overlay-5)';
                       }
                     }}
                     onMouseLeave={(e) => {
@@ -366,7 +370,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
                 fontWeight: 700,
                 background: 'var(--color-surface-strong)',
                 borderColor: 'var(--color-surface-strong)',
-                color: '#fff',
+                color: 'var(--color-text-pure)',
                 transition: 'all var(--duration-fast) var(--easing-default)'
               }}
               onMouseEnter={(e) => {
@@ -509,7 +513,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
                     onMouseEnter={(e) => {
                       if (!isActive) {
                         (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-primary)';
-                        (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.05)';
+                        (e.currentTarget as HTMLAnchorElement).style.background = 'var(--color-overlay-5)';
                       }
                     }}
                     onMouseLeave={(e) => {
@@ -658,7 +662,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
               href="https://web.prostuti.bd" 
               className="btn btn-primary" 
               onClick={handleNavClick} 
-              style={{ textAlign: 'center', fontWeight: 700, background: 'var(--color-surface-strong)', borderColor: 'var(--color-surface-strong)', color: '#fff' }}
+              style={{ textAlign: 'center', fontWeight: 700, background: 'var(--color-surface-strong)', borderColor: 'var(--color-surface-strong)', color: 'var(--color-text-pure)' }}
             >
               {t.cta}
             </a>

@@ -16,7 +16,7 @@ export default function TermsPage() {
           <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '32px' }}>
             {lang === 'bn' ? 'সেবার শর্তাবলী (Terms of Service)' : 'Terms of Service'}
           </h1>
-          <div style={{ background: '#1c2230', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)', padding: '32px', maxWidth: '800px' }}>
+          <div style={{ background: '#1c2230', border: '1px solid var(--color-overlay-5)', borderRadius: 'var(--radius-md)', padding: '32px', maxWidth: '800px' }}>
             
             <p style={{ fontSize: '15px', color: 'var(--color-text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
               Welcome to Prostuti! By using our platform, you agree to comply with and be bound by the following terms of use.
@@ -36,7 +36,7 @@ export default function TermsPage() {
               </p>
             </div>
 
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px' }}>
+            <div style={{ borderTop: '1px solid var(--color-overlay-10)', paddingTop: '24px' }}>
               <p style={{ fontSize: '15px', color: 'var(--color-text-inverse)' }}>
                 For detailed queries, contact us at <a href="mailto:prostutibdapp@gmail.com" style={{ color: '#4d6bff', textDecoration: 'none' }}>prostutibdapp@gmail.com</a>.
               </p>

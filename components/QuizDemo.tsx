@@ -173,7 +173,7 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
 
   const optionStyles: Record<OptionState, React.CSSProperties> = {
     default: {
-      background: 'rgba(255,255,255,0.02)',
+      background: 'var(--color-overlay-3)',
       border: '1px solid var(--color-border-default)',
       color: 'var(--color-text-secondary)',
     },
@@ -223,7 +223,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
     <section
       aria-labelledby="quiz-heading"
       style={{
-        padding: 'var(--space-8) 0',
         background: 'linear-gradient(180deg, transparent 0%, rgba(77,107,255,0.04) 50%, transparent 100%)',
       }}
     >
@@ -331,7 +330,7 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
             </div>
 
             {/* Progress bar */}
-            <div style={{ height: 3, background: 'rgba(255,255,255,0.06)' }}>
+            <div style={{ height: 3, background: 'var(--color-overlay-5)' }}>
               <div
                 style={{
                   height: '100%',
@@ -476,7 +475,7 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
                             background: state === 'correct' ? 'var(--color-surface-strong)'
                               : state === 'incorrect' ? 'rgba(239,68,68,0.3)'
                               : state === 'selected' ? 'rgba(77,107,255,0.3)'
-                              : 'rgba(255,255,255,0.06)',
+                              : 'var(--color-overlay-5)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
