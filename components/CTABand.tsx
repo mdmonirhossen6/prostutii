@@ -1,5 +1,7 @@
 'use client';
 
+import { spawnSpark } from '@/utils/spark';
+
 interface CTABandProps {
   lang: 'bn' | 'en';
 }
