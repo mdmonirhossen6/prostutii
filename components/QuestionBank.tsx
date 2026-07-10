@@ -365,7 +365,7 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
             >
               <div style={{
                 width: '100%',
-                minWidth: '280px',
+                minWidth: '240px',
                 maxWidth: '320px',
                 height: '620px',
                 background: 'var(--color-surface-card)',

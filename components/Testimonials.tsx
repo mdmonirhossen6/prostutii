@@ -310,7 +310,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                 position: 'absolute',
                 top: '12px',
                 left: '16px',
-                right: '-12px',
+                right: '0px',
                 bottom: '-8px',
                 background: 'var(--color-surface-card-deep)',
                 border: '1px solid var(--color-border-default)',

@@ -262,8 +262,8 @@ export default function Hero({ lang }: HeroProps) {
               className="badge-streak"
               style={{
                 position: 'absolute',
-                top: '12%',
-                right: '-24px',
+                top: '-20px',
+                right: '0',
                 background: 'var(--color-surface-card)',
                 border: '1px solid rgba(245, 158, 11, 0.8)',
                 borderRadius: 'var(--radius-sm)',
