@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { useTiltEffect } from '@/hooks/useTiltEffect';
 
 interface QuestionBankProps {
@@ -37,29 +36,29 @@ const qbData = {
   hsc: [
     { id: 'hsc-qb', icon: 'institution', color: '#10b981', titleBn: 'প্রশ্নব্যাংক', descBn: 'বোর্ড অনুযায়ী বছরভিত্তিক প্রশ্ন', titleEn: 'Question Bank', descEn: 'Year-wise board questions' },
     { id: 'hsc-cq', icon: 'graduation-cap', color: '#f59e0b', titleBn: 'কলেজ প্রশ্ন', descBn: 'সেরা কলেজের সমাধানসহ প্রশ্ন', titleEn: 'College Questions', descEn: 'Top colleges questions with solutions' },
-    { id: 'hsc-tp', icon: 'book', color: '#8b5cf6', titleBn: 'টেস্ট পেপার', descBn: 'সেরা কলেজের প্র্যাকটিস টেস্ট পেপার', titleEn: 'Test Paper', descEn: 'Top college practice test papers' },
-    { id: 'hsc-tw', icon: 'droplet', color: '#ec4899', titleBn: 'টাইপ ওয়াইজ সিকিউ', descBn: 'ধরনভিত্তিক সৃজনশীল প্রশ্ন প্র্যাকটিস', titleEn: 'Type-wise CQ', descEn: 'Type-based creative question practice' },
+    { id: 'hsc-tp', icon: 'book', color: '#8b5cf6', titleBn: 'অধ্যায়ভিত্তিক প্রশ্নব্যাংক', descBn: 'অধ্যায়ভিত্তিক প্রশ্নব্যাংক প্র্যাকটিস', titleEn: 'Chapter Wise QB', descEn: 'Chapter-organized question bank practice' },
+    { id: 'hsc-tw', icon: 'droplet', color: '#ec4899', titleBn: 'টাইপ ওয়াইজ সিকিউ', descBn: 'ধরনভিত্তিক সৃজনশীল প্রশ্ন প্র্যাকটিস', titleEn: 'Type Wise CQ', descEn: 'Type-based creative question practice' },
     { id: 'hsc-ku', icon: 'open-book', color: '#3b82f6', titleBn: 'জ্ঞান ও অনুধাবন', descBn: 'ক ও খ প্রশ্ন প্র্যাকটিস', titleEn: 'Knowledge & Understanding', descEn: 'Ka & Kha question practice' },
     { id: 'hsc-cb', icon: 'book', color: '#4d6bff', titleBn: 'কম্প্যাক্ট বুক', descBn: 'কম্প্যাক্ট টেক্সটবুক MCQ সমাধান', titleEn: 'Compact Book', descEn: 'Compact textbook MCQ solutions' },
   ],
   varsity: [
-    { id: 'var-mqb', icon: 'layered-diamond', color: '#6366f1', titleBn: 'মাস্টার প্রশ্নব্যাংক', descBn: 'বিষয়ভিত্তিক সাজানো মাস্টার কোশ্চেন ব্যাংক', titleEn: 'Master Question Bank', descEn: 'Subject-wise sorted master question bank' },
-    { id: 'var-wqb', icon: 'pencil', color: '#ec4899', titleBn: 'লিখিত প্রশ্নব্যাংক', descBn: 'ভার্সিটি ভর্তির জন্য বিষয়ভিত্তিক লিখিত প্রশ্নোত্তর', titleEn: 'Written Question Bank', descEn: 'Subject-wise written Q&A for varsity admission' },
-    { id: 'var-qb', icon: 'institution', color: '#f59e0b', titleBn: 'ভার্সিটি প্রশ্নব্যাংক', descBn: 'নির্দিষ্ট বিশ্ববিদ্যালয় অনুযায়ী বছরভিত্তিক সরকারি প্রশ্ন', titleEn: 'Varsity Question Bank', descEn: 'University-wise year-based official questions' },
-    { id: 'var-mqbm', icon: 'game-controller', color: '#10b981', titleBn: 'মাস্টার প্রশ্নব্যাংক মক', descBn: 'টপিক-ভিত্তিক মাস্টার প্রশ্নব্যাংক দিয়ে কাস্টম টাইমারসহ মক পরীক্ষা তৈরি করুন', titleEn: 'Master QB Mock', descEn: 'Create custom timed mock exams using topic-based master QB' },
+    { id: 'var-mqb', icon: 'layered-diamond', color: '#8b5cf6', titleBn: 'মাস্টার প্রশ্নব্যাংক', descBn: 'Topic-wise organized preparation sorted cleanly by subject concepts.', titleEn: 'Master Question Bank', descEn: 'Topic-wise organized preparation sorted cleanly by subject concepts.' },
+    { id: 'var-wqb', icon: 'pencil', color: '#ec4899', titleBn: 'লিখিত প্রশ্নব্যাংক', descBn: 'Subject-wise written question and answer bank for varsity admission.', titleEn: 'Written Question Bank', descEn: 'Subject-wise written question and answer bank for varsity admission.' },
+    { id: 'var-qb', icon: 'institution', color: '#6366f1', titleBn: 'ভার্সিটি প্রশ্নব্যাংক', descBn: 'Yearly official question papers categorized by specific universities.', titleEn: 'Varsity Question Bank', descEn: 'Yearly official question papers categorized by specific universities.' },
+    { id: 'var-mqbm', icon: 'game-controller', color: '#10b981', titleBn: 'মাস্টার প্রশ্নব্যাংক মক', descBn: 'Create dynamic simulated mock exams using topic-wise master question bank with customizable timers.', titleEn: 'Master Question Bank Mock', descEn: 'Create dynamic simulated mock exams using topic-wise master question bank with customizable timers.' },
   ],
   medical: [
-    { id: 'med-mqb', icon: 'layered-diamond', color: '#6366f1', titleBn: 'মেডিকেল মাস্টার প্রশ্নব্যাংক', descBn: 'চ্যাপ্টার-টপিকভিত্তিক সাজানো মাস্টার কোশ্চেন ব্যাংক', titleEn: 'Medical Master QB', descEn: 'Chapter-topic wise sorted master question bank' },
-    { id: 'med-mqbm', icon: 'game-controller', color: '#10b981', titleBn: 'মেডিকেল মাস্টার প্রশ্নব্যাংক মক', descBn: 'মাস্টার কোশ্চেন ব্যাংক ভিত্তিক কাস্টম মক টেস্ট', titleEn: 'Medical Master QB Mock', descEn: 'Custom mock tests based on master question bank' },
-    { id: 'med-qb', icon: 'folded-page', color: '#ef4444', titleBn: 'মেডিকেল প্রশ্নব্যাংক', descBn: 'বিগত বছরের প্রশ্নব্যাংক', titleEn: 'Medical Question Bank', descEn: 'Previous years question bank' },
-    { id: 'med-es', icon: 'open-book', color: '#14b8a6', titleBn: 'অনুশীলনী সলভ', descBn: 'পাঠ্যবইয়ের অনুশীলনী সমাধান', titleEn: 'Exercise Solve', descEn: 'Textbook exercise solutions' },
-    { id: 'med-mt', icon: 'clipboard', color: '#f59e0b', titleBn: 'মডেল টেস্ট', descBn: 'মেডিকেল স্ট্যান্ডার্ড টেস্ট', titleEn: 'Model Test', descEn: 'Medical standard tests' },
+    { id: 'med-mqb', icon: 'layered-diamond', color: '#8b5cf6', titleBn: 'Medical Master QB', descBn: 'চ্যাপ্টার-টপিকভিত্তিক সাজানো মাস্টার কোশ্চেন ব্যাংক', titleEn: 'Medical Master QB', descEn: 'চ্যাপ্টার-টপিকভিত্তিক সাজানো মাস্টার কোশ্চেন ব্যাংক' },
+    { id: 'med-mqbm', icon: 'game-controller', color: '#10b981', titleBn: 'Medical Master QB Mock', descBn: 'মাস্টার কোশ্চেন ব্যাংক ভিত্তিক কাস্টম মক টেস্ট', titleEn: 'Medical Master QB Mock', descEn: 'মাস্টার কোশ্চেন ব্যাংক ভিত্তিক কাস্টম মক টেস্ট' },
+    { id: 'med-qb', icon: 'folded-page', color: '#ef4444', titleBn: 'MEDICAL QB', descBn: 'Previous year question bank', titleEn: 'MEDICAL QB', descEn: 'Previous year question bank' },
+    { id: 'med-es', icon: 'open-book', color: '#14b8a6', titleBn: 'অনুশীলনি সলভ', descBn: 'Textbook exercise solutions', titleEn: 'অনুশীলনি সলভ', descEn: 'Textbook exercise solutions' },
+    { id: 'med-mt', icon: 'clipboard', color: '#f59e0b', titleBn: 'মডেল টেস্ট', descBn: 'Medical Standard Tests', titleEn: 'মডেল টেস্ট', descEn: 'Medical Standard Tests' },
   ],
   engineering: [
-    { id: 'eng-mqb', icon: 'layered-diamond', color: '#6366f1', titleBn: 'ইঞ্জিনিয়ারিং মাস্টার প্রশ্নব্যাংক', descBn: 'ইঞ্জিনিয়ারিং বিষয় অনুযায়ী সাজানো টপিক-ভিত্তিক প্রস্তুতি', titleEn: 'Engineering Master QB', descEn: 'Topic-wise prep sorted by engineering subjects' },
-    { id: 'eng-wqb', icon: 'pencil', color: '#ec4899', titleBn: 'ইঞ্জিনিয়ারিং লিখিত প্রশ্নব্যাংক', descBn: 'ইঞ্জিনিয়ারিং ভর্তির জন্য বিষয়ভিত্তিক লিখিত প্রশ্নোত্তর', titleEn: 'Engineering Written QB', descEn: 'Subject-wise written Q&A for engineering admission' },
-    { id: 'eng-qb', icon: 'institution', color: '#f59e0b', titleBn: 'ইঞ্জিনিয়ারিং প্রশ্নব্যাংক', descBn: 'নির্দিষ্ট ইঞ্জিনিয়ারিং বিশ্ববিদ্যালয় অনুযায়ী বছরভিত্তিক সরকারি প্রশ্ন', titleEn: 'Engineering Question Bank', descEn: 'University-wise year-based official questions' },
-    { id: 'eng-mqbm', icon: 'game-controller', color: '#10b981', titleBn: 'ইঞ্জিনিয়ারিং মাস্টার প্রশ্নব্যাংক মক', descBn: 'টপিক-ভিত্তিক মাস্টার প্রশ্নব্যাংক দিয়ে কাস্টম টাইমারসহ মক পরীক্ষা তৈরি করুন', titleEn: 'Engineering Master QB Mock', descEn: 'Create custom timed mock exams using topic-based master QB' },
+    { id: 'eng-mqb', icon: 'layered-diamond', color: '#8b5cf6', titleBn: 'Engineering Master QB', descBn: 'Topic-wise organized preparation sorted cleanly by engineering concepts.', titleEn: 'Engineering Master QB', descEn: 'Topic-wise organized preparation sorted cleanly by engineering concepts.' },
+    { id: 'eng-wqb', icon: 'pencil', color: '#ec4899', titleBn: 'Engineering Written QB', descBn: 'Subject-wise written question and answer bank for engineering admission.', titleEn: 'Engineering Written QB', descEn: 'Subject-wise written question and answer bank for engineering admission.' },
+    { id: 'eng-qb', icon: 'institution', color: '#f59e0b', titleBn: 'Engineering Question Bank', descBn: 'Yearly official question papers categorized by specific engineering universities.', titleEn: 'Engineering Question Bank', descEn: 'Yearly official question papers categorized by specific engineering universities.' },
+    { id: 'eng-mqbm', icon: 'game-controller', color: '#10b981', titleBn: 'Engineering Master QB Mock', descBn: 'Create dynamic simulated mock exams using topic-wise master question bank with customizable timers.', titleEn: 'Engineering Master QB Mock', descEn: 'Create dynamic simulated mock exams using topic-wise master question bank with customizable timers.' },
   ]
 };
 
@@ -156,11 +155,10 @@ function renderIcon(type: string, color: string) {
 export default function QuestionBank({ lang }: QuestionBankProps) {
   const t = copy[lang];
   const [activeTab, setActiveTab] = useState<Program>('hsc');
-  const [fadeKey, setFadeKey] = useState<number>(0); // Used for triggering fade animation
+  const [fadeKey, setFadeKey] = useState<number>(0); 
   const sectionRef = useRef<HTMLElement>(null);
   useTiltEffect(sectionRef, '.tilt-card');
   
-  // Program tabs list
   const tabs: { id: Program; label: string }[] = [
     { id: 'hsc', label: t.hscTab },
     { id: 'varsity', label: t.varsityTab },
@@ -199,6 +197,7 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
     section.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+
   return (
     <section ref={sectionRef} id="question-bank" aria-labelledby="qb-heading" style={{ background: 'var(--color-surface-base)' }}>
       <div className="container-page">
@@ -362,21 +361,82 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
             }}
             className="tilt-card qb-mockup"
             >
-              <Image
-                src="https://pub-e2c71a91f86f428982fe1b1f721d68b9.r2.dev/image/host/02-07-2026/prostuti/img_1782975874051.png"
-                alt={lang === 'bn' ? 'প্রশ্নব্যাংক অ্যাপ' : 'Question Bank App'}
-                width={320}
-                height={693}
-                style={{
-                  width: '100%',
-                  maxWidth: '320px',
-                  height: 'auto',
-                  borderRadius: '24px',
-                  border: '1px solid var(--color-overlay-10)',
-                  boxShadow: '0 24px 80px rgba(139, 92, 246, 0.2), 0 0 0 1px rgba(139, 92, 246, 0.3)',
-                  display: 'block',
-                }}
-              />
+              <div style={{
+                width: '100%',
+                minWidth: '280px',
+                maxWidth: '320px',
+                height: '620px',
+                background: 'var(--color-surface-card)',
+                borderRadius: '32px',
+                border: '8px solid #0f172a',
+                boxShadow: '0 24px 80px rgba(139, 92, 246, 0.2), inset 0 0 0 1px rgba(255,255,255,0.05)',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative'
+              }}>
+                {/* Notch */}
+                <div style={{
+                  position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
+                  width: '100px', height: '24px', background: '#0f172a',
+                  borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', zIndex: 10
+                }} />
+                
+                {/* Mockup Header */}
+                <div style={{ padding: '36px 20px 16px', borderBottom: '1px solid var(--color-border-default)', background: 'var(--color-surface-base)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div>
+                      <h4 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '4px' }}>
+                        {activeTab === 'hsc' ? 'HSC Preparation' : activeTab === 'varsity' ? 'Varsity Hub' : activeTab === 'medical' ? 'Medical Hub' : 'Engineering Hub'}
+                      </h4>
+                      <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+                        {activeTab === 'hsc' ? 'All your resources in one place' : activeTab === 'varsity' ? 'University admission prep' : activeTab === 'medical' ? 'Medical admission prep' : 'BUET & Engineering prep'}
+                      </p>
+                    </div>
+                    <span style={{ fontSize: '10px', fontWeight: 700, background: 'rgba(139,92,246,0.15)', color: '#a78bfa', padding: '4px 8px', borderRadius: '8px' }}>
+                      {qbData[activeTab].length} Sections
+                    </span>
+                  </div>
+                </div>
+
+                {/* Scrollable Content */}
+                <div key={`mockup-${fadeKey}`} className="qb-fade-in" style={{ flex: 1, overflowY: 'auto', padding: '16px', scrollbarWidth: 'none' }}>
+                  {activeTab === 'hsc' && (
+                    <div style={{ background: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(139,92,246,0.15))', border: '1px solid rgba(139,92,246,0.2)', borderRadius: '16px', padding: '16px', marginBottom: '16px' }}>
+                      <h5 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '6px' }}>Prepare Smartly</h5>
+                      <p style={{ fontSize: '11px', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
+                        Board questions, CQ practice, test papers and college solutions in one beautiful platform.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* List Rows */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {qbData[activeTab].map((item, idx) => (
+                      <div key={idx} style={{
+                        display: 'flex', alignItems: 'center', gap: '12px',
+                        background: 'var(--color-surface-base)', border: '1px solid var(--color-border-default)',
+                        borderRadius: '12px', padding: '12px',
+                      }}>
+                        <span style={{ width: 36, height: 36, borderRadius: '8px', background: `${item.color}15`, border: `1px solid ${item.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          {renderIcon(item.icon, item.color)}
+                        </span>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <h6 style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {lang === 'bn' ? item.titleBn : item.titleEn}
+                          </h6>
+                          <p style={{ fontSize: '11px', color: 'var(--color-text-secondary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {lang === 'bn' ? item.descBn : item.descEn}
+                          </p>
+                        </div>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-tertiary)" strokeWidth="2.5" style={{ flexShrink: 0 }}>
+                          <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
