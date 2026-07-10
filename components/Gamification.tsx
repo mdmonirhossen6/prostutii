@@ -155,7 +155,7 @@ export default function Gamification({ lang }: GamificationProps) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="gamification-grid">
           
           {/* Left: Text & Features */}
-          <div className="reveal">
+          <div className="reveal" style={{ minWidth: 0 }}>
             <span className="badge badge-recommended" style={{ marginBottom: 'var(--space-4)', background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
               ✦ {t.badge}
             </span>
@@ -249,6 +249,7 @@ export default function Gamification({ lang }: GamificationProps) {
 
           {/* Right: Dashboard Mockup */}
           <div className="mockup-container reveal" style={{ 
+            minWidth: 0,
             background: 'var(--color-surface-base)', 
             border: '1px solid var(--color-border-default)', 
             borderRadius: 'var(--radius-md)', 
@@ -264,9 +265,9 @@ export default function Gamification({ lang }: GamificationProps) {
                 M
                 <div style={{ position: 'absolute', bottom: -4, right: -4, width: 20, height: 20, background: '#4d6bff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', border: '2px solid var(--color-surface-card)' }}>📷</div>
               </div>
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
                 <h4 style={{ fontSize: 'var(--font-size-body)', fontWeight: 700, color: 'var(--color-text-primary)' }}>{t.mockup.name}</h4>
-                <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-tertiary)', marginBottom: 'var(--space-1)' }}>{t.mockup.email}</p>
+                <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-tertiary)', marginBottom: 'var(--space-1)', wordBreak: 'break-all' }}>{t.mockup.email}</p>
                 <span style={{ fontSize: 'var(--font-size-xs)', fontWeight: 700, color: '#f59e0b', background: 'rgba(245,158,11,0.15)', padding: '4px 8px', borderRadius: '4px' }}>
                   {t.mockup.premium}
                 </span>

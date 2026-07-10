@@ -128,7 +128,7 @@ export default function FAQ({ lang }: FAQProps) {
       <div className="container-page">
         <div className="faq-grid">
           {/* Left Column */}
-          <div className="faq-header-box reveal">
+          <div className="faq-header-box reveal" style={{ minWidth: 0 }}>
             <span style={{ 
               fontSize: '12px', 
               fontWeight: 700, 
@@ -158,7 +158,7 @@ export default function FAQ({ lang }: FAQProps) {
           </div>
 
           {/* Right Column: Accordion */}
-          <div className="faq-accordion" role="list">
+          <div className="faq-accordion" role="list" style={{ minWidth: 0 }}>
             {t.items.map((item, idx) => {
               const isOpen = openIdx === idx;
               const answerId = `faq-answer-${idx}`;

@@ -187,7 +187,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="mock-grid">
 
           {/* Left: copy */}
-          <div className="reveal">
+          <div className="reveal" style={{ minWidth: 0 }}>
             <span className="badge badge-blue" style={{ marginBottom: 'var(--space-4)' }}>{t.badge}</span>
             <h2 id="mock-heading" style={{ fontSize: 'clamp(24px, 4vw, var(--font-size-h1))', fontWeight: 800, color: 'var(--color-text-primary)', lineHeight: 1.15, marginBottom: 'var(--space-4)', letterSpacing: '-0.5px' }}>
               {t.title}
@@ -216,7 +216,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
             className="reveal"
             role="region"
             aria-label={t.selectLabel}
-            style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-border-default)', borderRadius: 'var(--radius-sm)', overflow: 'hidden', boxShadow: 'var(--shadow-navy)' }}
+            style={{ minWidth: 0, background: 'var(--color-surface-card)', border: '1px solid var(--color-border-default)', borderRadius: 'var(--radius-sm)', overflow: 'hidden', boxShadow: 'var(--shadow-navy)' }}
           >
             <div style={{ padding: 'var(--space-3) var(--space-4)', borderBottom: '1px solid var(--color-border-default)', textAlign: 'center' }}>
               <p style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--color-text-primary)' }}>{t.selectLabel}</p>

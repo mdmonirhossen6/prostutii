@@ -93,7 +93,7 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }} className="ai-grid">
 
           {/* Left: copy */}
-          <div>
+          <div style={{ minWidth: 0 }}>
             <span className="badge badge-recommended" style={{ marginBottom: '20px', background: 'rgba(139,92,246,0.15)', color: '#a78bfa', borderColor: 'rgba(139,92,246,0.3)' }}>
               ✦ {t.badge}
             </span>
@@ -127,6 +127,7 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
             role="img"
             aria-label={t.chatLabel}
             style={{
+              minWidth: 0,
               background: 'var(--color-surface-card)',
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-sm)',
