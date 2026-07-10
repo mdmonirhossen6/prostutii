@@ -144,6 +144,7 @@ export default function CTABand({ lang }: CTABandProps) {
           <a
             href="https://web.prostuti.bd"
             className="btn btn-primary btn-lg"
+            onClick={(e) => spawnSpark(e)}
             aria-label={lang === 'bn' ? 'প্রস্তুতিতে বিনামূল্যে অ্যাকাউন্ট খুলুন' : 'Open a free Prostuti account'}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
@@ -154,6 +155,7 @@ export default function CTABand({ lang }: CTABandProps) {
           <a
             href="#how-it-works"
             className="btn btn-secondary btn-lg"
+            onClick={(e) => spawnSpark(e)}
             aria-label={lang === 'bn' ? 'প্রস্তুতি কীভাবে কাজ করে তার ডেমো দেখুন' : 'Watch how Prostuti works'}
             style={{ color: '#ffffff', borderColor: 'rgba(255,255,255,0.2)' }}
           >

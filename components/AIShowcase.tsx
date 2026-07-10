@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { spawnSpark } from '@/utils/spark';
 
 interface AIShowcaseProps {
   lang: 'bn' | 'en';
@@ -115,7 +116,7 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
               ))}
             </ul>
 
-            <a href="https://web.prostuti.bd" className="btn btn-primary btn-lg" style={{ background: 'linear-gradient(135deg, #7c3aed, #8b5cf6)', boxShadow: '0 4px 20px rgba(139,92,246,0.35)' }}
+            <a href="https://web.prostuti.bd" onClick={(e) => spawnSpark(e, '--color-accent-purple')} className="btn btn-primary btn-lg" style={{ background: 'linear-gradient(135deg, #7c3aed, #8b5cf6)', boxShadow: '0 4px 20px rgba(139,92,246,0.35)' }}
               aria-label={lang === 'bn' ? 'Prostuti AI দিয়ে পড়া শুরু করতে অ্যাকাউন্ট খুলুন' : 'Open account to study with Prostuti AI'}>
               🤖 {t.cta}
             </a>
@@ -183,10 +184,11 @@ export default function AIShowcase({ lang }: AIShowcaseProps) {
 
             {/* Input bar */}
             <div style={{ padding: '12px 16px', borderTop: '1px solid var(--color-border-default)', display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <div style={{ flex: 1, background: 'var(--color-overlay-5)', border: `1px solid ${inputFocused ? 'rgba(139,92,246,0.5)' : 'var(--color-border-default)'}`, borderRadius: 'var(--radius-md)', padding: '8px 14px', display: 'flex', alignItems: 'center', transition: 'border-color var(--duration-fast) var(--easing-default)', cursor: 'text' }} onClick={() => setInputFocused(true)}>
+              <div style={{ flex: 1, background: 'var(--color-overlay-5)', border: `1px solid ${inputFocused ? 'rgba(139,92,246,0.5)' : 'var(--color-border-default)'}`, borderRadius: 'var(--radius-md)', padding: '8px 14px', display: 'flex', alignItems: 'center', transition: 'border-color var(--duration-fast) var(--easing-default)', cursor: 'text' }} onClick={(e) => { setInputFocused(true); spawnSpark(e, '--color-accent-purple'); }}>
+                <div style={{ width: '8px', height: '16px', background: 'var(--color-accent-purple)', borderRadius: '2px', opacity: inputFocused ? 1 : 0, animation: inputFocused ? 'blink 1s step-end infinite' : 'none', marginRight: '4px' }} />
                 <span style={{ fontSize: '12px', color: 'var(--color-text-inverse)' }}>{t.inputPlaceholder}</span>
               </div>
-              <button aria-label={lang === 'bn' ? 'পাঠান' : 'Send'} style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#8b5cf6)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>
+              <button aria-label={lang === 'bn' ? 'পাঠান' : 'Send'} style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#8b5cf6)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }} onClick={(e) => spawnSpark(e, '--color-accent-purple')}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </div>

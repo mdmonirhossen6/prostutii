@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useTiltEffect } from '@/hooks/useTiltEffect';
+import { spawnSpark } from '@/utils/spark';
 
 interface QuestionBankProps {
   lang: 'bn' | 'en';
@@ -239,7 +240,7 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
                   aria-selected={activeTab === tab.id}
                   aria-controls={`panel-${tab.id}`}
                   id={`tab-${tab.id}`}
-                  onClick={() => handleTabChange(tab.id)}
+                  onClick={(e) => { handleTabChange(tab.id); spawnSpark(e); }}
                   className="qb-tab-btn"
                   style={{
                     background: activeTab === tab.id ? 'var(--color-surface-strong)' : 'transparent',
@@ -284,6 +285,8 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
                     key={item.id}
                     className="qb-row"
                     tabIndex={0}
+                    onClick={(e) => spawnSpark(e)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); spawnSpark(e); } }}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -331,7 +334,7 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
               </div>
               
               <div style={{ padding: 'var(--space-4)', borderTop: '1px solid var(--color-border-default)', background: 'var(--color-overlay-3)' }}>
-                <a href="https://web.prostuti.bd" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', fontWeight: 700 }}>
+                <a href="https://web.prostuti.bd" className="btn btn-secondary" onClick={(e) => spawnSpark(e)} style={{ width: '100%', justifyContent: 'center', fontWeight: 700 }}>
                   {t.cta}
                 </a>
               </div>

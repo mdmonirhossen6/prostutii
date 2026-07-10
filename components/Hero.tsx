@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import { useRef } from 'react';
 import { useTiltEffect } from '@/hooks/useTiltEffect';
+import { spawnSpark } from '@/utils/spark';
+
 interface HeroProps {
   lang: 'bn' | 'en';
 }
@@ -137,6 +139,7 @@ export default function Hero({ lang }: HeroProps) {
               <a
                 href="https://web.prostuti.bd"
                 className="btn btn-primary btn-lg"
+                onClick={(e) => spawnSpark(e)}
                 aria-label={lang === 'bn' ? 'বিনামূল্যে প্র্যাকটিস শুরু করুন' : 'Start practicing for free'}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
@@ -147,6 +150,7 @@ export default function Hero({ lang }: HeroProps) {
               <a
                 href="#how-it-works"
                 className="btn btn-secondary btn-lg"
+                onClick={(e) => spawnSpark(e)}
                 aria-label={lang === 'bn' ? 'প্রস্তুতি কীভাবে কাজ করে তা দেখুন' : 'See how Prostuti works'}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -232,7 +236,7 @@ export default function Hero({ lang }: HeroProps) {
             }}
             className="hero-card"
             role="complementary"
-            aria-label={lang === 'bn' ? 'প্রস্তুতি অ্যাপ স্ক্রিনশট' : 'Prostuti App Screenshot'}
+            aria-label={lang === 'bn' ? 'প্রস্তুতি অ্যাপের ড্যাশবোর্ড' : 'Prostuti App Screenshot'}
           >
             {/* Backdrop Glow */}
             <div

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { spawnSpark } from '@/utils/spark';
 
 interface PricingProps {
   lang: 'bn' | 'en';
@@ -297,6 +298,7 @@ export default function Pricing({ lang }: PricingProps) {
                       <a
                         href="https://web.prostuti.bd"
                         className={isHighlighted ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm'}
+                        onClick={(e) => spawnSpark(e)}
                         style={{ width: '100%', fontSize: '12px', padding: '8px 12px', minHeight: '36px' }}
                       >
                         {lang === 'bn' ? 'শুরু করুন' : 'Get Started'}

@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useTiltEffect } from '@/hooks/useTiltEffect';
+import { spawnSpark } from '@/utils/spark';
 
 interface QuizDemoProps {
   lang: 'bn' | 'en';
@@ -227,7 +229,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
       }}
     >
       <div className="container-page">
-        {/* Two-column split layout */}
         <div className="quiz-split-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1.3fr',
@@ -235,7 +236,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
           alignItems: 'start',
         }}>
 
-          {/* Left: Marketing copy */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', paddingTop: '8px' }}>
             <span className="badge badge-blue" style={{ alignSelf: 'flex-start' }}>
               {t.badge}
@@ -251,7 +251,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
               {t.subtitle}
             </p>
 
-            {/* Feature list */}
             <ul style={{
               listStyle: 'none',
               display: 'flex',
@@ -271,7 +270,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
             </ul>
           </div>
 
-          {/* Right: Quiz widget */}
           <div
             style={{
               background: 'var(--color-surface-card)',
@@ -283,7 +281,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
             role="region"
             aria-label={lang === 'bn' ? 'ইন্টারেক্টিভ কুইজ ডেমো' : 'Interactive quiz demo'}
           >
-            {/* Quiz top bar */}
             <div
               style={{
                 padding: '16px 24px',
@@ -329,7 +326,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
               </div>
             </div>
 
-            {/* Progress bar */}
             <div style={{ height: 3, background: 'var(--color-overlay-5)' }}>
               <div
                 style={{
@@ -347,7 +343,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
             </div>
 
             {done ? (
-              /* Completion state */
               <div
                 style={{
                   padding: '48px 32px',
@@ -380,9 +375,9 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <button
-                    onClick={handleReset}
-                    className="btn btn-secondary"
-                    aria-label={lang === 'bn' ? 'ডেমো আবার শুরু করুন' : 'Restart the quiz demo'}
+                    className="btn btn-secondary btn-sm"
+                    onClick={(e) => { handleReset(); spawnSpark(e); }}
+                    aria-label={lang === 'bn' ? 'আবার শুরু করুন' : 'Start Over'}
                   >
                     {t.tryAgain}
                   </button>
@@ -396,9 +391,7 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
                 </div>
               </div>
             ) : (
-              /* Question state */
               <div style={{ padding: '28px 28px 24px' }}>
-                {/* Question text */}
                 <p
                   style={{
                     fontSize: 'var(--font-size-lg)',
@@ -412,7 +405,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
                   {q.text}
                 </p>
 
-                {/* Live feedback region */}
                 <div aria-live="polite" aria-atomic="true" style={{ position: 'absolute', left: '-9999px' }}>
                   {answered && (
                     q.options[selectedIdx!]?.isCorrect
@@ -421,7 +413,6 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
                   )}
                 </div>
 
-                {/* Options */}
                 <fieldset
                   style={{ border: 'none', padding: 0, marginBottom: '20px' }}
                   aria-labelledby={`question-text-${q.id}`}
@@ -433,8 +424,8 @@ export default function QuizDemo({ lang }: QuizDemoProps) {
                     const state = getOptionState(idx);
                     return (
                       <button
-                        key={opt.label}
-                        onClick={() => handleSelect(idx)}
+                        key={idx}
+                        onClick={(e) => { handleSelect(idx); spawnSpark(e); }}
                         disabled={answered}
                         aria-pressed={selectedIdx === idx}
                         aria-label={`${lang === 'bn' ? 'বিকল্প' : 'Option'} ${opt.label}: ${opt.text}${answered && opt.isCorrect ? (lang === 'bn' ? ' — সঠিক' : ' — correct') : ''}${answered && idx === selectedIdx && !opt.isCorrect ? (lang === 'bn' ? ' — ভুল' : ' — incorrect') : ''}`}

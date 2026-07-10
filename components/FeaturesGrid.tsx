@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useTiltEffect } from '@/hooks/useTiltEffect';
+import { spawnSpark } from '@/utils/spark';
 
 interface FeaturesGridProps {
   lang: 'bn' | 'en';
@@ -190,7 +192,13 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
 
 
           {/* 2. Prostuti AI (Tall) */}
-          <div className="bento-card bento-ai reveal" style={{ transitionDelay: '0ms' }}>
+          <div 
+            className="bento-card bento-ai reveal" 
+            style={{ transitionDelay: '0ms' }}
+            onClick={(e) => spawnSpark(e)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); spawnSpark(e); } }}
+            tabIndex={0}
+          >
             <div className="bento-content" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <h3 className="bento-title">{t.aiTitle}</h3>
               <p className="bento-desc">{t.aiDesc}</p>
@@ -217,7 +225,13 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
 
 
           {/* 4. Admission Hub */}
-          <div className="bento-card bento-admission reveal" style={{ transitionDelay: '70ms' }}>
+          <div 
+            className="bento-card bento-admission reveal" 
+            style={{ transitionDelay: '70ms' }}
+            onClick={(e) => spawnSpark(e)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); spawnSpark(e); } }}
+            tabIndex={0}
+          >
             <div className="bento-content">
               <h3 className="bento-title">{t.admissionTitle}</h3>
               <p className="bento-desc">{t.admissionDesc}</p>
@@ -234,7 +248,13 @@ export default function FeaturesGrid({ lang }: FeaturesGridProps) {
           </div>
 
           {/* 6. Daily Goals & XP */}
-          <div className="bento-card bento-goals reveal" style={{ transitionDelay: '210ms' }}>
+          <div 
+            className="bento-card bento-goals reveal" 
+            style={{ transitionDelay: '210ms' }}
+            onClick={(e) => spawnSpark(e)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); spawnSpark(e); } }}
+            tabIndex={0}
+          >
             <div className="bento-content">
               <h3 className="bento-title">{t.goalsTitle}</h3>
               <p className="bento-desc">{t.goalsDesc}</p>

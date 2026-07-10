@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { spawnSpark } from '@/utils/spark';
 
 interface MockTestWidgetProps {
   lang: 'bn' | 'en';
@@ -227,7 +228,8 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
                 return (
                   <li key={program.id}>
                     <button
-                      onClick={() => setSelected(isSelected ? null : program.id)}
+                      onClick={(e) => { setSelected(isSelected ? null : program.id); spawnSpark(e); }}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(isSelected ? null : program.id); spawnSpark(e); } }}
                       aria-pressed={isSelected}
                       aria-label={`${lang === 'bn' ? program.labelBn : program.labelEn} model test`}
                       className="program-btn"
@@ -270,7 +272,7 @@ export default function MockTestWidget({ lang }: MockTestWidgetProps) {
             </ul>
 
             <div style={{ padding: 'var(--space-3) var(--space-4)' }}>
-              <a href="https://web.prostuti.bd" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} aria-label={lang === 'bn' ? 'মক টেস্ট শুরু করতে নিবন্ধন করুন' : 'Register to start a model test'}>
+              <a href="https://web.prostuti.bd" className="btn btn-primary" onClick={(e) => spawnSpark(e)} style={{ width: '100%', justifyContent: 'center' }} aria-label={lang === 'bn' ? 'মক টেস্ট শুরু করতে নিবন্ধন করুন' : 'Register to start a model test'}>
                 {t.start} →
               </a>
             </div>

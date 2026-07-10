@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect } from 'react';
+import { spawnSpark } from '@/utils/spark';
 
 interface FAQProps {
   lang: 'bn' | 'en';
@@ -171,7 +172,7 @@ export default function FAQ({ lang }: FAQProps) {
                   >
                     <button
                       id={buttonId}
-                      onClick={() => toggle(idx)}
+                      onClick={(e) => { toggle(idx); spawnSpark(e); }}
                       onKeyDown={(e) => handleKey(e, idx)}
                       aria-expanded={isOpen}
                       aria-controls={answerId}
