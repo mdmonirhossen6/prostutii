@@ -39,7 +39,6 @@ const qbData = {
     { id: 'hsc-tp', icon: 'book', color: '#8b5cf6', titleBn: 'অধ্যায়ভিত্তিক প্রশ্নব্যাংক', descBn: 'অধ্যায়ভিত্তিক প্রশ্নব্যাংক প্র্যাকটিস', titleEn: 'Chapter Wise QB', descEn: 'Chapter-organized question bank practice' },
     { id: 'hsc-tw', icon: 'droplet', color: '#ec4899', titleBn: 'টাইপ ওয়াইজ সিকিউ', descBn: 'ধরনভিত্তিক সৃজনশীল প্রশ্ন প্র্যাকটিস', titleEn: 'Type Wise CQ', descEn: 'Type-based creative question practice' },
     { id: 'hsc-ku', icon: 'open-book', color: '#3b82f6', titleBn: 'জ্ঞান ও অনুধাবন', descBn: 'ক ও খ প্রশ্ন প্র্যাকটিস', titleEn: 'Knowledge & Understanding', descEn: 'Ka & Kha question practice' },
-    { id: 'hsc-cb', icon: 'book', color: '#4d6bff', titleBn: 'কম্প্যাক্ট বুক', descBn: 'কম্প্যাক্ট টেক্সটবুক MCQ সমাধান', titleEn: 'Compact Book', descEn: 'Compact textbook MCQ solutions' },
   ],
   varsity: [
     { id: 'var-mqb', icon: 'layered-diamond', color: '#8b5cf6', titleBn: 'মাস্টার প্রশ্নব্যাংক', descBn: 'Topic-wise organized preparation sorted cleanly by subject concepts.', titleEn: 'Master Question Bank', descEn: 'Topic-wise organized preparation sorted cleanly by subject concepts.' },
