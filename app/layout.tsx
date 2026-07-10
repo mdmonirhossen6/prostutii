@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Particles from "@/components/Particles";
 
 export const metadata: Metadata = {
   title: "প্রস্তুতি | Bangladesh's #1 Exam Prep Platform — HSC, SSC, Admission",
@@ -60,7 +61,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Particles />
+        {children}
+      </body>
     </html>
   );
 }
