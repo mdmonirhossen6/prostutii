@@ -204,7 +204,7 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
         <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 'var(--space-7)', alignItems: 'center' }} className="qb-grid">
           
           {/* Left Column: Content */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
             
             {/* Intro Section */}
             <div className="reveal" style={{ textAlign: 'left', marginBottom: 'var(--space-6)' }}>
