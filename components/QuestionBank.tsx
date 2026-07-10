@@ -375,7 +375,8 @@ export default function QuestionBank({ lang }: QuestionBankProps) {
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
-                position: 'relative'
+                position: 'relative',
+                fontFamily: 'var(--font-family-primary)'
               }}>
                 {/* Notch */}
                 <div style={{
