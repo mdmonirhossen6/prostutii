@@ -353,6 +353,17 @@ export default function Hero({ lang }: HeroProps) {
             margin: 0 auto;
           }
         }
+        
+        @media (max-width: 480px) {
+          .badge-streak {
+            right: 0 !important;
+            top: 5% !important;
+          }
+          .badge-rank {
+            left: 0 !important;
+            bottom: 5% !important;
+          }
+        }
       `}</style>
     </section>
   );

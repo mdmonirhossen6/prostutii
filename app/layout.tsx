@@ -38,6 +38,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -62,8 +69,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Particles />
-        {children}
+        <div style={{ overflowX: 'hidden', width: '100%', position: 'relative' }}>
+          <Particles />
+          {children}
+        </div>
       </body>
     </html>
   );

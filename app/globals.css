@@ -164,6 +164,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -176,6 +177,7 @@ body {
   background-image: var(--color-body-bg-image);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* Focus ring — applied globally */
