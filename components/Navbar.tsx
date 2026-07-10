@@ -257,7 +257,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
           </ul>
 
           {/* Right side actions */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="nav-actions">
             {/* Globe Language Toggle Button */}
             <button
               onClick={() => onLangChange(lang === 'bn' ? 'en' : 'bn')}
@@ -302,8 +302,8 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
                 border: '1px solid var(--color-border-default)',
                 borderRadius: 'var(--radius-md)',
                 color: 'var(--color-text-primary)',
-                width: '36px',
-                height: '36px',
+                width: '32px',
+                height: '32px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -398,26 +398,26 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
                 border: '1px solid var(--color-border-default)',
                 borderRadius: 'var(--radius-xs)',
                 color: 'var(--color-text-primary)',
-                width: 44,
-                height: 44,
+                width: 36,
+                height: 36,
                 display: 'none',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 'var(--space-1)',
+                gap: '4px',
                 cursor: 'pointer',
-                padding: '8px',
+                padding: '6px',
               }}
             >
               <span
                 style={{
                   display: 'block',
-                  width: 20,
+                  width: 18,
                   height: 2,
                   background: 'var(--color-text-primary)',
                   borderRadius: 2,
                   transition: 'transform var(--duration-fast) var(--easing-default)',
-                  transform: drawerOpen ? 'rotate(45deg) translateY(7px)' : 'none',
+                  transform: drawerOpen ? 'rotate(45deg) translateY(6px)' : 'none',
                 }}
               />
               <span
@@ -434,12 +434,12 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
               <span
                 style={{
                   display: 'block',
-                  width: 20,
+                  width: 18,
                   height: 2,
                   background: 'var(--color-text-primary)',
                   borderRadius: 2,
                   transition: 'transform var(--duration-fast) var(--easing-default)',
-                  transform: drawerOpen ? 'rotate(-45deg) translateY(-7px)' : 'none',
+                  transform: drawerOpen ? 'rotate(-45deg) translateY(-6px)' : 'none',
                 }}
               />
             </button>
