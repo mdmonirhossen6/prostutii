@@ -15,7 +15,6 @@ const content = {
         { label: 'প্রশ্নব্যাংক', href: '#question-bank' },
 
         { label: 'মক টেস্ট', href: '#mock-tests' },
-        { label: 'পারফরম্যান্স অ্যানালিটিক্স', href: '#analytics' },
         { label: 'লিডারবোর্ড', href: '#leaderboard' },
         { label: 'মূল্য পরিকল্পনা', href: '#pricing' },
       ],
@@ -55,7 +54,6 @@ const content = {
         { label: 'Question Bank', href: '#question-bank' },
 
         { label: 'Mock Tests', href: '#mock-tests' },
-        { label: 'Performance Analytics', href: '#analytics' },
         { label: 'Leaderboard', href: '#leaderboard' },
         { label: 'Pricing', href: '#pricing' },
       ],

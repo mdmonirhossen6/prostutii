@@ -12,7 +12,6 @@ import MockTestWidget from '@/components/MockTestWidget';
 import Gamification from '@/components/Gamification';
 import AIShowcase from '@/components/AIShowcase';
 import QuizDemo from '@/components/QuizDemo';
-import AnalyticsShowcase from '@/components/AnalyticsShowcase';
 import Testimonials from '@/components/Testimonials';
 import Pricing from '@/components/Pricing';
 import FAQ from '@/components/FAQ';
@@ -53,7 +52,6 @@ export default function HomePage() {
         <MockTestWidget lang={lang} />
         <AIShowcase lang={lang} />
         <QuizDemo lang={lang} />
-        <AnalyticsShowcase lang={lang} />
         <Testimonials lang={lang} />
         <Pricing lang={lang} />
         <FAQ lang={lang} />

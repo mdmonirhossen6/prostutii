@@ -32,7 +32,7 @@ export default function ScrollIndicators({ lang }: ScrollIndicatorsProps) {
 
   // 3. Highlight Active Section using IntersectionObserver
   useEffect(() => {
-    const sections = ['question-bank', 'analytics', 'pricing', 'faq'];
+    const sections = ['question-bank', 'pricing', 'faq'];
     const observers = sections.map((id) => {
       const el = document.getElementById(id);
       if (!el) return null;
@@ -62,12 +62,10 @@ export default function ScrollIndicators({ lang }: ScrollIndicatorsProps) {
 
   const links = lang === 'bn' ? [
     { label: 'বৈশিষ্ট্য', href: '#question-bank' },
-    { label: 'অ্যানালিটিক্স', href: '#analytics' },
     { label: 'মূল্য পরিকল্পনা', href: '#pricing' },
     { label: 'প্রশ্নোত্তর', href: '#faq' }
   ] : [
     { label: 'Features', href: '#question-bank' },
-    { label: 'Analytics', href: '#analytics' },
     { label: 'Pricing', href: '#pricing' },
     { label: 'FAQ', href: '#faq' }
   ];
