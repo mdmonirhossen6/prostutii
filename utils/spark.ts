@@ -31,7 +31,18 @@ export function spawnSpark(e: React.MouseEvent | React.KeyboardEvent, colorVar =
   
   // Resolve CSS variable to actual color if needed, or just use the var
   spark.style.setProperty('--spark-color', `var(${colorVar})`);
-  spark.style.setProperty('--spark-color-soft', `var(${colorVar})`);
+
+  // Create 4 zigzag SVG bolts radiating outward
+  const svgNS = "http://www.w3.org/2000/svg";
+  for (let i = 0; i < 4; i++) {
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 16 8');
+    svg.setAttribute('class', `spark-bolt spark-bolt-${i}`);
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', 'M0 4 L5 0 L11 8 L16 4');
+    svg.appendChild(path);
+    spark.appendChild(svg);
+  }
 
   // Ensure target can contain the absolute spark
   const currentPos = window.getComputedStyle(target).position;
