@@ -4,6 +4,16 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
 import { usePersistentLang } from '@/hooks/usePersistentLang';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'ব্লগ ও সাজেশন | প্রস্তুতি',
+  description: 'HSC ও বিশ্ববিদ্যালয় ভর্তি পরীক্ষার বিগত বছরগুলোর ডাটা বিশ্লেষণ, সাজেশন এবং বিজ্ঞানসম্মত গাইডলাইন।',
+  openGraph: {
+    title: 'ব্লগ ও সাজেশন | প্রস্তুতি',
+    description: 'HSC ও বিশ্ববিদ্যালয় ভর্তি পরীক্ষার বিগত বছরগুলোর ডাটা বিশ্লেষণ, সাজেশন এবং বিজ্ঞানসম্মত গাইডলাইন।',
+  }
+};
 
 interface Article {
   id: number;

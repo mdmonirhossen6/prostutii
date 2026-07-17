@@ -11,8 +11,8 @@ interface HeroProps {
 const copy = {
   bn: {
     badge: 'বাংলাদেশের #১ পরীক্ষা প্রস্তুতি প্ল্যাটফর্ম',
-    headline1: 'পরীক্ষায় সাফল্যের',
-    headline2: 'নিশ্চিত পথ',
+    headline1: 'HSC ও Admission-এর',
+    headline2: 'সেরা প্রস্তুতি প্ল্যাটফর্ম',
     subheadline: 'HSC, SSC ও বিশ্ববিদ্যালয় ভর্তি পরীক্ষার জন্য বিজ্ঞানসম্মত প্র্যাকটিস, মডেল টেস্ট, এবং পার্সোনালাইজড অ্যানালিটিক্স — একটি প্ল্যাটফর্মে।',
     ctaPrimary: 'ফ্রি প্র্যাকটিস শুরু করুন',
     ctaSecondary: 'কীভাবে কাজ করে দেখুন',
@@ -23,8 +23,8 @@ const copy = {
   },
   en: {
     badge: "Bangladesh's #1 Exam Prep Platform",
-    headline1: 'Your Surest Path to',
-    headline2: 'Exam Success',
+    headline1: 'The Best Preparation Platform for',
+    headline2: 'HSC & Admission',
     subheadline: 'Science-backed practice, model tests, and personalized analytics for HSC, SSC, and Admission exams — all in one place.',
     ctaPrimary: 'Start Practicing Free',
     ctaSecondary: 'See How It Works',
