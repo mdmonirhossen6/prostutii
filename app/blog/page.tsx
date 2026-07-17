@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
+import { usePersistentLang } from '@/hooks/usePersistentLang';
 
 interface Article {
   id: number;
@@ -448,7 +449,7 @@ Advice:
 };
 
 export default function BlogPage() {
-  const [lang, setLang] = useState<'bn' | 'en'>('bn');
+  const [lang, setLang] = usePersistentLang('bn');
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const articles = articlesData[lang];
 

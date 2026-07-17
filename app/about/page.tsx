@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
+import { usePersistentLang } from '@/hooks/usePersistentLang';
 
 // Animated human avatar generator with blinking and breathing effects
 function AnimatedHumanAvatar({ name }: { name: string }) {
@@ -172,7 +173,7 @@ const copy = {
 };
 
 export default function AboutPage() {
-  const [lang, setLang] = useState<'bn' | 'en'>('bn');
+  const [lang, setLang] = usePersistentLang('bn');
   const t = copy[lang];
 
   return (

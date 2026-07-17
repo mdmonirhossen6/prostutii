@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import StatsBar from '@/components/StatsBar';
@@ -18,15 +17,10 @@ import FAQ from '@/components/FAQ';
 import CTABand from '@/components/CTABand';
 
 import Footer from '@/components/Footer';
-
-type Lang = 'bn' | 'en';
+import { usePersistentLang } from '@/hooks/usePersistentLang';
 
 export default function HomePage() {
-  const [lang, setLang] = useState<Lang>('bn');
-
-  useEffect(() => {
-    document.documentElement.lang = lang === 'bn' ? 'bn' : 'en';
-  }, [lang]);
+  const [lang, setLang] = usePersistentLang('bn');
 
   return (
     <>

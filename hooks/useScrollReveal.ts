@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 
 /**
  * Centralized scroll-reveal hook using IntersectionObserver.
@@ -100,14 +100,18 @@ export function useCountUp(
   duration = 800,
   isVisible: boolean
 ) {
+  const [count, setCount] = useState(0);
   const frameRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!isVisible) return;
-    
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion) {
+      setCount(target);
+      return;
+    }
 
     startTimeRef.current = null;
 
@@ -117,7 +121,9 @@ export function useCountUp(
       const progress = Math.min(elapsed / duration, 1);
       // ease-out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
-      
+      const value = Math.round(eased * target);
+      setCount(value);
+
       if (progress < 1) {
         frameRef.current = requestAnimationFrame(animate);
       }
@@ -129,4 +135,6 @@ export function useCountUp(
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
     };
   }, [target, duration, isVisible]);
+
+  return count;
 }

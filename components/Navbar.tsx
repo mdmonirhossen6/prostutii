@@ -12,13 +12,11 @@ interface NavbarProps {
 const navItems = {
   bn: [
     { label: 'প্রশ্নব্যাংক', href: '#question-bank' },
-    { label: 'ফলাফল ও র‍্যাংকিং', href: '#leaderboard' },
     { label: 'মূল্য পরিকল্পনা', href: '#pricing' },
     { label: 'ব্লগ', href: '/blog' },
   ],
   en: [
     { label: 'Question Bank', href: '#question-bank' },
-    { label: 'Leaderboard', href: '#leaderboard' },
     { label: 'Pricing', href: '#pricing' },
     { label: 'Blog', href: '/blog' },
   ],
@@ -78,7 +76,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
 
   // Highlight Active Section using IntersectionObserver
   useEffect(() => {
-    const sections = ['question-bank', 'leaderboard', 'pricing'];
+    const sections = ['question-bank', 'pricing'];
     const observers = sections.map((id) => {
       const el = document.getElementById(id);
       if (!el) return null;

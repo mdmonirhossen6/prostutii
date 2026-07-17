@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
+import { usePersistentLang } from '@/hooks/usePersistentLang';
 
 const copy = {
   bn: {
@@ -34,7 +35,7 @@ const copy = {
 };
 
 export default function PressPage() {
-  const [lang, setLang] = useState<'bn' | 'en'>('bn');
+  const [lang, setLang] = usePersistentLang('bn');
   const t = copy[lang];
 
   return (

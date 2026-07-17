@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
+import { usePersistentLang } from '@/hooks/usePersistentLang';
 
 const copy = {
   bn: {
@@ -60,13 +61,15 @@ const copy = {
 };
 
 export default function ContactPage() {
-  const [lang, setLang] = useState<'bn' | 'en'>('bn');
+  const [lang, setLang] = usePersistentLang('bn');
   const t = copy[lang];
 
   // Form State
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  // Honeypot: real users never fill this. Left empty in the UI via sr-only.
+  const [website, setWebsite] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorStatus, setErrorStatus] = useState<string | null>(null);
@@ -111,7 +114,7 @@ export default function ContactPage() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message })
+        body: JSON.stringify({ name, email, message, website })
       });
 
       if (res.ok) {
@@ -344,6 +347,19 @@ export default function ContactPage() {
                   </div>
 
                   {/* Submit Button */}
+                  {/* Honeypot field — hidden from real users, catches bots. */}
+                  <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}>
+                    <label htmlFor="contact-website">Website</label>
+                    <input
+                      id="contact-website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={website}
+                      onChange={(e) => setWebsite(e.target.value)}
+                    />
+                  </div>
+
                   <button 
                     type="submit" 
                     disabled={submitting}
