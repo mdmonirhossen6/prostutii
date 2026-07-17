@@ -14,6 +14,7 @@ import QuizDemo from '@/components/QuizDemo';
 import Testimonials from '@/components/Testimonials';
 import Pricing from '@/components/Pricing';
 import FAQ from '@/components/FAQ';
+import ContactSection from '@/components/ContactSection';
 import CTABand from '@/components/CTABand';
 
 import Footer from '@/components/Footer';
@@ -49,6 +50,7 @@ export default function HomePage() {
         <Testimonials lang={lang} />
         <Pricing lang={lang} />
         <FAQ lang={lang} />
+        <ContactSection lang={lang} />
         <CTABand lang={lang} />
 
       </main>
