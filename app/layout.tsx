@@ -3,6 +3,10 @@ import "./globals.css";
 import Particles from "@/components/Particles";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://prostutii.vercel.app"),
+  verification: {
+    google: "da6093064bf6d1ce",
+  },
   title: "প্রস্তুতি | Bangladesh's #1 Exam Prep Platform — HSC, SSC, Admission",
   description:
     "প্রস্তুতিতে HSC, SSC ও বিশ্ববিদ্যালয় ভর্তি পরীক্ষার জন্য বিজ্ঞানসম্মত প্র্যাকটিস করুন। ২ লক্ষ+ প্রশ্ন, মডেল টেস্ট, AI স্টাডি প্ল্যান। বিনামূল্যে শুরু করুন। | Science-backed MCQ practice, model tests, and AI study plans for Bangladeshi students.",
