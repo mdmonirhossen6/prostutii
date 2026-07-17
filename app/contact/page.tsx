@@ -123,7 +123,8 @@ export default function ContactPage() {
         setEmail('');
         setMessage('');
       } else {
-        setErrorStatus(t.errorMsg);
+        const data = await res.json().catch(() => ({}));
+        setErrorStatus(data.error || t.errorMsg);
       }
     } catch (err) {
       console.error(err);

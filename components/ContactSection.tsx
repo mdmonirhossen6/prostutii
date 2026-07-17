@@ -122,7 +122,8 @@ export default function ContactSection({ lang }: ContactSectionProps) {
         setEmail('');
         setMessage('');
       } else {
-        setErrorStatus(t.errorMsg);
+        const data = await res.json().catch(() => ({}));
+        setErrorStatus(data.error || t.errorMsg);
       }
     } catch (err) {
       console.error(err);
