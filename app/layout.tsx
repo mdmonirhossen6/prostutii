@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   title: "প্রস্তুতি | Bangladesh's #1 Exam Prep Platform — HSC, SSC, Admission",
   description:
-    "প্রস্তুতিতে HSC, SSC ও বিশ্ববিদ্যালয় ভর্তি পরীক্ষার জন্য বিজ্ঞানসম্মত প্র্যাকটিস করুন। ২ লক্ষ+ প্রশ্ন, মডেল টেস্ট, AI স্টাডি প্ল্যান। বিনামূল্যে শুরু করুন। | Science-backed MCQ practice, model tests, and AI study plans for Bangladeshi students.",
+    "প্রস্তুতিতে HSC থেকে বিশ্ববিদ্যালয় ভর্তি পরীক্ষা— স্মার্ট প্র্যাকটিস, মডেল টেস্ট এবং পার্সোনালাইজড অ্যানালিটিক্সের মাধ্যমে নিজেকে যাচাই করুন। বিনামূল্যে শুরু করুন। | Smart practice, model tests, and personalized analytics for HSC & Admission exams.",
   keywords: [
     "HSC preparation",
     "SSC practice",
