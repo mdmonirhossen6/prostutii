@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Particles from "@/components/Particles";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://prostutii.vercel.app"),
@@ -47,6 +49,78 @@ export const viewport = {
   initialScale: 1,
 };
 
+// --- Structured data (JSON-LD) -------------------------------------------
+// Helps search engines render rich results (organization knowledge panel,
+// FAQ rich snippets). Sourced from the on-page FAQ content.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://prostutii.vercel.app/#organization',
+      name: 'Prostuti',
+      alternateName: 'প্রস্তুতি',
+      url: 'https://prostutii.vercel.app',
+      logo: 'https://pub-e2c71a91f86f428982fe1b1f721d68b9.r2.dev/image/host/02-07-2026/prostuti/img_1782975909440.png',
+      description:
+        "Bangladesh's #1 exam preparation platform for HSC, SSC, and university admission tests.",
+      sameAs: ['https://t.me/prostutibd'],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        email: 'prostutibdapp@gmail.com',
+        contactType: 'customer support',
+        availableLanguage: ['Bengali', 'English'],
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://prostutii.vercel.app/#website',
+      url: 'https://prostutii.vercel.app',
+      name: 'Prostuti',
+      inLanguage: 'bn-BD',
+      publisher: { '@id': 'https://prostutii.vercel.app/#organization' },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://prostutii.vercel.app/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is it free to use the app?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Downloading the app and using free features is completely free. However, premium tests, AI tutor, and the full question bank require one of our affordable subscription plans.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Which boards and classes are covered?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Currently, we provide content according to all board syllabuses for HSC students and University, Medical, and Engineering admission candidates.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will it work on older phones?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, Prostuti is a lightweight platform that can be used smoothly from any smartphone or computer via a web browser without any lag.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is my data secure?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Absolutely. We use state-of-the-art security measures to keep your personal information and practice data completely encrypted and secure.',
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -73,6 +147,14 @@ export default function RootLayout({
       <body>
         <Particles />
         {children}
+        {/* Structured data for search engines (rich results). */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {/* Vercel observability — page views, Core Web Vitals. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

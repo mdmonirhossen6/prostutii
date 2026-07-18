@@ -4,16 +4,10 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
 import { usePersistentLang } from '@/hooks/usePersistentLang';
-import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'ব্লগ ও সাজেশন | প্রস্তুতি',
-  description: 'HSC ও বিশ্ববিদ্যালয় ভর্তি পরীক্ষার বিগত বছরগুলোর ডাটা বিশ্লেষণ, সাজেশন এবং বিজ্ঞানসম্মত গাইডলাইন।',
-  openGraph: {
-    title: 'ব্লগ ও সাজেশন | প্রস্তুতি',
-    description: 'HSC ও বিশ্ববিদ্যালয় ভর্তি পরীক্ষার বিগত বছরগুলোর ডাটা বিশ্লেষণ, সাজেশন এবং বিজ্ঞানসম্মত গাইডলাইন।',
-  }
-};
+// NOTE: page-specific metadata is exported from app/blog/layout.tsx
+// (Server Component), since this file is a Client Component and cannot
+// export `metadata` directly.
 
 interface Article {
   id: number;

@@ -4,16 +4,10 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
 import { usePersistentLang } from '@/hooks/usePersistentLang';
-import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'যোগাযোগ | প্রস্তুতি',
-  description: 'যেকোনো প্রশ্ন, পরামর্শ বা ফিডব্যাকের জন্য আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন।',
-  openGraph: {
-    title: 'যোগাযোগ | প্রস্তুতি',
-    description: 'যেকোনো প্রশ্ন, পরামর্শ বা ফিডব্যাকের জন্য আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন।',
-  }
-};
+// NOTE: page-specific metadata is exported from app/contact/layout.tsx
+// (Server Component), since this file is a Client Component and cannot
+// export `metadata` directly.
 
 const copy = {
   bn: {
