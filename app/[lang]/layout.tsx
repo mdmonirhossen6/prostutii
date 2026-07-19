@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import Particles from "@/components/Particles";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "প্রস্তুতি — Bangladesh's #1 Exam Prep Platform",
     description:
       "HSC, SSC, and Admission exam preparation with 200,000+ questions, model tests, and AI-powered study plans.",
-    url: "https://web.prostuti.bd",
+    url: "https://prostutii.vercel.app",
     siteName: "Prostuti",
     locale: "bn_BD",
     type: "website",
@@ -79,55 +79,20 @@ const jsonLd = {
       name: 'Prostuti',
       inLanguage: 'bn-BD',
       publisher: { '@id': 'https://prostutii.vercel.app/#organization' },
-    },
-    {
-      '@type': 'FAQPage',
-      '@id': 'https://prostutii.vercel.app/#faq',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is it free to use the app?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Downloading the app and using free features is completely free. However, premium tests, AI tutor, and the full question bank require one of our affordable subscription plans.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Which boards and classes are covered?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Currently, we provide content according to all board syllabuses for HSC students and University, Medical, and Engineering admission candidates.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Will it work on older phones?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, Prostuti is a lightweight platform that can be used smoothly from any smartphone or computer via a web browser without any lag.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is my data secure?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Absolutely. We use state-of-the-art security measures to keep your personal information and practice data completely encrypted and secure.',
-          },
-        },
-      ],
-    },
+    }
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }>) {
+  const { lang } = await params;
   return (
-    <html lang="bn" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

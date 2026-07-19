@@ -74,6 +74,20 @@ const content = {
 
 export default function FAQ({ lang }: FAQProps) {
   const t = content[lang];
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: t.items.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  };
+
   const [openIdx, setOpenIdx] = useState<number | null>(0);
   const answerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -125,6 +139,10 @@ export default function FAQ({ lang }: FAQProps) {
         background: 'var(--color-surface-base)',
       }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container-page">
         <div className="faq-grid">
           {/* Left Column */}
